@@ -1,0 +1,1 @@
+- [x] Edit resources/views/admin-panel/pages/settings-module/color/index.blade.php to display hex code beside the color preview in the Color Code column.
