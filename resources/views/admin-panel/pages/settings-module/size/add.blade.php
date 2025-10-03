@@ -84,8 +84,8 @@ Add Size
                                             <div class="mb-3">
                                                 <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
                                                 <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" required>
-                                                    <option value="1" {{ old('status', 1) == 1 ? 'selected' : '' }}>Active</option>
-                                                    <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Inactive</option>
+                                                    <option value="1" {{ old('status', 1) == 1 ? 'selected' : '' }}>Publish</option>
+                                                    <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Unpublish</option>
                                                 </select>
                                                 @error('status')
                                                     <div class="invalid-feedback">{{ $message }}</div>
