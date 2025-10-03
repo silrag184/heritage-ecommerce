@@ -3,10 +3,10 @@
                 <div class="app-sidebar">
                     <div class="side-header">
                         <a class="header-brand1" href="index.html">
-                            <img src="{{asset('/')}}backend/assets/images/brand/logo.png" class="header-brand-img desktop-logo" alt="logo">
-                            <img src="{{asset('/')}}backend/assets/images/brand/logo-1.png" class="header-brand-img toggle-logo" alt="logo">
-                            <img src="{{asset('/')}}backend/assets/images/brand/logo-2.png" class="header-brand-img light-logo" alt="logo">
-                            <img src="{{asset('/')}}backend/assets/images/brand/logo-3.png" class="header-brand-img light-logo1" alt="logo">
+                            <img src="{{asset('/')}}backend/assets/images/brand/logo.svg" class="header-brand-img desktop-logo" alt="logo">
+                            <img src="{{asset('/')}}backend/assets/images/brand/logo.svg" class="header-brand-img toggle-logo" alt="logo">
+                            <img src="{{asset('/')}}backend/assets/images/brand/logo.svg" class="header-brand-img light-logo" alt="logo">
+                            <img src="{{asset('/')}}backend/assets/images/brand/logo.svg" class="header-brand-img light-logo1" alt="logo">
                         </a><!-- LOGO -->
                     </div>
                     <div class="main-sidemenu">
@@ -67,6 +67,38 @@
                                     <li><a href="{{ route('size.view') }}" class="slide-item">Manage Sizes</a></li>
                                 </ul>
                             </li>
+
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="#">
+                                    <i class="side-menu__icon fa fa-cubes"></i>
+                                    <span class="side-menu__label">Brands</span><i class="angle fa fa-angle-right"></i>
+                                </a>
+                                <ul class="slide-menu">
+                                    <li><a href="{{ route('brands.index') }}" class="slide-item">Manage Brands</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="#">
+                                    <i class="side-menu__icon fa fa-balance-scale"></i>
+                                    <span class="side-menu__label">Units</span><i class="angle fa fa-angle-right"></i>
+                                </a>
+                                <ul class="slide-menu">
+                                    <li><a href="{{ route('units.index') }}" class="slide-item">Manage Units</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="#">
+                                    <i class="side-menu__icon fa fa fa-chain"></i>
+                                    <span class="side-menu__label">Attributes</span><i class="angle fa fa-angle-right"></i>
+                                </a>
+                                <ul class="slide-menu">
+                                    <li><a href="{{ route('attributes.index') }}" class="slide-item">Manage Attributes</a></li>
+                                    <li><a href="{{ route('attribute-values.index') }}" class="slide-item">Manage Attributes Values</a></li>
+                                </ul>
+                            </li>
+
                             <li>
                                 <h3>Web Apps</h3>
                             </li>

@@ -7,6 +7,10 @@ use App\Http\Controllers\Backend\Categorycontroller;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ColorsController;
 use App\Http\Controllers\Backend\SizeController;
+use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\UnitController;
+use App\Http\Controllers\Backend\AttributeController;
+use App\Http\Controllers\Backend\AttributeValueController;
 
 
 //frontend routes
@@ -63,7 +67,17 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
         Route::put('/update/{id}', [SizeController::class, 'sizeUpdate'])->name('update');
         Route::get('/delete/{id}', [SizeController::class, 'sizeDelete'])->name('delete');
     });
-    
+
+
+    //Brand Routes
+    Route::resource('brands', BrandController::class);
+
+    //Unit/Measurement Routes
+    Route::resource('units', UnitController::class);
+
+    //Attributes Routes
+    Route::resource('attributes', AttributeController::class);
+    Route::resource('attribute-values', AttributeValueController::class);
     //other backend routes can be added here in the future
 
 });
