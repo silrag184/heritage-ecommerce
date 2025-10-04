@@ -1,7 +1,7 @@
 @extends('admin-panel.layout.app')
 
 @section('title')
-Add Attribute
+Edit Tags
 @endsection
 
 @section('admin-content')
@@ -17,12 +17,12 @@ Add Attribute
                 <!-- PAGE-HEADER -->
                 <div class="page-header">
                     <div>
-                        <h1 class="page-title">Attribute Form</h1>
+                        <h1 class="page-title">Tag Edit Form</h1>
                     </div>
                     <div class="ms-auto pageheader-btn">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Add Forms</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add Attribute</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">Edit Forms</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit Tag</li>
                         </ol>
                     </div>
                 </div>
@@ -31,19 +31,20 @@ Add Attribute
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Add Attribute</h4>
-                                <a href="{{ route('attributes.index') }}" class="btn btn-secondary ms-auto d-block">Back to List</a>
+                                <h4 class="card-title">Add Tag</h4>
+                                <a href="{{ route('tags.index') }}" class="btn btn-secondary ms-auto d-block">Back to List</a>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('attributes.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('tags.update', $tag->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
+                                    @method('PUT')
 
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="attributeName" class="form-label">Attribute Name <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control @error('attribute_name') is-invalid @enderror" id="attributeName" name="attribute_name" value="{{ old('attribute_name') }}" required>
-                                                @error('attribute_name')
+                                                <label for="tagName" class="form-label">Tag Name <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control @error('tag_name') is-invalid @enderror" id="tagName" name="tag_name" value="{{ old('tag_name', $tag->tag_name) }}" required>
+                                                @error('tag_name')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -52,7 +53,7 @@ Add Attribute
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="slug" class="form-label">Slug</label>
-                                                <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug') }}">
+                                                <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug', $tag->slug) }}">
                                                 @error('slug')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -63,7 +64,7 @@ Add Attribute
 
                                     <div class="mb-3">
                                         <label for="description" class="form-label">Description</label>
-                                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="4">{{ old('description') }}</textarea>
+                                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="4">{{ old('description', $tag->description) }}</textarea>
                                         @error('description')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -74,8 +75,8 @@ Add Attribute
                                             <div class="mb-3">
                                                 <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
                                                 <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" required>
-                                                    <option value="1" {{ old('status', 1) == 1 ? 'selected' : '' }}>Publish</option>
-                                                    <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Unpublish</option>
+                                                    <option value="1" {{ old('status', $tag->status) == 1 ? 'selected' : '' }}>Publish</option>
+                                                    <option value="0" {{ old('status', $tag->status) == 0 ? 'selected' : '' }}>Unpublish</option>
                                                 </select>
                                                 @error('status')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -85,8 +86,8 @@ Add Attribute
                                     </div>
 
                                         <div class="mb-3">
-                                            <button type="submit" class="btn btn-primary">Create Unit</button>
-                                            <a href="{{ route('attributes.index') }}" class="btn btn-secondary">Cancel</a>
+                                            <button type="submit" class="btn btn-primary">Update Tag</button>
+                                            <a href="{{ route('tags.index') }}" class="btn btn-secondary">Cancel</a>
                                         </div>
                                 </form>
                             </div>
@@ -101,9 +102,9 @@ Add Attribute
 
 <script>
     // Auto-generate slug from title
-    document.getElementById('attributeName').addEventListener('input', function() {
-        var attributeName = this.value;
-        var slug = attributeName.toLowerCase()
+    document.getElementById('tagName').addEventListener('input', function() {
+        var tagName = this.value;
+        var slug = tagName.toLowerCase()
             .replace(/[^a-z0-9 -]/g, '')
             .replace(/\s+/g, '-')
             .replace(/-+/g, '-')

@@ -1,7 +1,7 @@
 @extends('admin-panel.layout.app')
 
 @section('title')
-Add Attribute
+Add Tags
 @endsection
 
 @section('admin-content')
@@ -17,12 +17,12 @@ Add Attribute
                 <!-- PAGE-HEADER -->
                 <div class="page-header">
                     <div>
-                        <h1 class="page-title">Attribute Form</h1>
+                        <h1 class="page-title">Tag Form</h1>
                     </div>
                     <div class="ms-auto pageheader-btn">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Add Forms</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add Attribute</li>
+                            <li class="breadcrumb-item active" aria-current="page">Add Tag</li>
                         </ol>
                     </div>
                 </div>
@@ -31,19 +31,19 @@ Add Attribute
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Add Attribute</h4>
-                                <a href="{{ route('attributes.index') }}" class="btn btn-secondary ms-auto d-block">Back to List</a>
+                                <h4 class="card-title">Add Tag</h4>
+                                <a href="{{ route('tags.index') }}" class="btn btn-secondary ms-auto d-block">Back to List</a>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('attributes.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('tags.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
 
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="attributeName" class="form-label">Attribute Name <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control @error('attribute_name') is-invalid @enderror" id="attributeName" name="attribute_name" value="{{ old('attribute_name') }}" required>
-                                                @error('attribute_name')
+                                                <label for="tagName" class="form-label">Tag Name <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control @error('tag_name') is-invalid @enderror" id="tagName" name="tag_name" value="{{ old('tag_name') }}" required>
+                                                @error('tag_name')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -85,8 +85,8 @@ Add Attribute
                                     </div>
 
                                         <div class="mb-3">
-                                            <button type="submit" class="btn btn-primary">Create Unit</button>
-                                            <a href="{{ route('attributes.index') }}" class="btn btn-secondary">Cancel</a>
+                                            <button type="submit" class="btn btn-primary">Create Tag</button>
+                                            <a href="{{ route('tags.index') }}" class="btn btn-secondary">Cancel</a>
                                         </div>
                                 </form>
                             </div>
@@ -101,9 +101,9 @@ Add Attribute
 
 <script>
     // Auto-generate slug from title
-    document.getElementById('attributeName').addEventListener('input', function() {
-        var attributeName = this.value;
-        var slug = attributeName.toLowerCase()
+    document.getElementById('tagName').addEventListener('input', function() {
+        var tagName = this.value;
+        var slug = tagName.toLowerCase()
             .replace(/[^a-z0-9 -]/g, '')
             .replace(/\s+/g, '-')
             .replace(/-+/g, '-')

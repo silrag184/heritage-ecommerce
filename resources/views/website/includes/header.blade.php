@@ -125,7 +125,7 @@
                                     <a href="#" class="item-link">Blog</a>
                                 </li>
                                 <li class="menu-item position-relative">
-                                    <a href="#" class="item-link">Contact Us</a>
+                                    <a href="{{ route('contact.us') }}" class="item-link">Contact Us</a>
                                 </li>
                             </ul>
                         </nav>
@@ -200,12 +200,12 @@
 
                     </li>
                     <li class="nav-mb-item">
-                        <a href="#" class="mb-menu-link">
+                        <a href="{{ route('shop.section') }}" class="mb-menu-link">
                             <span>Shop</span>
                         </a>
                     </li>
                     <li class="nav-mb-item">
-                        <a href="#" class="mb-menu-link">
+                        <a href="{{ route('about.us') }}" class="mb-menu-link">
                             <span>About Us</span>
                         </a>
                     </li>
@@ -215,7 +215,7 @@
                         </a>
                     </li>
                     <li class="nav-mb-item">
-                        <a href="#" class="mb-menu-link">Contact Us</a>
+                        <a href="{{ route('contact.us') }}" class="mb-menu-link">Contact Us</a>
                     </li>
                 </ul>
                 <div class="mb-other-content">

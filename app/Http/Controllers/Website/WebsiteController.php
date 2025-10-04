@@ -18,4 +18,8 @@ class WebsiteController extends Controller
     public function aboutUs(){
         return view('website.pages.about.about-index');
     }
+
+    public function contactUs(){
+        return view('website.pages.contact.contact-index');
+    }
 }

@@ -63,7 +63,9 @@ class AttributeValueController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $attributeValue = AttributeValue::findOrFail($id);
+        $attributes = Attribute::all();
+        return view('admin-panel.pages.settings-module.attribute.attribute-value.edit', compact('attributeValue', 'attributes'));
     }
 
     /**
@@ -71,7 +73,25 @@ class AttributeValueController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $attributeValue = AttributeValue::findOrFail($id);
+
+        $request->validate([
+            'attribute_id' => 'required|exists:attributes,id',
+            'value' => 'required|string|max:255|unique:attribute_values,value,' . $id,
+            'status' => 'nullable|in:0,1',
+        ]);
+
+        $data = $request->all();
+
+        $attributeValue->update($data);
+
+        $notification = array(
+            'message' => 'Value Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('attribute-values.index')->with($notification);
+
     }
 
     /**

@@ -11,12 +11,14 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\UnitController;
 use App\Http\Controllers\Backend\AttributeController;
 use App\Http\Controllers\Backend\AttributeValueController;
+use App\Http\Controllers\Backend\TagController;
 
 
 //frontend routes
 Route::get('/',[WebsiteController::class,'index'])->name('home');
 Route::get('/shop-section',[WebsiteController::class,'shopSection'])->name('shop.section');
 Route::get('/about-us',[WebsiteController::class,'aboutUs'])->name('about.us');
+Route::get('/contact-us',[WebsiteController::class,'contactUs'])->name('contact.us');
 
 //end frontend routes
 
@@ -78,6 +80,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     //Attributes Routes
     Route::resource('attributes', AttributeController::class);
     Route::resource('attribute-values', AttributeValueController::class);
+
+    //Tag/Labels Routes
+    Route::resource('tags', TagController::class);
+
     //other backend routes can be added here in the future
 
 });

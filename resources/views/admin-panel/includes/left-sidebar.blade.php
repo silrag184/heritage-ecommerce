@@ -2,7 +2,7 @@
                 <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
                 <div class="app-sidebar">
                     <div class="side-header">
-                        <a class="header-brand1" href="index.html">
+                        <a class="header-brand1" href="{{ route('dashboard') }}">
                             <img src="{{asset('/')}}backend/assets/images/brand/logo.svg" class="header-brand-img desktop-logo" alt="logo">
                             <img src="{{asset('/')}}backend/assets/images/brand/logo.svg" class="header-brand-img toggle-logo" alt="logo">
                             <img src="{{asset('/')}}backend/assets/images/brand/logo.svg" class="header-brand-img light-logo" alt="logo">
@@ -20,7 +20,7 @@
                                 <h3>Menu</h3>
                             </li>
 							<li class="slide">
-								<a class="side-menu__item has-link" data-bs-toggle="slide" href="index.html">
+								<a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('dashboard') }}">
 									<i class="side-menu__icon ion-stats-bars"></i>
 									<span class="side-menu__label">Dashboard</span>
 								</a>
@@ -99,8 +99,18 @@
                                 </ul>
                             </li>
 
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="#">
+                                    <i class="side-menu__icon fa fa-tags"></i>
+                                    <span class="side-menu__label">Tags</span><i class="angle fa fa-angle-right"></i>
+                                </a>
+                                <ul class="slide-menu">
+                                    <li><a href="{{ route('tags.index') }}" class="slide-item">Manage Tags</a></li>
+                                </ul>
+                            </li>
+
                             <li>
-                                <h3>Web Apps</h3>
+                                <h3>UI Customization</h3>
                             </li>
                             <li class="slide">
                                 <a class="side-menu__item" data-bs-toggle="slide" href="#">
