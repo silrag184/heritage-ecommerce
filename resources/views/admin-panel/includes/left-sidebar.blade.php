@@ -118,7 +118,7 @@
                                     <span class="side-menu__label">Product Menus</span><i class="angle fa fa-angle-right"></i>
                                 </a>
                                 <ul class="slide-menu">
-                                    <li><a href="{{ route('subCategory.view') }}" class="slide-item">Manage Products</a></li>
+                                    <li><a href="{{ route('product.view') }}" class="slide-item">Manage Products</a></li>
                                 </ul>
                             </li>
 
