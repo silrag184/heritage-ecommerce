@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\UnitController;
 use App\Http\Controllers\Backend\AttributeController;
 use App\Http\Controllers\Backend\AttributeValueController;
 use App\Http\Controllers\Backend\TagController;
+use App\Http\Controllers\Backend\ProductController;
 
 
 //frontend routes
@@ -83,6 +84,17 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
 
     //Tag/Labels Routes
     Route::resource('tags', TagController::class);
+
+
+    //Product Routes
+    Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
+        Route::get('/view', [ProductController::class, 'productView'])->name('view');
+        Route::get('/add', [ProductController::class, 'productAdd'])->name('add');
+        Route::post('/store', [ProductController::class, 'productStore'])->name('store');
+        Route::get('/edit/{id}', [ProductController::class, 'productEdit'])->name('edit');
+        Route::put('/update/{id}', [ProductController::class, 'productUpdate'])->name('update');
+        Route::get('/delete/{id}', [ProductController::class, 'productDelete'])->name('delete');
+    });
 
     //other backend routes can be added here in the future
 

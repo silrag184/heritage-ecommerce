@@ -25,27 +25,7 @@
 									<span class="side-menu__label">Dashboard</span>
 								</a>
 							</li>
-                            <li>
-                                <h3>Product Section</h3>
-                            </li>
-                            <li class="slide">
-                                <a class="side-menu__item" data-bs-toggle="slide" href="#">
-                                    <i class="side-menu__icon ti-layers"></i>
-                                    <span class="side-menu__label">Categories</span><i class="angle fa fa-angle-right"></i>
-                                </a>
-                                <ul class="slide-menu">
-                                    <li><a href="{{ route('category.view') }}" class="slide-item">Manage Categories</a></li>
-                                </ul>
-                            </li>
-                            <li class="slide">
-                                <a class="side-menu__item" data-bs-toggle="slide" href="#">
-                                    <i class="side-menu__icon ti-layers-alt"></i>
-                                    <span class="side-menu__label">Sub Categories</span><i class="angle fa fa-angle-right"></i>
-                                </a>
-                                <ul class="slide-menu">
-                                    <li><a href="{{ route('subCategory.view') }}" class="slide-item">Manage Sub Categories</a></li>
-                                </ul>
-                            </li>
+
                             <li>
                                 <h3>Settings Module</h3>
                             </li>
@@ -106,6 +86,39 @@
                                 </a>
                                 <ul class="slide-menu">
                                     <li><a href="{{ route('tags.index') }}" class="slide-item">Manage Tags</a></li>
+                                </ul>
+                            </li>
+
+                            
+                            <li>
+                                <h3>Product Section</h3>
+                            </li>
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="#">
+                                    <i class="side-menu__icon ti-layers"></i>
+                                    <span class="side-menu__label">Categories</span><i class="angle fa fa-angle-right"></i>
+                                </a>
+                                <ul class="slide-menu">
+                                    <li><a href="{{ route('category.view') }}" class="slide-item">Manage Categories</a></li>
+                                </ul>
+                            </li>
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="#">
+                                    <i class="side-menu__icon ti-layers-alt"></i>
+                                    <span class="side-menu__label">Sub Categories</span><i class="angle fa fa-angle-right"></i>
+                                </a>
+                                <ul class="slide-menu">
+                                    <li><a href="{{ route('subCategory.view') }}" class="slide-item">Manage Sub Categories</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="#">
+                                    <i class="side-menu__icon ti-layers-alt"></i>
+                                    <span class="side-menu__label">Product Menus</span><i class="angle fa fa-angle-right"></i>
+                                </a>
+                                <ul class="slide-menu">
+                                    <li><a href="{{ route('subCategory.view') }}" class="slide-item">Manage Products</a></li>
                                 </ul>
                             </li>
 
