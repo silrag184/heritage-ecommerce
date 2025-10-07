@@ -202,53 +202,6 @@
                                             </div>
                                         </div>
 
-
-                                         <!-- Stocks -->
-                                        <div class="col-sm-12 col-md-4 col-xl-4">
-                                            <div class="form-group">
-                                                <label for="stocks" class="form-label text-muted">Stocks: <span
-                                                        class="text-danger">*</span></label>
-                                                <input id="stocks" type="number"
-                                                    class="form-control text-dark @error('stocks') is-invalid @enderror"
-                                                    name="stocks" value="{{ old('stocks') }}" placeholder="Enter Stocks" required>
-                                                @error('stocks')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <!-- Unit -->
-                                        <div class="col-sm-12 col-md-4 col-xl-4">
-                                            <div class="form-group">
-                                                <label for="" class="form-label text-muted">Unit: <span
-                                                        class="text-danger">*</span></label>
-                                                <select class="form-control select2 @error('unit_id') is-invalid @enderror" id="unit_id"
-                                                    name="unit_id" data-placeholder="Choose Type..." required>
-                                                    <option label="Choose one"></option>
-                                                    <option value="empty" selected disabled>---</option>
-                                                    @foreach($units as $unit)
-                                                        <option value="{{ $unit->id }}" {{ old('unit_id') == $unit->id ? 'selected' : '' }}>{{ $unit->unit_name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('unit_id')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-12 col-md-4 col-xl-4">
-                                            <div class="form-group">
-                                                <label for="t_unit_price" class="form-label text-muted">Total Unit Price: <span
-                                                        class="text-danger">*</span></label>
-                                                <input id="t_unit_price" type="number"
-                                                    class="form-control text-dark @error('t_unit_price') is-invalid @enderror"
-                                                    name="t_unit_price" value="{{ old('t_unit_price') }}" placeholder="Enter Total Unit Price" required>
-                                                @error('t_unit_price')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
                                     </div>
 
                                     <div class="row p-5 border-bottom">
@@ -330,6 +283,54 @@
                                     </div>
 
                                     <div class="row p-5 border-bottom">
+                                        <label class="form-label text-muted">Product Price</label>
+                                         <!-- Stocks -->
+                                        <div class="col-sm-12 col-md-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label for="stocks" class="form-label text-muted">Stocks: <span
+                                                        class="text-danger">*</span></label>
+                                                <input id="stocks" type="number"
+                                                    class="form-control text-dark @error('stocks') is-invalid @enderror"
+                                                    name="stocks" value="{{ old('stocks') }}" placeholder="Enter Stocks" required>
+                                                @error('stocks')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <!-- Unit -->
+                                        <div class="col-sm-12 col-md-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label for="" class="form-label text-muted">Unit: <span
+                                                        class="text-danger">*</span></label>
+                                                <select class="form-control select2 @error('unit_id') is-invalid @enderror" id="unit_id"
+                                                    name="unit_id" data-placeholder="Choose Type..." required>
+                                                    <option label="Choose one"></option>
+                                                    <option value="empty" selected disabled>---</option>
+                                                    @foreach($units as $unit)
+                                                        <option value="{{ $unit->id }}" {{ old('unit_id') == $unit->id ? 'selected' : '' }}>{{ $unit->unit_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('unit_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Unit Price -->
+                                        <div class="col-sm-12 col-md-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label for="t_unit_price" class="form-label text-muted">Total Unit Price: <span
+                                                        class="text-danger">*</span></label>
+                                                <input id="t_unit_price" type="number"
+                                                    class="form-control text-dark @error('t_unit_price') is-invalid @enderror"
+                                                    name="t_unit_price" value="{{ old('t_unit_price') }}" placeholder="Enter Total Unit Price" required>
+                                                @error('t_unit_price')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
                                         <!-- Price Section -->
                                         <div class="col-md-4 mb-3">
                                             <div class="form-group">
