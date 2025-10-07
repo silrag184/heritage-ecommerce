@@ -167,8 +167,15 @@ class ProductController extends Controller
 
     public function productEdit($id)
     {
+         $categories = Category::where('status', 1)->get();
+        $subCategories = SubCategory::where('status', 1)->get();
+        $brands = Brand::where('status', 1)->get();
+        $units = Unit::where('status', 1)->get();
+        $tags = Tag::where('status', 1)->get();
+        $sizes = Size::where('status', 1)->get();
+        $attributeValues = AttributeValue::where('status', 1)->get();
         $product = Product::findOrFail($id);
-        return view('admin-panel.pages.product.edit', compact('product'));
+        return view('admin-panel.pages.product.edit', compact('product','categories', 'subCategories', 'brands', 'units', 'tags', 'sizes', 'attributeValues'));
     }
 
     public function productUpdate(Request $request, $id)
