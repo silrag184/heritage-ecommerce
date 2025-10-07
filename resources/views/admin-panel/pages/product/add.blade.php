@@ -164,7 +164,7 @@
                                             </div>
                                         </div>
 
-                                         <!-- Unit -->
+                                         <!-- Size -->
                                         <div class="col-sm-12 col-md-12 col-xl-3">
                                             <div class="form-group">
                                                 <label for="" class="form-label text-muted">Size: <span
@@ -183,6 +183,7 @@
                                             </div>
                                         </div>
 
+                                        <!-- Tags -->
                                         <div class="col-sm-12 col-md-12 col-xl-3">
                                             <div class="form-group">
                                                 <label for="" class="form-label text-muted">Tags: <span

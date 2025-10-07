@@ -78,6 +78,8 @@ class ProductController extends Controller
                 'is_featured'      => $validated['is_featured'],
             ]);
 
+            // add Handle
+
             // ✅ Step 4: Handle Color & Image Uploads
             if (!empty($validated['colors']) && $request->hasFile('color_images')) {
                 foreach ($validated['colors'] as $index => $colorCode) {
