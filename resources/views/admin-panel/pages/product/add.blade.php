@@ -242,7 +242,7 @@
                                                         class="text-danger">*</span></label>
                                                 <input id="t_unit_price" type="number"
                                                     class="form-control text-dark @error('t_unit_price') is-invalid @enderror"
-                                                    name="t_unit_price" value="{{ old('t_unit_price') }}" placeholder="Enter Total Unit Price" required >
+                                                    name="t_unit_price" value="{{ old('t_unit_price') }}" placeholder="Enter Total Unit Price" required>
                                                 @error('t_unit_price')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -499,40 +499,34 @@
     </script>
 
     <!-- Dynamic Color & Image Rows -->
-    <script> 
-    document.addEventListener('click', function (e) {
-        if (e.target.closest('.add-more-row')) {
-            const container = document.getElementById('colorImageContainer');
-            const newRow = document.createElement('div');
-            newRow.classList.add('row', 'align-items-center', 'mb-2', 'color-image-row');
-            newRow.innerHTML = `
+    <script>
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('.add-more-row')) {
+                const container = document.getElementById('colorImageContainer');
+                const newRow = document.createElement('div');
+                newRow.classList.add('row', 'align-items-center', 'mb-2', 'color-image-row');
+                newRow.innerHTML = `
                 <div class="col-md-4">
                     <label class="form-label">Color</label>
                     <input type="color" class="form-control form-control-color" name="colors[]" value="#000000">
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Image</label>
-                    <input type="file" name="color_images[]"
-                        class="dropify @error('color_images') is-invalid @enderror"
-                        accept="image/*" data-bs-height="100">
+                    <input type="file" name="color_images[]" class="form-control dropify" accept="image/*" data-bs-height="100" >
                 </div>
                 <div class="col-md-2 mt-4">
-                    <button type="button" class="btn btn-danger w-100 remove-row">
-                        <i class="fe fe-trash-2"></i> Remove
-                    </button>
+                    <button type="button" class="btn btn-danger w-100 remove-row"><i class="fe fe-trash-2"></i> Remove</button>
                 </div>
                 <div class="col-md-2 mt-4">
-                    <button type="button" class="btn btn-success w-100 add-more-row">
-                        <i class="fe fe-plus"></i> Add More
-                    </button>
+                    <button type="button" class="btn btn-success w-100 add-more-row"><i class="fe fe-plus"></i> Add More</button>
                 </div>
             `;
-            container.appendChild(newRow);
-        }
+                container.appendChild(newRow);
+            }
 
-        if (e.target.closest('.remove-row')) {
-            e.target.closest('.color-image-row').remove();
-        }
-    });
-</script>
+            if (e.target.closest('.remove-row')) {
+                e.target.closest('.color-image-row').remove();
+            }
+        });
+    </script>
 @endsection
