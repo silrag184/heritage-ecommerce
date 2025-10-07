@@ -65,7 +65,6 @@
                                             </div>
                                         </div>
 
-
                                         <!-- sku -->
                                         <div class="col-sm-12 col-md-4 col-xl-4">
                                             <div class="form-group">
@@ -80,8 +79,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
                                     </div>
 
                                     <div class="row p-5 border-bottom">
@@ -97,7 +94,6 @@
                                                     <option label="Choose one"></option>
                                                     <option value="empty" selected disabled>---</option>
                                                     @foreach ($categories as $category)
-                                                        {{-- <option value="{{ $category->id }}">{{$category->name}}</option> --}}
                                                         <option value="{{ $category->id }}"
                                                             {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                                             {{ $category->title }}</option>
@@ -246,27 +242,6 @@
 
                                     </div>
                                     <div class="row p-5 border-bottom">
-                                        <!-- Thumbnail -->
-                                        {{-- <div class="col-md-6 mb-3">
-                                            <label for="thumbnail_image" class="form-label text-muted">Thumbnail
-                                                Image</label>
-                                            <input type="file" id="thumbnail_image" name="thumbnail_image"
-                                                class="dropify @error('thumbnail_image') is-invalid @enderror"
-                                                accept="image/*" data-bs-height="100">
-                                            @error('thumbnail_image') <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div> --}}
-
-                                        <!-- Other Images -->
-                                        {{-- <div class="col-md-6 mb-3">
-                                            <label for="other_images" class="form-label text-muted">Other Images</label>
-                                            <input id="other_images" type="file" name="other_images[]"
-                                                class="form-control @error('other_images') is-invalid @enderror"
-                                                accept="image/*" multiple>
-                                            @error('other_images') <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div> --}}
-
                                         <!-- Colors & Images -->
                                         <div class="col-md-12 mb-4">
                                             <label class="form-label text-muted">Product Colors With Images</label>
@@ -279,8 +254,6 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="form-label">Image</label>
-                                                        {{-- <input type="file" name="color_images[]" accept="image/*"
-                                                            class="form-control" required> --}}
                                                         <input type="file" name="color_images[]"
                                                             class="dropify @error('color_images') is-invalid @enderror"
                                                             accept="image/*" data-bs-height="100">
@@ -436,20 +409,6 @@
                                             </div>
                                         </div>
 
-                                        {{-- <div class="col-md-4 mb-3">
-                                            <div class="form-group">
-                                                <label for="selling_price" class="form-label text-muted">Selling Price:
-                                                    <span class="text-danger">*</span></label>
-                                                <input id="selling_price" type="number"
-                                                    class="form-control text-dark @error('selling_price') is-invalid @enderror"
-                                                    name="selling_price" value="{{ old('selling_price') }}"
-                                                    placeholder="Enter Selling Price" readonly>
-                                                @error('selling_price')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div> --}}
-
                                         <div class="col-md-4 mb-3">
                                             <div class="form-group">
                                                 <label for="selling_price"
@@ -553,28 +512,23 @@
         </div>
     </div>
 
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            // When category changes
             $('#category_id').on('change', function() {
                 let categoryId = $(this).val();
                 let subCategoryDropdown = $('#sub_category_id');
 
-                // Clear old options
                 subCategoryDropdown.empty().append('<option value="empty" selected disabled>---</option>');
 
                 if (!categoryId || categoryId === 'empty') {
-                    return; // Do nothing if no category selected
+                    return; 
                 }
 
-                // AJAX request
                 $.ajax({
-                    url: "{{ route('product.get_subcategories_by_category') }}", // your route name
-                    type: "GET",
+                    url: "{{ route('product.get_subcategories_by_category') }}", 
                     data: {
                         category_id: categoryId
                     },
@@ -612,7 +566,6 @@
             const roundBtn = document.getElementById("round-toggle");
             const form = document.querySelector("form");
 
-            // 🔁 Frontend live calculation (same logic as before)
             const calculateLive = () => {
                 const stocks = parseFloat(document.getElementById("stocks").value) || 0;
                 const t_unit_price = parseFloat(document.getElementById("t_unit_price").value) || 0;
@@ -634,20 +587,17 @@
                 sellingInput.value = selling_price.toFixed(2);
             };
 
-            // Attach events for live updates
             fields.forEach(id => {
                 const el = document.getElementById(id);
                 el.addEventListener("input", calculateLive);
                 el.addEventListener("change", calculateLive);
             });
 
-            // Round toggle
             roundBtn.addEventListener("click", () => {
                 const val = parseFloat(sellingInput.value) || 0;
                 sellingInput.value = Math.round(val);
             });
 
-            // ⚡ AJAX validation & recalculation before form submit
             form.addEventListener("submit", async (e) => {
                 e.preventDefault();
 
