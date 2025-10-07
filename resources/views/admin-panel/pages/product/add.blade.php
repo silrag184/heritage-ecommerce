@@ -555,6 +555,54 @@
         </script>
     @endif
 
+    <script>
+        $(document).ready(function() {
+            // When category changes
+            $('#category_id').on('change', function() {
+                let categoryId = $(this).val();
+                let subCategoryDropdown = $('#sub_category_id');
+
+                // Clear old options
+                subCategoryDropdown.empty().append('<option value="empty" selected disabled>---</option>');
+
+                if (!categoryId || categoryId === 'empty') {
+                    return; // Do nothing if no category selected
+                }
+
+                // AJAX request
+                $.ajax({
+                    url: "{{ route('get.subcategories.by.category') }}", // your route name
+                    type: "GET",
+                    data: {
+                        category_id: categoryId
+                    },
+                    beforeSend: function() {
+                        subCategoryDropdown.html('<option>Loading...</option>');
+                    },
+                    success: function(response) {
+                        subCategoryDropdown.empty().append(
+                            '<option value="empty" selected disabled>---</option>');
+                        if (response.length > 0) {
+                            $.each(response, function(key, subCategory) {
+                                subCategoryDropdown.append(
+                                    `<option value="${subCategory.id}">${subCategory.title}</option>`
+                                );
+                            });
+                        } else {
+                            subCategoryDropdown.append(
+                                '<option disabled>No subcategory found</option>');
+                        }
+                    },
+                    error: function() {
+                        subCategoryDropdown.empty().append(
+                            '<option disabled>Error loading subcategories</option>');
+                    }
+                });
+            });
+        });
+    </script>
+
+
     <!-- Slug Generator -->
     <script>
         document.getElementById('productName').addEventListener('input', function() {
