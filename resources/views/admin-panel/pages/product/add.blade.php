@@ -83,7 +83,7 @@
                                             </div>
                                         </div>
 
-                                        
+
 
                                         <!-- Category -->
                                         <div class="col-sm-12 col-md-12 col-xl-3">
@@ -94,7 +94,7 @@
                                                     class="form-control select2 @error('category_id') is-invalid @enderror"
                                                     id="category_id" name="category_id" data-placeholder="Choose Type..." required>
                                                     <option label="Choose one"></option>
-                                                    <option value="empty" selected>---</option>
+                                                    <option value="empty" selected disabled>---</option>
                                                     @foreach($categories as $category)
                                                         {{-- <option value="{{ $category->id }}">{{$category->name}}</option> --}}
                                                         <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->title }}</option>
@@ -114,7 +114,7 @@
                                                 <select class="form-control select2 @error('sub_category_id') is-invalid @enderror" id="sub_category_id"
                                                     name="sub_category_id" data-placeholder="Choose Type..." required>
                                                     <option label="Choose one"></option>
-                                                    <option value="empty" selected>---</option>
+                                                    <option value="empty" selected disabled>---</option>
                                                     @foreach($subCategories as $subCategory)
                                                         <option value="{{ $subCategory->id }}" {{ old('sub_category_id') == $subCategory->id ? 'selected' : '' }}>{{ $subCategory->title }}</option>
                                                     @endforeach
@@ -133,7 +133,7 @@
                                                 <select class="form-control select2 @error('brand_id') is-invalid @enderror" id="brand_id"
                                                     name="brand_id" data-placeholder="Choose Type..." required>
                                                     <option label="Choose one"></option>
-                                                    <option value="empty" selected>---</option>
+                                                    <option value="empty" selected disabled>---</option>
                                                     @foreach($brands as $brand)
                                                         <option value="{{ $brand->id }}" {{ old('brand_id') == $brand->id ? 'selected' : '' }}>{{ $brand->brand_name }}</option>
                                                     @endforeach
@@ -153,7 +153,7 @@
                                                 <select class="form-control select2 @error('unit_id') is-invalid @enderror" id="unit_id"
                                                     name="unit_id" data-placeholder="Choose Type..." required>
                                                     <option label="Choose one"></option>
-                                                    <option value="empty" selected>---</option>
+                                                    <option value="empty" selected disabled>---</option>
                                                     @foreach($units as $unit)
                                                         <option value="{{ $unit->id }}" {{ old('unit_id') == $unit->id ? 'selected' : '' }}>{{ $unit->unit_name }}</option>
                                                     @endforeach
