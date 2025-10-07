@@ -571,7 +571,7 @@
 
                 // AJAX request
                 $.ajax({
-                    url: "{{ route('get.subcategories.by.category') }}", // your route name
+                    url: "{{ route('product.get_subcategories_by_category') }}", // your route name
                     type: "GET",
                     data: {
                         category_id: categoryId
@@ -601,6 +601,44 @@
             });
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+
+            function calculatePrices() {
+                let stocks = parseFloat($('#stocks').val()) || 0;
+                let t_unit_price = parseFloat($('#t_unit_price').val()) || 0;
+                let regular_price = parseFloat($('#regular_price').val()) || 0;
+                let discount_type = $('#discount_type').val();
+                let discount_amount = parseFloat($('#discount_amount').val()) || 0;
+                let tax = parseFloat($('#tax').val()) || 0;
+                let purchase_price = 0;
+                if (stocks > 0 && t_unit_price > 0) {
+                    purchase_price = t_unit_price / stocks;
+                }
+                $('#purchase_price').val(purchase_price.toFixed(2));
+                let discounted_price = regular_price;
+
+                if (discount_type === 'flat') {
+                    discounted_price = regular_price - discount_amount;
+                } else if (discount_type === 'percentage') {
+                    discounted_price = regular_price - (regular_price * (discount_amount / 100));
+                }
+                if (discounted_price < 0) discounted_price = 0;
+                let selling_price = discounted_price + (discounted_price * (tax / 100));
+                $('#selling_price').val(selling_price.toFixed(2));
+            }
+            $('#stocks, #t_unit_price, #regular_price, #discount_type, #discount_amount, #tax').on('input change',
+                function() {
+                    calculatePrices();
+                });
+            $('#selling_price').on('click', function() {
+                let val = parseFloat($(this).val()) || 0;
+                $(this).val(Math.round(val));
+            });
+        });
+    </script>
+
 
 
     <!-- Slug Generator -->
