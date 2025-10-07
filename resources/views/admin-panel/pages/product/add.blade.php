@@ -544,7 +544,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    @if ($errors->any())
+    {{-- @if ($errors->any())
         <script>
             let errorMessages = `{!! implode('<br>', $errors->all()) !!}`;
             Swal.fire({
@@ -566,7 +566,7 @@
                 confirmButtonColor: '#3085d6',
             });
         </script>
-    @endif
+    @endif --}}
 
     <script>
         $(document).ready(function() {
