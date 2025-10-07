@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ProductColorImage;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Tag;
+use App\Models\Unit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -25,8 +28,11 @@ class ProductController extends Controller
     {
         $categores = Category::latest()->get();
         $subCategores = SubCategory::latest()->get();
+        $brands = Brand::latest()->get();
+        $units = Unit::latest()->get();
+        $tags = Tag::latest()->get();
 
-        return view('admin-panel.pages.product.add', compact('categores', 'subCategores'));
+        return view('admin-panel.pages.product.add', compact('categores', 'subCategores','brands','units','tags'));
     }
 
     public function productStore(Request $request)
