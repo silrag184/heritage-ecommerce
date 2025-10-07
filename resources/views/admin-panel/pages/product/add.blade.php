@@ -316,7 +316,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        
+
                                         <!-- Unit Price -->
                                         <div class="col-sm-12 col-md-4 col-xl-4">
                                             <div class="form-group">
@@ -334,7 +334,7 @@
                                         <!-- Price Section -->
                                         <div class="col-md-4 mb-3">
                                             <div class="form-group">
-                                                <label for="purchase_price" class="form-label text-muted">Purchase Price: <span class="text-danger">*</span></label>
+                                                <label for="purchase_price" class="form-label text-muted">Purchase Price: (Per Item) <span class="text-danger">*</span></label>
                                                 <input id="purchase_price" type="number"
                                                     class="form-control text-dark @error('purchase_price') is-invalid @enderror"
                                                     name="purchase_price" value="{{ old('purchase_price') }}" placeholder="Enter Purchase Price" readonly>
