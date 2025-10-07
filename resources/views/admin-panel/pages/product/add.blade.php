@@ -65,6 +65,26 @@
                                             </div>
                                         </div>
 
+
+                                        <!-- sku -->
+                                        <div class="col-sm-12 col-md-12 col-xl-3">
+                                            <div class="form-group">
+                                                <label for="slug" class="form-label text-muted">Sku:</label>
+                                                <div class="input-group">
+                                                    <input type="text"
+                                                        class="form-control @error('slug') is-invalid @enderror" id="slug"
+                                                        name="slug" value="{{ old('slug') }}">
+                                                    @error('slug')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <small class="form-text text-muted">Leave blank to auto-generate from
+                                                    title.</small>
+                                            </div>
+                                        </div>
+
+                                        
+
                                         <!-- Category -->
                                         <div class="col-sm-12 col-md-12 col-xl-3">
                                             <div class="form-group">
@@ -90,39 +110,78 @@
                                             <div class="form-group">
                                                 <label for="" class="form-label text-muted">SubCategory: <span
                                                         class="text-danger">*</span></label>
-                                                <select class="form-control select2 @error('subCategory_id') is-invalid @enderror" id="subCategory_id"
-                                                    name="subCategory_id" data-placeholder="Choose Type..." required>
+                                                <select class="form-control select2 @error('sub_category_id') is-invalid @enderror" id="sub_category_id"
+                                                    name="sub_category_id" data-placeholder="Choose Type..." required>
                                                     <option label="Choose one"></option>
                                                     <option value="empty" selected>---</option>
                                                     @foreach($subCategories as $subCategory)
                                                         <option value="{{ $subCategory->id }}">{{$subCategory->name}}</option>
                                                     @endforeach
                                                 </select>
-                                                @error('subCategory_id')
+                                                @error('sub_category_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <!-- Brand -->
+                                        <div class="col-sm-12 col-md-12 col-xl-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label text-muted">Brand: <span
+                                                        class="text-danger">*</span></label>
+                                                <select class="form-control select2 @error('brand_id') is-invalid @enderror" id="brand_id"
+                                                    name="brand_id" data-placeholder="Choose Type..." required>
+                                                    <option label="Choose one"></option>
+                                                    <option value="empty" selected>---</option>
+                                                    @foreach($brands as $brand)
+                                                        <option value="{{ $brand->id }}">{{$brand->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('brand_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
 
 
-                                        {{-- <div class="col-sm-12 col-md-12 col-xl-3">
+                                         <!-- Unit -->
+                                        <div class="col-sm-12 col-md-12 col-xl-3">
                                             <div class="form-group">
-                                                <label for="" class="form-label text-muted">hjkldfghdbvh: <span
+                                                <label for="" class="form-label text-muted">Unit: <span
                                                         class="text-danger">*</span></label>
-                                                <select class="form-control select2 @error('') is-invalid @enderror" id=""
-                                                    name="" data-placeholder="Choose Type..." required>
+                                                <select class="form-control select2 @error('unit_id') is-invalid @enderror" id="unit_id"
+                                                    name="unit_id" data-placeholder="Choose Type..." required>
                                                     <option label="Choose one"></option>
                                                     <option value="empty" selected>---</option>
-                                                    @foreach($technologies as $technology)
-                                                    <option value=""></option>
+                                                    @foreach($units as $unit)
+                                                        <option value="{{ $unit->id }}">{{$unit->name}}</option>
                                                     @endforeach
                                                 </select>
-                                                <small class="form-text text-muted">e.g.</small>
-                                                @error('')
+                                                @error('unit_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                        </div> --}}
+                                        </div>
+
+                                         <!-- Unit -->
+                                        <div class="col-sm-12 col-md-12 col-xl-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label text-muted">Unit: <span
+                                                        class="text-danger">*</span></label>
+                                                <select class="form-control select2 @error('tag_id') is-invalid @enderror" id="tag_id"
+                                                    name="tag_id" data-placeholder="Choose Type..." required>
+                                                    <option label="Choose one"></option>
+                                                    <option value="empty" selected>---</option>
+                                                    @foreach($tags as $tag)
+                                                        <option value="{{ $tag->id }}">{{$tag->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('tag_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
 
                                         <!-- Description -->
                                         <div class="col-md-6 mb-3">
