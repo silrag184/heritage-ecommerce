@@ -96,7 +96,8 @@
                                                     <option label="Choose one"></option>
                                                     <option value="empty" selected>---</option>
                                                     @foreach($categories as $category)
-                                                        <option value="{{ $category->id }}">{{$category->name}}</option>
+                                                        {{-- <option value="{{ $category->id }}">{{$category->name}}</option> --}}
+                                                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->title }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('category_id')
@@ -115,7 +116,7 @@
                                                     <option label="Choose one"></option>
                                                     <option value="empty" selected>---</option>
                                                     @foreach($subCategories as $subCategory)
-                                                        <option value="{{ $subCategory->id }}">{{$subCategory->name}}</option>
+                                                        <option value="{{ $subCategory->id }}" {{ old('sub_category_id') == $subCategory->id ? 'selected' : '' }}>{{ $subCategory->title }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('sub_category_id')
@@ -134,7 +135,7 @@
                                                     <option label="Choose one"></option>
                                                     <option value="empty" selected>---</option>
                                                     @foreach($brands as $brand)
-                                                        <option value="{{ $brand->id }}">{{$brand->name}}</option>
+                                                        <option value="{{ $brand->id }}" {{ old('brand_id') == $brand->id ? 'selected' : '' }}>{{ $brand->brand_name }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('brand_id')
@@ -154,7 +155,7 @@
                                                     <option label="Choose one"></option>
                                                     <option value="empty" selected>---</option>
                                                     @foreach($units as $unit)
-                                                        <option value="{{ $unit->id }}">{{$unit->name}}</option>
+                                                        <option value="{{ $unit->id }}" {{ old('unit_id') == $unit->id ? 'selected' : '' }}>{{ $unit->unit_name }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('unit_id')
@@ -166,14 +167,32 @@
                                          <!-- Unit -->
                                         <div class="col-sm-12 col-md-12 col-xl-3">
                                             <div class="form-group">
-                                                <label for="" class="form-label text-muted">Unit: <span
+                                                <label for="" class="form-label text-muted">Size: <span
+                                                        class="text-danger">*</span></label>
+                                                <select class="form-control select2 @error('size_id') is-invalid @enderror" id="size_id"
+                                                    name="size_id[]" multiple data-placeholder="Choose Type..." required>
+                                                    <option label="Choose one"></option>
+                                                    <option value="empty" selected disabled>---</option>
+                                                    @foreach($sizes as $size)
+                                                        <option value="{{ $size->id }}">{{$size->size_name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('size_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-12 col-xl-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label text-muted">Tags: <span
                                                         class="text-danger">*</span></label>
                                                 <select class="form-control select2 @error('tag_id') is-invalid @enderror" id="tag_id"
-                                                    name="tag_id" data-placeholder="Choose Type..." required>
+                                                    name="tag_id[]" multiple data-placeholder="Choose Type..." required>
                                                     <option label="Choose one"></option>
-                                                    <option value="empty" selected>---</option>
+                                                    <option value="empty" selected disabled>---</option>
                                                     @foreach($tags as $tag)
-                                                        <option value="{{ $tag->id }}">{{$tag->name}}</option>
+                                                        <option value="{{ $tag->id }}">{{$tag->tag_name}}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('tag_id')
@@ -181,6 +200,7 @@
                                                 @enderror
                                             </div>
                                         </div>
+
 
 
                                         <!-- Description -->
@@ -194,7 +214,7 @@
                                         </div>
 
                                         <!-- Thumbnail -->
-                                        <div class="col-md-6 mb-3">
+                                        {{-- <div class="col-md-6 mb-3">
                                             <label for="thumbnail_image" class="form-label text-muted">Thumbnail
                                                 Image</label>
                                             <input type="file" id="thumbnail_image" name="thumbnail_image"
@@ -202,17 +222,17 @@
                                                 accept="image/*" data-bs-height="100">
                                             @error('thumbnail_image') <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
-                                        </div>
+                                        </div> --}}
 
                                         <!-- Other Images -->
-                                        <div class="col-md-6 mb-3">
+                                        {{-- <div class="col-md-6 mb-3">
                                             <label for="other_images" class="form-label text-muted">Other Images</label>
                                             <input id="other_images" type="file" name="other_images[]"
                                                 class="form-control @error('other_images') is-invalid @enderror"
                                                 accept="image/*" multiple>
                                             @error('other_images') <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
-                                        </div>
+                                        </div> --}}
 
                                         <!-- Colors & Images -->
                                         <div class="col-md-12 mb-4">
@@ -226,8 +246,11 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="form-label">Image</label>
-                                                        <input type="file" name="color_images[]" accept="image/*"
-                                                            class="form-control" required>
+                                                        {{-- <input type="file" name="color_images[]" accept="image/*"
+                                                            class="form-control" required> --}}
+                                                            <input type="file" name="color_images[]"
+                                                                class="dropify @error('color_images') is-invalid @enderror"
+                                                                accept="image/*" data-bs-height="100">
                                                     </div>
                                                     <div class="col-md-2 mt-4">
                                                         <button type="button" class="btn btn-danger w-100 remove-row">

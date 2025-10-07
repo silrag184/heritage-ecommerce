@@ -17,7 +17,6 @@ return new class extends Migration
             $table->unsignedBigInteger('sub_category_id')->nullable();
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->unsignedBigInteger('unit_id')->nullable();
-            $table->unsignedBigInteger('tag_id')->nullable();
 
             $table->string('product_name');
             $table->string('slug')->unique();
@@ -44,7 +43,6 @@ return new class extends Migration
             $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('set null');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
             $table->foreign('unit_id')->references('id')->on('units')->onDelete('set null');
-            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('set null');
         });
     }
 

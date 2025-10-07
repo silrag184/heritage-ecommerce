@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Tag;
 use App\Models\Unit;
+use App\Models\Size;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -31,8 +32,9 @@ class ProductController extends Controller
         $brands = Brand::where('status',1)->get();
         $units = Unit::where('status',1)->get();
         $tags = Tag::where('status',1)->get();
+        $sizes = Size::where('status',1)->get();
 
-        return view('admin-panel.pages.product.add', compact('categories', 'subCategories','brands','units','tags'));
+        return view('admin-panel.pages.product.add', compact('categories', 'subCategories','brands','units','tags', 'sizes'));
     }
 
     public function productStore(Request $request)
@@ -83,11 +85,11 @@ class ProductController extends Controller
 
                     if ($colorImage) {
                         $fileName = time() . '-' . uniqid() . '.' . $colorImage->getClientOriginalExtension();
-                        $colorImage->move(public_path('uploads/products/colors'), $fileName);
+                        $colorImage->move(public_path('uploads/images/products/colors'), $fileName);
                         ProductColorImage::create([
                             'product_id' => $product->id,
                             'color_code' => $colorCode,
-                            'image_path' => 'uploads/products/colors/' . $fileName,
+                            'image_path' => 'uploads/images/products/colors/' . $fileName,
                         ]);
                     }
                 }
@@ -186,9 +188,9 @@ class ProductController extends Controller
 
                             $newFile = $request->file('color_images')[$index];
                             $fileName = time() . '-' . uniqid() . '.' . $newFile->getClientOriginalExtension();
-                            $newFile->move(public_path('uploads/products/colors'), $fileName);
+                            $newFile->move(public_path('uploads/images/products/colors'), $fileName);
 
-                            $colorImageModel->image_path = 'uploads/products/colors/' . $fileName;
+                            $colorImageModel->image_path = 'uploads/images/products/colors/' . $fileName;
                         }
 
                         $colorImageModel->save();
@@ -203,12 +205,12 @@ class ProductController extends Controller
 
                     if ($newImage) {
                         $fileName = time() . '-' . uniqid() . '.' . $newImage->getClientOriginalExtension();
-                        $newImage->move(public_path('uploads/products/colors'), $fileName);
+                        $newImage->move(public_path('uploads/images/products/colors'), $fileName);
 
                         ProductColorImage::create([
                             'product_id' => $product->id,
                             'color_code' => $newColor,
-                            'image_path' => 'uploads/products/colors/' . $fileName,
+                            'image_path' => 'uploads/images/products/colors/' . $fileName,
                         ]);
                     }
                 }
