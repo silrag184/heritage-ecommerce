@@ -6,25 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = [
-        'category_id',
-        'sub_category_id',
-        'brand_id',
-        'unit_id',
-        'product_name',
-        'slug',
-        'sku',
-        'price',
-        'discount_price',
-        'stock',
-        'short_description',
-        'long_description',
-        'status',
-        'is_featured',
-        'is_trending',
-        'is_new',
-        'hit_count',
-    ];
+    protected $guarded = [];
 
     // Relationships
     public function category()

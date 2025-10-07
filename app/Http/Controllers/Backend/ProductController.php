@@ -60,10 +60,10 @@ class ProductController extends Controller
             'attribute_value_id'  => 'required|exists:attributes,id',
             'short_description'   => 'nullable|string',
             'long_description'    => 'nullable|string',
-            'colors'              => 'nullable|array',
-            'colors.*'            => 'nullable|string',
-            'color_images'        => 'nullable|array',
-            'color_images.*'      => 'image|mimes:jpg,jpeg,png,webp,avif|max:1048',
+            'colors'              => 'nullable|array', //
+            'colors.*'            => 'nullable|string', //
+            'color_images'        => 'nullable|array', //
+            'color_images.*'      => 'image|mimes:jpg,jpeg,png,webp,avif|max:1048', //
             'stocks'              => 'required|numeric|min:0',
             'unit_id'             => 'required|exists:units,id',
             't_unit_price'        => 'required|numeric|min:0',
@@ -74,6 +74,7 @@ class ProductController extends Controller
             'tax'                 => 'required|numeric|min:0',
             'selling_price'       => 'nullable|numeric|min:0',
             'meta_title'          => 'nullable|string|max:255',
+            'meta_keys'           => 'nullable|string',
             'meta_description'    => 'nullable|string',
             'status'              => 'required|boolean',
             'is_featured'         => 'nullable|boolean',
@@ -99,6 +100,7 @@ class ProductController extends Controller
             'tax'                => $validated['tax'],
             'selling_price'      => $validated['selling_price'] ?? 0,
             'meta_title'         => $validated['meta_title'] ?? null,
+            'meta_keys'          => $validated['meta_keys'] ?? null,
             'meta_description'   => $validated['meta_description'] ?? null,
             'status'             => $validated['status'],
             'is_featured'        => $request->has('is_featured') ? 1 : 0,
