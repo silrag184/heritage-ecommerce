@@ -24,13 +24,13 @@ return new class extends Migration
             $table->string('sku')->unique(); // stock keeping unit / product code
             $table->decimal('discount_price', 10, 2)->nullable();
             $table->integer('stocks')->default(0); //
-            $table->decimal('t_unit_price', 15, 2)->default(0);//
+            $table->decimal('t_unit_price', 15, 2)->default(0); //
             $table->decimal('purchase_price', 15, 2)->default(0); //
             $table->decimal('regular_price', 10, 2)->default(0); //
-            $table->enum('discount_type', ['flat, percentage'])->default('flat'); //
-            $table->integer('discount_amount')->default(0);//
+            $table->enum('discount_type', ['flat', 'percentage'])->default('flat'); //
+            $table->integer('discount_amount')->default(0); //
 
-            $table->integer('tax')->default(0);//
+            $table->integer('tax')->default(0); //
             $table->decimal('selling_price', 10, 2)->default(0); //
 
 
@@ -42,7 +42,7 @@ return new class extends Migration
             $table->text('meta_description')->nullable(); //
 
             $table->boolean('status')->default(1)->comment('1=active,0=inactive');
-           // Product flags
+            // Product flags
             $table->boolean('is_featured')->default(0)->comment('1=featured, 0=normal');;
 
             // Product analytics
