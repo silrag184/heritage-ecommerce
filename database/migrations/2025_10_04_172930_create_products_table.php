@@ -27,7 +27,7 @@ return new class extends Migration
             $table->decimal('t_unit_price', 15, 2)->default(0);//
             $table->decimal('purchase_price', 15, 2)->default(0); //
             $table->decimal('regular_price', 10, 2)->default(0); //
-            $table->enum('discount_type', ['flat, percentage'])->default('flat'); //
+            $table->enum('discount_type', ['flat', 'percentage'])->default('flat'); //
             $table->integer('discount_amount')->default(0);//
 
             $table->integer('tax')->default(0);//

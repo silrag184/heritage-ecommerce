@@ -43,7 +43,7 @@ class ProductController extends Controller
 
     public function productStore(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         try {
         // ✅ Step 1: Validate all inputs
         $validated = $request->validate([
