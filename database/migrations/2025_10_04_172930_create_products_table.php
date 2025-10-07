@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('product_name');
             $table->string('slug')->unique();
             $table->string('sku')->unique(); // stock keeping unit / product code
-            $table->decimal('discount_price', 10, 2)->nullable();
             $table->integer('stocks')->default(0);
             $table->decimal('t_unit_price', 15, 2)->default(0);
             $table->decimal('purchase_price', 15, 2)->default(0);
