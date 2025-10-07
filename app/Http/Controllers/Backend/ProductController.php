@@ -17,6 +17,7 @@ use App\Models\Size;
 use App\Models\AttributeValue;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
 {
@@ -43,7 +44,7 @@ class ProductController extends Controller
 
     public function productStore(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         try {
         // ✅ Step 1: Validate all inputs
         $validated = $request->validate([
@@ -144,7 +145,7 @@ class ProductController extends Controller
 
         // ✅ Step 7: Redirect with success message
         return redirect()->route('product.view')->with('success', 'Product added successfully!');
-    } catch (\Exception $e) {
+    } catch (ValidationException  $e) {
         // ✅ Handle unexpected errors
         return back()->with('error', 'Something went wrong: ' . $e->getMessage())->withInput();
     }
