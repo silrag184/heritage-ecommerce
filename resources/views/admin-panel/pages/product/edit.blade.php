@@ -8,7 +8,7 @@
         <div class="card shadow-sm border-0">
             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">Edit Product - {{ $product->product_name }}</h5>
-                <a href="{{ route('products.view') }}" class="btn btn-light btn-sm">Back</a>
+                <a href="{{ route('product.view') }}" class="btn btn-light btn-sm">Back</a>
             </div>
 
             <div class="row">

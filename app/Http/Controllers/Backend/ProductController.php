@@ -167,7 +167,7 @@ class ProductController extends Controller
 
     public function productEdit($id)
     {
-         $categories = Category::where('status', 1)->get();
+        $categories = Category::where('status', 1)->get();
         $subCategories = SubCategory::where('status', 1)->get();
         $brands = Brand::where('status', 1)->get();
         $units = Unit::where('status', 1)->get();
