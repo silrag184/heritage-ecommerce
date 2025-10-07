@@ -127,7 +127,7 @@
                                             required>
                                             @foreach ($sizes as $size)
                                                 <option value="{{ $size->id }}"
-                                                    {{ in_array($size->id, old('size_id', $product->sizes->pluck('id')->toArray() ?? [])) ? 'selected' : '' }}>
+                                                    {{ in_array($size->id, old('size_id', $product->productSizes->pluck('id')->toArray() ?? [])) ? 'selected' : '' }}>
                                                     {{ $size->size_name }}
                                                 </option>
                                             @endforeach
