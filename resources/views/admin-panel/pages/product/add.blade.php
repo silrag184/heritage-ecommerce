@@ -92,7 +92,7 @@
                                                         class="text-danger">*</span></label>
                                                 <select
                                                     class="form-control select2 @error('category_id') is-invalid @enderror"
-                                                    id="category_id" name="category_id" data-placeholder="Choose Type..."
+                                                    id="category_id" onchange="subCategoryDropdown(this.value)" name="category_id" data-placeholder="Choose Type..."
                                                     required>
                                                     <option label="Choose one"></option>
                                                     <option value="empty" selected disabled>---</option>
@@ -555,6 +555,7 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         $(document).ready(function() {
