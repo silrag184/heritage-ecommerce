@@ -82,11 +82,11 @@ Manage Products
                                                     </td>
                                                     <td>{{ $product->created_at->format('d M Y') }}</td>
                                                     <td>
-                                                        <a href="{{ route('product.edit', $category->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                                        <form action="{{ route('product.delete', $category->id) }}" method="GET" style="display: inline;">
+                                                        <a href="{{ route('product.edit', $product->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                                        <form action="{{ route('product.delete', $product->id) }}" method="GET" style="display: inline;">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>
+                                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this Data?')">Delete</button>
                                                         </form>
                                                     </td>
                                                 </tr>
