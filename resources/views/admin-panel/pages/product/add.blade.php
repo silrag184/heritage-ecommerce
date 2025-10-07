@@ -544,30 +544,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    {{-- @if ($errors->any())
-        <script>
-            let errorMessages = `{!! implode('<br>', $errors->all()) !!}`;
-            Swal.fire({
-                icon: 'error',
-                title: 'Validation Error',
-                html: errorMessages,
-                confirmButtonText: 'OK',
-                confirmButtonColor: '#3085d6',
-            });
-        </script>
-    @endif
-
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: '{{ session('success') }}',
-                confirmButtonColor: '#3085d6',
-            });
-        </script>
-    @endif --}}
-
     <script>
         $(document).ready(function() {
             // When category changes
