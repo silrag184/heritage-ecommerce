@@ -75,7 +75,7 @@
                                                     id="category_id" name="category_id" data-placeholder="Choose Type..." required>
                                                     <option label="Choose one"></option>
                                                     <option value="empty" selected>---</option>
-                                                    @foreach($categores as $category)
+                                                    @foreach($categories as $category)
                                                         <option value="{{ $category->id }}">{{$category->name}}</option>
                                                     @endforeach
                                                 </select>
@@ -94,7 +94,7 @@
                                                     name="subCategory_id" data-placeholder="Choose Type..." required>
                                                     <option label="Choose one"></option>
                                                     <option value="empty" selected>---</option>
-                                                    @foreach($subCategores as $subCategory)
+                                                    @foreach($subCategories as $subCategory)
                                                         <option value="{{ $subCategory->id }}">{{$subCategory->name}}</option>
                                                     @endforeach
                                                 </select>

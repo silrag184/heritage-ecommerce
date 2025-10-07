@@ -23,14 +23,18 @@ class ProductController extends Controller
 
     public function productAdd()
     {
-        $categores = Category::latest()->get();
-        $subCategores = SubCategory::latest()->get();
 
-        return view('admin-panel.pages.product.add', compact('categores', 'subCategores'));
+        $categories = Category::latest()->get();
+        $subCategories = SubCategory::latest()->get();
+
+        return view('admin-panel.pages.product.add', compact('categories', 'subCategories'));
     }
 
     public function productStore(Request $request)
     {
+
+
+        dd($request->all());
         // ✅ Step 1: Validate incoming data
         $validated = $request->validate([
             'product_name'     => 'required|string|max:255',
