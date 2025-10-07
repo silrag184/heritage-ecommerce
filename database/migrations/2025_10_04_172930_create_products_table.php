@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('sub_category_id')->nullable();
-            $table->unsignedBigInteger('brand_id')->nullable();
+            $table->unsignedBigInteger('category_id'); //
+            $table->unsignedBigInteger('sub_category_id')->nullable(); //
+            $table->unsignedBigInteger('brand_id')->nullable(); //
             $table->unsignedBigInteger('unit_id')->nullable();
+            $table->unsignedBigInteger('attribute_value_id')->nullable(); //
 
-            $table->string('product_name');
-            $table->string('slug')->unique();
+            $table->string('product_name'); //
+            $table->string('slug')->unique(); //
             $table->string('sku')->unique(); // stock keeping unit / product code
             $table->decimal('price', 10, 2);
             $table->decimal('discount_price', 10, 2)->nullable();
@@ -43,6 +44,7 @@ return new class extends Migration
             $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('set null');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
             $table->foreign('unit_id')->references('id')->on('units')->onDelete('set null');
+            $table->foreign('attribute_value_id')->references('id')->on('attributeValues')->onDelete('set null');
         });
     }
 

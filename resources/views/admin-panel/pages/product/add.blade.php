@@ -69,17 +69,15 @@
                                         <!-- sku -->
                                         <div class="col-sm-12 col-md-4 col-xl-4">
                                             <div class="form-group">
-                                                <label for="slug" class="form-label text-muted">Sku:</label>
+                                                <label for="sku" class="form-label text-muted">Sku:</label>
                                                 <div class="input-group">
                                                     <input type="text"
-                                                        class="form-control @error('slug') is-invalid @enderror" id="slug"
-                                                        name="slug" value="{{ old('slug') }}">
-                                                    @error('slug')
+                                                        class="form-control @error('sku') is-invalid @enderror" id="sku"
+                                                        name="sku" value="{{ old('sku') }}">
+                                                    @error('sku')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
-                                                <small class="form-text text-muted">Leave blank to auto-generate from
-                                                    title.</small>
                                             </div>
                                         </div>
 
