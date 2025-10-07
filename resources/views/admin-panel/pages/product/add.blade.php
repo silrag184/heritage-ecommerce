@@ -479,6 +479,18 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-md-12 mb-3">
+                                            <div class="form-group">
+                                                <label for="meta_keys" class="form-label text-muted">Meta Keys</label>
+                                                <input type="text" id="meta_keys" name="meta_keys"
+                                                    class="form-control @error('meta_keys') is-invalid @enderror"
+                                                    value="{{ old('meta_keys') }}">
+                                                @error('meta_keys')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
                                         <!-- Meta Description -->
                                         <div class="col-md-12 mb-3">
                                             <div class="form-group">
