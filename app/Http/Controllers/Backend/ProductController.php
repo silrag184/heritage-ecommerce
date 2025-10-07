@@ -56,7 +56,7 @@ class ProductController extends Controller
             'size_id.*'           => 'exists:sizes,id',
             'tag_id'              => 'nullable|array',
             'tag_id.*'            => 'exists:tags,id',
-            'attribute_value_id'  => 'required|exists:attribute_values,id',
+            'attribute_value_id'  => 'required|exists:attributes,id',
             'short_description'   => 'nullable|string',
             'long_description'    => 'nullable|string',
             'colors'              => 'nullable|array',
