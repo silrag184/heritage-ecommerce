@@ -3,13 +3,20 @@
 @section('title', 'Edit Product')
 
 @section('admin-content')
-
-    <div class="container-fluid py-4">
-        <div class="card shadow-sm border-0">
-            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Edit Product - {{ $product->product_name }}</h5>
-                <a href="{{ route('product.view') }}" class="btn btn-light btn-sm">Back</a>
-            </div>
+    <div class="app-content main-content mt-0">
+        <div class="side-app">
+            <div class="main-container container-fluid">
+            <<div class="page-header">
+                    <div>
+                        <h1 class="page-title">Add Product</h1>
+                    </div>
+                    <div class="ms-auto pageheader-btn">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('product.view') }}">Products</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Add Product</li>
+                        </ol>
+                    </div>
+                </div>
 
             <div class="row">
                 <div class="col-lg-12 col-md-12">
@@ -64,118 +71,139 @@
                                 {{-- Category / SubCategory / Brand --}}
                                 <div class="row p-5 border-bottom">
                                     <div class="col-sm-12 col-md-4 col-xl-4">
-                                        <label class="form-label text-muted">Product Category <span
+                                        <div class="form-group">
+                                            <label class="form-label text-muted">Product Category <span
                                                 class="text-danger">*</span></label>
-                                        <select id="category_id"
-                                            class="form-control select2 @error('category_id') is-invalid @enderror"
-                                            name="category_id" onchange="subCategoryDropdown(this.value)" required>
-                                            <option disabled>---</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}"
-                                                    {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
-                                                    {{ $category->title }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('category_id')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                            <select id="category_id"
+                                                class="form-control select2 @error('category_id') is-invalid @enderror"
+                                                name="category_id" onchange="subCategoryDropdown(this.value)" required>
+                                                <option disabled>---</option>
+                                                @foreach ($categories as $category)
+                                                    <option value="{{ $category->id }}"
+                                                        {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                                                        {{ $category->title }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('category_id')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
 
                                     <div class="col-sm-12 col-md-4 col-xl-4">
-                                        <label class="form-label text-muted">SubCategory <span
+                                        <div class="form-group">
+                                            <label class="form-label text-muted">SubCategory <span
                                                 class="text-danger">*</span></label>
-                                        <select id="sub_category_id"
-                                            class="form-control select2 @error('sub_category_id') is-invalid @enderror"
-                                            name="sub_category_id" required>
-                                            <option disabled>---</option>
-                                            @foreach ($subCategories as $subCategory)
-                                                <option value="{{ $subCategory->id }}"
-                                                    {{ old('sub_category_id', $product->sub_category_id) == $subCategory->id ? 'selected' : '' }}>
-                                                    {{ $subCategory->title }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('sub_category_id')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                            <select id="sub_category_id"
+                                                class="form-control select2 @error('sub_category_id') is-invalid @enderror"
+                                                name="sub_category_id" required>
+                                                <option disabled>---</option>
+                                                @foreach ($subCategories as $subCategory)
+                                                    <option value="{{ $subCategory->id }}"
+                                                        {{ old('sub_category_id', $product->sub_category_id) == $subCategory->id ? 'selected' : '' }}>
+                                                        {{ $subCategory->title }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('sub_category_id')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
 
                                     <div class="col-sm-12 col-md-4 col-xl-4">
-                                        <label class="form-label text-muted">Brand <span
+                                        <div class="form-group">
+                                            <label class="form-label text-muted">Brand <span
                                                 class="text-danger">*</span></label>
-                                        <select name="brand_id" id="brand_id"
-                                            class="form-control select2 @error('brand_id') is-invalid @enderror" required>
-                                            @foreach ($brands as $brand)
-                                                <option value="{{ $brand->id }}"
-                                                    {{ old('brand_id', $product->brand_id) == $brand->id ? 'selected' : '' }}>
-                                                    {{ $brand->brand_name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('brand_id')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                            <select name="brand_id" id="brand_id"
+                                                class="form-control select2 @error('brand_id') is-invalid @enderror" required>
+                                                @foreach ($brands as $brand)
+                                                    <option value="{{ $brand->id }}"
+                                                        {{ old('brand_id', $product->brand_id) == $brand->id ? 'selected' : '' }}>
+                                                        {{ $brand->brand_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('brand_id')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                
+
+                                
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label text-muted">Size</label>
+                                            <select name="size_id[]" id="size_id" class="form-control select2" multiple
+                                                required>
+                                                @php
+                                                    // Get all selected size IDs from the product's productSizes relation
+                                                $selectedSizes = old(
+                                                    'size_id',
+                                                    $product->productSizes->pluck('size_id')->toArray() ?? [],
+                                                    );
+                                                @endphp
+
+                                                @foreach ($sizes as $size)
+                                                    <option value="{{ $size->id }}"
+                                                        {{ in_array($size->id, $selectedSizes) ? 'selected' : '' }}>
+                                                        {{ $size->size_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('size_id')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        
+                                    </div>
+
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label text-muted">Tags</label>
+                                            <select name="tag_id[]" id="tag_id" class="form-control select2" multiple
+                                                required>
+                                                @php
+                                                $selectedTags = old(
+                                                    'tag_id',
+                                                    $product->productTags->pluck('tag_id')->toArray() ?? [],
+                                                    );
+                                                @endphp
+                                                @foreach ($tags as $tag)
+                                                    <option value="{{ $tag->id }}"
+                                                        {{ in_array($tag->id, $selectedTags) ? 'selected' : '' }}>
+                                                        {{ $tag->tag_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('tag_id')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label text-muted">Attribute</label>
+                                            <select name="attribute_value_id" id="attributes" class="form-control select2"
+                                                required>
+                                                @foreach ($attributeValues as $attributeValue)
+                                                    <option value="{{ $attributeValue->id }}"
+                                                        {{ old('attribute_value_id', $product->attribute_value_id) == $attributeValue->id ? 'selected' : '' }}>
+                                                        {{ $attributeValue->value }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('attribute_value_id')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        
                                     </div>
                                 </div>
-
-                                {{-- Size / Tags / Attributes --}}
-                                <div class="row p-5 border-bottom">
-                                    <div class="col-md-4">
-                                        <label class="form-label text-muted">Size</label>
-                                        <select name="size_id[]" id="size_id" class="form-control select2" multiple
-                                            required>
-                                            @php
-                                                // Get all selected size IDs from the product's productSizes relation
-                                            $selectedSizes = old(
-                                                'size_id',
-                                                $product->productSizes->pluck('size_id')->toArray() ?? [],
-                                                );
-                                            @endphp
-
-                                            @foreach ($sizes as $size)
-                                                <option value="{{ $size->id }}"
-                                                    {{ in_array($size->id, $selectedSizes) ? 'selected' : '' }}>
-                                                    {{ $size->size_name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-
-                                    <div class="col-md-4">
-                                        <label class="form-label text-muted">Tags</label>
-                                        <select name="tag_id[]" id="tag_id" class="form-control select2" multiple
-                                            required>
-                                            @php
-                                            $selectedTags = old(
-                                                'tag_id',
-                                                $product->productTags->pluck('tag_id')->toArray() ?? [],
-                                                );
-                                            @endphp
-                                            @foreach ($tags as $tag)
-                                                <option value="{{ $tag->id }}"
-                                                    {{ in_array($tag->id, $selectedTags) ? 'selected' : '' }}>
-                                                    {{ $tag->tag_name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label class="form-label text-muted">Attribute</label>
-                                        <select name="attribute_value_id" id="attributes" class="form-control select2"
-                                            required>
-                                            @foreach ($attributeValues as $attributeValue)
-                                                <option value="{{ $attributeValue->id }}"
-                                                    {{ old('attribute_value_id', $product->attribute_value_id) == $attributeValue->id ? 'selected' : '' }}>
-                                                    {{ $attributeValue->value }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
                                 {{-- Description --}}
                                 <div class="row p-5 border-bottom">
                                     <div class="col-md-6">
@@ -204,7 +232,7 @@
                                                     <label>Image</label>
                                                     <input type="file" name="color_images[]"
                                                         class="form-control dropify"
-                                                        data-default-file="{{ asset('uploads/products/' . $colorImage->image) }}">
+                                                        data-default-file="{{ asset('uploads/images/products/colors' . $colorImage->color_images) }}">
                                                 </div>
                                                 <div class="col-md-2 mt-4">
                                                     <button type="button" class="btn btn-danger w-100 remove-row"><i
