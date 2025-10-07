@@ -125,22 +125,37 @@
                                         <label class="form-label text-muted">Size</label>
                                         <select name="size_id[]" id="size_id" class="form-control select2" multiple
                                             required>
+                                            @php
+                                                // Get all selected size IDs from the product's productSizes relation
+                                            $selectedSizes = old(
+                                                'size_id',
+                                                $product->productSizes->pluck('size_id')->toArray() ?? [],
+                                                );
+                                            @endphp
+
                                             @foreach ($sizes as $size)
                                                 <option value="{{ $size->id }}"
-                                                    {{ in_array($size->id, old('size_id', $product->productSizes->pluck('id')->toArray() ?? [])) ? 'selected' : '' }}>
+                                                    {{ in_array($size->id, $selectedSizes) ? 'selected' : '' }}>
                                                     {{ $size->size_name }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
 
+
                                     <div class="col-md-4">
                                         <label class="form-label text-muted">Tags</label>
                                         <select name="tag_id[]" id="tag_id" class="form-control select2" multiple
                                             required>
+                                            @php
+                                            $selectedTags = old(
+                                                'tag_id',
+                                                $product->productTags->pluck('tag_id')->toArray() ?? [],
+                                                );
+                                            @endphp
                                             @foreach ($tags as $tag)
                                                 <option value="{{ $tag->id }}"
-                                                    {{ in_array($tag->id, old('tag_id', $product->productTags->pluck('id')->toArray() ?? [])) ? 'selected' : '' }}>
+                                                    {{ in_array($tag->id, $selectedTags) ? 'selected' : '' }}>
                                                     {{ $tag->tag_name }}
                                                 </option>
                                             @endforeach
@@ -334,11 +349,11 @@
                 subCategoryDropdown.empty().append('<option value="empty" selected disabled>---</option>');
 
                 if (!categoryId || categoryId === 'empty') {
-                    return; 
+                    return;
                 }
 
                 $.ajax({
-                    url: "{{ route('product.get_subcategories_by_category') }}", 
+                    url: "{{ route('product.get_subcategories_by_category') }}",
                     data: {
                         category_id: categoryId
                     },
