@@ -436,7 +436,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4 mb-3">
+                                        {{-- <div class="col-md-4 mb-3">
                                             <div class="form-group">
                                                 <label for="selling_price" class="form-label text-muted">Selling Price:
                                                     <span class="text-danger">*</span></label>
@@ -447,6 +447,19 @@
                                                 @error('selling_price')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
+                                            </div>
+                                        </div> --}}
+
+                                        <div class="col-md-4 mb-3">
+                                            <div class="form-group">
+                                                <label for="selling_price"
+                                                    class="form-label text-muted d-flex justify-content-between align-items-center">
+                                                    <span>Selling Price: <span class="text-danger">*</span></span>
+                                                    <button type="button" id="round-toggle"
+                                                        class="btn btn-sm btn-outline-primary">Round to Integer</button>
+                                                </label>
+                                                <input id="selling_price" type="number" name="selling_price"
+                                                    class="form-control text-dark" readonly>
                                             </div>
                                         </div>
 
@@ -603,38 +616,79 @@
     </script>
 
     <script>
-        $(document).ready(function() {
+        document.addEventListener("DOMContentLoaded", () => {
+            const fields = ["stocks", "t_unit_price", "regular_price", "discount_type", "discount_amount", "tax"];
+            const purchaseInput = document.getElementById("purchase_price");
+            const sellingInput = document.getElementById("selling_price");
+            const roundBtn = document.getElementById("round-toggle");
+            const form = document.querySelector("form");
 
-            function calculatePrices() {
-                let stocks = parseFloat($('#stocks').val()) || 0;
-                let t_unit_price = parseFloat($('#t_unit_price').val()) || 0;
-                let regular_price = parseFloat($('#regular_price').val()) || 0;
-                let discount_type = $('#discount_type').val();
-                let discount_amount = parseFloat($('#discount_amount').val()) || 0;
-                let tax = parseFloat($('#tax').val()) || 0;
-                let purchase_price = 0;
-                if (stocks > 0 && t_unit_price > 0) {
-                    purchase_price = t_unit_price / stocks;
-                }
-                $('#purchase_price').val(purchase_price.toFixed(2));
+            // 🔁 Frontend live calculation (same logic as before)
+            const calculateLive = () => {
+                const stocks = parseFloat(document.getElementById("stocks").value) || 0;
+                const t_unit_price = parseFloat(document.getElementById("t_unit_price").value) || 0;
+                const regular_price = parseFloat(document.getElementById("regular_price").value) || 0;
+                const discount_type = document.getElementById("discount_type").value;
+                const discount_amount = parseFloat(document.getElementById("discount_amount").value) || 0;
+                const tax = parseFloat(document.getElementById("tax").value) || 0;
+
+                let purchase_price = (stocks > 0 && t_unit_price > 0) ? t_unit_price / stocks : 0;
+                purchaseInput.value = purchase_price.toFixed(2);
+
                 let discounted_price = regular_price;
-
-                if (discount_type === 'flat') {
-                    discounted_price = regular_price - discount_amount;
-                } else if (discount_type === 'percentage') {
-                    discounted_price = regular_price - (regular_price * (discount_amount / 100));
-                }
+                if (discount_type === "flat") discounted_price -= discount_amount;
+                if (discount_type === "percentage") discounted_price -= (regular_price * (discount_amount /
+                    100));
                 if (discounted_price < 0) discounted_price = 0;
+
                 let selling_price = discounted_price + (discounted_price * (tax / 100));
-                $('#selling_price').val(selling_price.toFixed(2));
-            }
-            $('#stocks, #t_unit_price, #regular_price, #discount_type, #discount_amount, #tax').on('input change',
-                function() {
-                    calculatePrices();
-                });
-            $('#selling_price').on('click', function() {
-                let val = parseFloat($(this).val()) || 0;
-                $(this).val(Math.round(val));
+                sellingInput.value = selling_price.toFixed(2);
+            };
+
+            // Attach events for live updates
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                el.addEventListener("input", calculateLive);
+                el.addEventListener("change", calculateLive);
+            });
+
+            // Round toggle
+            roundBtn.addEventListener("click", () => {
+                const val = parseFloat(sellingInput.value) || 0;
+                sellingInput.value = Math.round(val);
+            });
+
+            // ⚡ AJAX validation & recalculation before form submit
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch("{{ route('product.ajax_calculate_price') }}", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        },
+                        body: formData,
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Update UI with validated values
+                        purchaseInput.value = data.purchase_price;
+                        sellingInput.value = data.selling_price;
+
+                        // ✅ Optionally submit the real form after successful calculation
+                        form.submit();
+                    } else {
+                        alert("Calculation failed. Please check your input.");
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert("Something went wrong while validating prices.");
+                }
             });
         });
     </script>

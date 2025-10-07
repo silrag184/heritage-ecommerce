@@ -90,6 +90,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
         Route::get('/view', [ProductController::class, 'productView'])->name('view');
         Route::get('/get-subcategories-by-category', [ProductController::class, 'getSubcategoriesByCategory'])->name('get_subcategories_by_category');
+        Route::post('/ajax/calculate-price', [ProductController::class, 'calculatePrice'])->name('ajax_calculate_price');
+
         Route::get('/add', [ProductController::class, 'productAdd'])->name('add');
         Route::post('/store', [ProductController::class, 'productStore'])->name('store');
         Route::get('/edit/{id}', [ProductController::class, 'productEdit'])->name('edit');

@@ -290,4 +290,44 @@ class ProductController extends Controller
     {
         // Delete the product
     }
+
+
+
+    public function calculatePrice(Request $request)
+    {
+        $validated = $request->validate([
+            'stocks' => 'required|numeric|min:1',
+            't_unit_price' => 'required|numeric|min:0',
+            'regular_price' => 'required|numeric|min:0',
+            'discount_type' => 'nullable|in:flat,percentage',
+            'discount_amount' => 'nullable|numeric|min:0',
+            'tax' => 'nullable|numeric|min:0',
+        ]);
+
+        $stocks = $validated['stocks'];
+        $t_unit_price = $validated['t_unit_price'];
+        $regular_price = $validated['regular_price'];
+        $discount_type = $validated['discount_type'] ?? null;
+        $discount_amount = $validated['discount_amount'] ?? 0;
+        $tax = $validated['tax'] ?? 0;
+
+        // 🧮 Calculate
+        $purchase_price = $stocks > 0 ? $t_unit_price / $stocks : 0;
+
+        $discounted_price = $regular_price;
+        if ($discount_type === 'flat') {
+            $discounted_price -= $discount_amount;
+        } elseif ($discount_type === 'percentage') {
+            $discounted_price -= ($regular_price * $discount_amount / 100);
+        }
+        if ($discounted_price < 0) $discounted_price = 0;
+
+        $selling_price = $discounted_price + ($discounted_price * ($tax / 100));
+
+        return response()->json([
+            'purchase_price' => round($purchase_price, 2),
+            'discounted_price' => round($discounted_price, 2),
+            'selling_price' => round($selling_price, 2),
+        ]);
+    }
 }
