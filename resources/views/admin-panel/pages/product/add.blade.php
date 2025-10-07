@@ -237,7 +237,7 @@
 
                                         <!-- Colors & Images -->
                                         <div class="col-md-12 mb-4">
-                                            <label class="form-label text-muted">Product Colors & Images</label>
+                                            <label class="form-label text-muted">Product Colors With Images</label>
                                             <div id="colorImageContainer">
                                                 <div class="row align-items-center mb-2 color-image-row">
                                                     <div class="col-md-4">
