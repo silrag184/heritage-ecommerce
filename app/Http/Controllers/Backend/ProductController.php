@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ProductColorImage;
+use App\Models\ProductSizes;
+use App\Models\ProductTags;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -27,20 +29,18 @@ class ProductController extends Controller
 
     public function productAdd()
     {
-        $categories = Category::where('status',1)->get();
-        $subCategories = SubCategory::where('status',1)->get();
-        $brands = Brand::where('status',1)->get();
-        $units = Unit::where('status',1)->get();
-        $tags = Tag::where('status',1)->get();
-        $sizes = Size::where('status',1)->get();
+        $categories = Category::where('status', 1)->get();
+        $subCategories = SubCategory::where('status', 1)->get();
+        $brands = Brand::where('status', 1)->get();
+        $units = Unit::where('status', 1)->get();
+        $tags = Tag::where('status', 1)->get();
+        $sizes = Size::where('status', 1)->get();
 
-        return view('admin-panel.pages.product.add', compact('categories', 'subCategories','brands','units','tags', 'sizes'));
+        return view('admin-panel.pages.product.add', compact('categories', 'subCategories', 'brands', 'units', 'tags', 'sizes'));
     }
 
     public function productStore(Request $request)
     {
-
-
         dd($request->all());
         // ✅ Step 1: Validate incoming data
         $validated = $request->validate([
@@ -51,7 +51,10 @@ class ProductController extends Controller
             'description'      => 'nullable|string',
             'meta_title'       => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
-            'tags'             => 'nullable|string|max:255',
+            'tag_id'           => 'required|array',
+            'tag_id.*'         => 'integer|exists:tags,id',
+            'size_id'          => 'required|array',
+            'size_id.*'        => 'integer|exists:sizes,id',
             'status'           => 'required|boolean',
             'is_featured'      => 'required|boolean',
             'colors'           => 'nullable|array',
@@ -73,14 +76,31 @@ class ProductController extends Controller
                 'description'      => $validated['description'] ?? null,
                 'meta_title'       => $validated['meta_title'] ?? null,
                 'meta_description' => $validated['meta_description'] ?? null,
-                'tags'             => $validated['tags'] ?? null,
                 'status'           => $validated['status'],
                 'is_featured'      => $validated['is_featured'],
             ]);
 
-            // add Handle
+            // ✅ Step 4: Handle Tags
+            if (!empty($validated['tag_id'])) {
+                foreach ($validated['tag_id'] as $tagId) {
+                    ProductTags::create([
+                        'product_id' => $product->id,
+                        'tag_id'     => $tagId,
+                    ]);
+                }
+            }
 
-            // ✅ Step 4: Handle Color & Image Uploads
+            // ✅ Step 5: Handle Sizes
+            if (!empty($validated['size_id'])) {
+                foreach ($validated['size_id'] as $sizeId) {
+                    ProductSizes::create([
+                        'product_id' => $product->id,
+                        'size_id'    => $sizeId,
+                    ]);
+                }
+            }
+
+            // ✅ Step 6: Handle Color & Image Uploads
             if (!empty($validated['colors']) && $request->hasFile('color_images')) {
                 foreach ($validated['colors'] as $index => $colorCode) {
                     $colorImage = $request->file('color_images')[$index] ?? null;
