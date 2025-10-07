@@ -65,7 +65,6 @@
                                             </div>
                                         </div>
 
-
                                         <!-- sku -->
                                         <div class="col-sm-12 col-md-4 col-xl-4">
                                             <div class="form-group">
@@ -80,8 +79,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
                                     </div>
 
                                     <div class="row p-5 border-bottom">
