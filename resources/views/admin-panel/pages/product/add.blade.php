@@ -172,7 +172,7 @@
                                                 <select class="form-control select2 @error('size_id') is-invalid @enderror" id="size_id"
                                                     name="size_id[]" multiple data-placeholder="Choose Type..." required>
                                                     <option label="Choose one"></option>
-                                                    <option value="empty" selected disabled>---</option>
+                                                    <option value="empty" disabled>---</option>
                                                     @foreach($sizes as $size)
                                                         <option value="{{ $size->id }}">{{$size->size_name}}</option>
                                                     @endforeach
@@ -191,7 +191,7 @@
                                                 <select class="form-control select2 @error('tag_id') is-invalid @enderror" id="tag_id"
                                                     name="tag_id[]" multiple data-placeholder="Choose Type..." required>
                                                     <option label="Choose one"></option>
-                                                    <option value="empty" selected disabled>---</option>
+                                                    <option value="empty" disabled>---</option>
                                                     @foreach($tags as $tag)
                                                         <option value="{{ $tag->id }}">{{$tag->tag_name}}</option>
                                                     @endforeach
