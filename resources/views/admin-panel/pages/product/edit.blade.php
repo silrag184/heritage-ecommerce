@@ -140,7 +140,7 @@
                                             required>
                                             @foreach ($tags as $tag)
                                                 <option value="{{ $tag->id }}"
-                                                    {{ in_array($tag->id, old('tag_id', $product->tags->pluck('id')->toArray() ?? [])) ? 'selected' : '' }}>
+                                                    {{ in_array($tag->id, old('tag_id', $product->productTags->pluck('id')->toArray() ?? [])) ? 'selected' : '' }}>
                                                     {{ $tag->tag_name }}
                                                 </option>
                                             @endforeach
