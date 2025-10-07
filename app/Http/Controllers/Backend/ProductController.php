@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\Tag;
 use App\Models\Unit;
 use App\Models\Size;
+use App\Models\AttributeValue;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -33,8 +34,9 @@ class ProductController extends Controller
         $units = Unit::where('status',1)->get();
         $tags = Tag::where('status',1)->get();
         $sizes = Size::where('status',1)->get();
+        $attributeValues = AttributeValue::where('status',1)->get();
 
-        return view('admin-panel.pages.product.add', compact('categories', 'subCategories','brands','units','tags', 'sizes'));
+        return view('admin-panel.pages.product.add', compact('categories', 'subCategories','brands','units','tags', 'sizes', 'attributeValues'));
     }
 
     public function productStore(Request $request)
