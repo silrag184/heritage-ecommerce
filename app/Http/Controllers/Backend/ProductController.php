@@ -26,13 +26,13 @@ class ProductController extends Controller
 
     public function productAdd()
     {
-        $categores = Category::where('status',1)->get();
-        $subCategores = SubCategory::where('status',1)->get();
+        $categories = Category::where('status',1)->get();
+        $subCategories = SubCategory::where('status',1)->get();
         $brands = Brand::where('status',1)->get();
         $units = Unit::where('status',1)->get();
         $tags = Tag::where('status',1)->get();
 
-        return view('admin-panel.pages.product.add', compact('categores', 'subCategores','brands','units','tags'));
+        return view('admin-panel.pages.product.add', compact('categories', 'subCategories','brands','units','tags'));
     }
 
     public function productStore(Request $request)
