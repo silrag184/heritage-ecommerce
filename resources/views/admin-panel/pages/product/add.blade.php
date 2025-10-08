@@ -256,7 +256,7 @@
                                                         <label class="form-label">Image</label>
                                                         <input type="file" name="color_images[]"
                                                             class="dropify @error('color_images') is-invalid @enderror"
-                                                            accept="image/*" data-bs-height="100">
+                                                            accept="jpg,jpeg,png,webp,avif" data-bs-height="100">
                                                     </div>
                                                     <div class="col-md-2 mt-4">
                                                         <button type="button" class="btn btn-danger w-100 remove-row">
@@ -524,11 +524,11 @@
                 subCategoryDropdown.empty().append('<option value="empty" selected disabled>---</option>');
 
                 if (!categoryId || categoryId === 'empty') {
-                    return; 
+                    return;
                 }
 
                 $.ajax({
-                    url: "{{ route('product.get_subcategories_by_category') }}", 
+                    url: "{{ route('product.get_subcategories_by_category') }}",
                     data: {
                         category_id: categoryId
                     },
@@ -660,7 +660,7 @@
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Image</label>
-                    <input type="file" name="color_images[]" class="form-control dropify" accept="image/*" data-bs-height="100" >
+                    <input type="file" name="color_images[]" class="form-control dropify" accept="jpg,jpeg,png,webp,avif" data-bs-height="100" >
                 </div>
                 <div class="col-md-2 mt-4">
                     <button type="button" class="btn btn-danger w-100 remove-row"><i class="fe fe-trash-2"></i> Remove</button>
