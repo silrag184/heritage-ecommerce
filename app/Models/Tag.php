@@ -12,4 +12,10 @@ class Tag extends Model
         'description', 
         'status'
     ];
+
+    // Relationships
+    public function productTags()
+    {
+        return $this->belongsToMany(ProductTags::class, 'tag_id');
+    }
 }

@@ -13,4 +13,10 @@ class Size extends Model
         'description', 
         'status'
     ];
+
+    // Relationships
+    public function productSizes()
+    {
+        return $this->belongsToMany(ProductSizes::class, 'size_id');
+    }
 }

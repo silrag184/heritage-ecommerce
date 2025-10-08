@@ -6,25 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = [
-        'category_id',
-        'sub_category_id',
-        'brand_id',
-        'unit_id',
-        'product_name',
-        'slug',
-        'sku',
-        'price',
-        'discount_price',
-        'stock',
-        'short_description',
-        'long_description',
-        'status',
-        'is_featured',
-        'is_trending',
-        'is_new',
-        'hit_count',
-    ];
+    protected $guarded = [];
 
     // Relationships
     public function category()
@@ -42,7 +24,7 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public function unit()
+    public function units()
     {
         return $this->belongsTo(Unit::class);
     }
@@ -50,5 +32,25 @@ class Product extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'product_tag');
+    }
+
+    public function colorImages()
+    {
+        return $this->hasMany(ProductColorImage::class);
+    }
+
+    public function sizes()
+    {
+        return $this->belongsToMany(Size::class, 'product_size');
+    }
+
+    public function productSizes()
+    {
+        return $this->hasMany(ProductSizes::class);
+    }
+
+    public function productTags()
+    {
+        return $this->hasMany(ProductTags::class);
     }
 }
