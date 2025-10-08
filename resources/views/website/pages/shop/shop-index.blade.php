@@ -45,12 +45,12 @@ Shop
                 <div class="card-product-wrapper">
                     <a href="{{ url('product-detail/'.$product->slug) }}" class="product-img">
                         @if($product->colorImages->first())
-                        <img class="lazyload img-product" data-src="{{ asset('uploads/images/products/colors/'.$product->colorImages->first()->image) }}"
-                            src="{{ asset('uploads/images/products/'.$product->colorImages->first()->image) }}" alt="image-product">
+                        <img class="lazyload img-product" data-src="{{ asset('uploads/images/products/colors/'.$product->colorImages->first()->color_images) }}"
+                            src="{{ asset('uploads/images/products/colors/'.$product->colorImages->first()->image) }}" alt="image-product">
                         @endif
                         @if($product->colorImages->skip(1)->first())
-                        <img class="lazyload img-hover" data-src="{{ asset('uploads/images/products/colors/'.$product->colorImages->skip(1)->first()->image) }}"
-                            src="{{ asset('uploads/images/products/'.$product->colorImages->skip(1)->first()->image) }}" alt="image-product">
+                        <img class="lazyload img-hover" data-src="{{ asset('uploads/images/products/colors/'.$product->colorImages->skip(1)->first()->color_images) }}"
+                            src="{{ asset('uploads/images/products/colors/'.$product->colorImages->skip(1)->first()->image) }}" alt="image-product">
                         @endif
                     </a>
                     <div class="list-product-btn absolute-2">
@@ -80,7 +80,7 @@ Shop
                             @foreach($product->colorImages as $colorImage)
                             <li class="list-color-item color-swatch">
                                 <span class="tooltip">{{ $colorImage->color_name ?? 'Color' }}</span>
-                                <span class="swatch-value" style="background-image: url('{{ asset('uploads/images/products/'.$colorImage->image) }}');"></span>
+                                <span class="swatch-value" style="background-image: url('{{ asset('uploads/images/products/colors/'.$colorImage->color_images) }}');"></span>
                             </li>
                             @endforeach
                         </ul>
