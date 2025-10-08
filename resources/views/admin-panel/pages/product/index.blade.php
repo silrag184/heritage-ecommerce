@@ -73,7 +73,7 @@ Manage Products
                                                         @if($product->colorImages->count() > 0)
                                                             <img src="{{ asset($product->colorImages->first()->image_path) }}" alt="Product Image" style="width: 50px; height: 50px;">
                                                         @else
-                                                            <img src="" alt="No Image" style="width: 50px; height: 50px;">
+                                                            <img src="https://placehold.co/600x400" alt="No Image" style="width: 50px; height: 50px;">
                                                         @endif
                                                     </td>
                                                     <td>{{ Str::limit($product->short_description, 50) }}</td>
@@ -86,11 +86,13 @@ Manage Products
                                                     </td>
                                                     <td>{{ $product->created_at->format('d M Y') }}</td>
                                                     <td>
-                                                        <a href="{{ route('product.edit', $product->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                                        <a href="{{ route('product.edit', $product->id) }}" class="btn btn-sm btn-outline-warning"><i class="fa fa-edit"></i></a>
                                                         <form action="{{ route('product.delete', $product->id) }}" method="POST" style="display: inline;">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this Data?')">Delete</button>
+                                                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this portfolio?')">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
                                                         </form>
                                                     </td>
                                                 </tr>

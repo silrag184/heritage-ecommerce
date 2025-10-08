@@ -60,6 +60,7 @@ class ProductController extends Controller
         try {
             // ✅ Step 1: Validate all inputs
             $validated = $request->validate([
+            
                 'product_name'        => 'required|string|max:255',
                 'slug'                => 'nullable|string|max:255|unique:products,slug',
                 'sku'                 => 'nullable|string|max:255|unique:products,sku',
