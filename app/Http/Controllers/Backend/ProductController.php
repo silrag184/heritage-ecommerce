@@ -23,9 +23,8 @@ class ProductController extends Controller
 {
     public function productView()
     {
-        // Fetch all products from the database
-        //to see index.blade.php
-        $products = Product::all();
+        // Fetch all products from the database with color images
+        $products = Product::with('colorImages')->get();
         return view('admin-panel.pages.product.index', compact('products'));
     }
 

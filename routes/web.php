@@ -96,7 +96,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
         Route::post('/store', [ProductController::class, 'productStore'])->name('store');
         Route::get('/edit/{id}', [ProductController::class, 'productEdit'])->name('edit');
         Route::put('/update/{id}', [ProductController::class, 'productUpdate'])->name('update');
-        Route::get('/delete/{id}', [ProductController::class, 'productDelete'])->name('delete');
+        Route::delete('/delete/{id}', [ProductController::class, 'productDelete'])->name('delete');
     });
 
     //other backend routes can be added here in the future

@@ -61,16 +61,20 @@ Manage Products
                                         </thead>
                                         <tbody>
                                             @foreach ($products as $product)
-                                            
+
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>*</td>
-                                                    <td>*</td>
-                                                    <td>*</td>
-                                                    <td>*</td>
-                                                    <td>*</td>
+                                                    <td>{{ $product->product_name }}</td>
+                                                    <td>{{ $product->sku }}</td>
+                                                    <td>{{ $product->slug }}</td>
+                                                    <td>{{ $product->selling_price }}</td>
+                                                    <td>{{ $product->stocks }}</td>
                                                     <td>
-                                                        <img src="{{ asset($product->image) }}" alt="Product Image" style="width: 50px; height: 50px;">
+                                                        @if($product->colorImages->count() > 0)
+                                                            <img src="{{ asset($product->colorImages->first()->image_path) }}" alt="Product Image" style="width: 50px; height: 50px;">
+                                                        @else
+                                                            <img src="" alt="No Image" style="width: 50px; height: 50px;">
+                                                        @endif
                                                     </td>
                                                     <td>{{ Str::limit($product->short_description, 50) }}</td>
                                                     <td>
@@ -83,7 +87,7 @@ Manage Products
                                                     <td>{{ $product->created_at->format('d M Y') }}</td>
                                                     <td>
                                                         <a href="{{ route('product.edit', $product->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                                        <form action="{{ route('product.delete', $product->id) }}" method="GET" style="display: inline;">
+                                                        <form action="{{ route('product.delete', $product->id) }}" method="POST" style="display: inline;">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this Data?')">Delete</button>
@@ -101,6 +105,6 @@ Manage Products
                 </div>
 
             </div>
-        </dibv>
+        </div>
     </div>
 @endsection
