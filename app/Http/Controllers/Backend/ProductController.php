@@ -56,7 +56,6 @@ class ProductController extends Controller
 
     public function productStore(Request $request)
     {
-        // dd($request->all());
         try {
             // ✅ Step 1: Validate all inputs
             $validated = $request->validate([
@@ -92,6 +91,8 @@ class ProductController extends Controller
                 'status'              => 'required|boolean',
                 'is_featured'         => 'nullable|boolean',
             ]);
+
+            DB::beginTransaction();
 
             // ✅ Step 3: Create Product
             $product = Product::create([
@@ -156,9 +157,11 @@ class ProductController extends Controller
                 }
             }
 
+            DB::commit();
             // ✅ Step 7: Redirect with success message
             return redirect()->route('product.view')->with('success', 'Product added successfully!');
         } catch (ValidationException  $e) {
+            DB::rollBack();
             // ✅ Handle unexpected errors
             return back()->with('error', 'Something went wrong: ' . $e->getMessage())->withInput();
         }
