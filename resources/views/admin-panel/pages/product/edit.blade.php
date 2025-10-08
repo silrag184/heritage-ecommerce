@@ -225,14 +225,14 @@
                                                 <div class="col-md-4">
                                                     <label>Color</label>
                                                     <input type="color" name="colors[]"
-                                                        value="{{ $colorImage->color }}"
+                                                        value="{{ $colorImage->color_code }}"
                                                         class="form-control form-control-color">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label>Image</label>
                                                     <input type="file" name="color_images[]"
                                                         class="form-control dropify"
-                                                        data-default-file="{{ asset('uploads/images/products/colors' . $colorImage->color_images) }}">
+                                                        value="{{ asset($colorImage->image_path) }}" data-default-file="{{ asset($colorImage->image_path) }}">
                                                 </div>
                                                 <div class="col-md-2 mt-4">
                                                     <button type="button" class="btn btn-danger w-100 remove-row"><i
@@ -261,53 +261,157 @@
                                     </div>
                                 </div>
 
-                                {{-- Price & Stock --}}
                                 <div class="row p-5 border-bottom">
-                                    <div class="col-md-4">
-                                        <label>Stocks</label>
-                                        <input type="number" id="stocks" name="stocks"
-                                            value="{{ old('stocks', $product->stocks) }}" class="form-control">
+                                    <label class="form-label text-muted">Product Price</label>
+                                    <!-- Stocks -->
+                                    <div class="col-sm-12 col-md-4 col-xl-4">
+                                        <div class="form-group">
+                                            <label for="stocks" class="form-label text-muted">Stocks: <span
+                                                    class="text-danger">*</span></label>
+                                            <input id="stocks" type="number"
+                                                class="form-control text-dark @error('stocks') is-invalid @enderror"
+                                                name="stocks" value="{{ old('stocks', $product->stocks) }}"
+                                                placeholder="Enter Stocks" required>
+                                            @error('stocks')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <label>Total Unit Price</label>
-                                        <input type="number" id="t_unit_price" name="t_unit_price"
-                                            value="{{ old('t_unit_price', $product->t_unit_price) }}"
-                                            class="form-control">
+
+                                    <!-- Unit -->
+                                    <div class="col-sm-12 col-md-4 col-xl-4">
+                                        <div class="form-group">
+                                            <label for="" class="form-label text-muted">Unit: <span
+                                                    class="text-danger">*</span></label>
+                                            <select
+                                                class="form-control select2 @error('unit_id') is-invalid @enderror"
+                                                id="unit_id" name="unit_id" data-placeholder="Choose Type..."
+                                                required>
+                                                <option label="Choose one"></option>
+                                                @foreach ($units as $unit)
+                                                    <option value="{{ $unit->id }}"
+                                                        {{ old('unit_id', $product->unit_id) == $unit->id ? 'selected' : '' }}>
+                                                        {{ $unit->unit_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('unit_id')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <label>Regular Price</label>
-                                        <input type="number" id="regular_price" name="regular_price"
-                                            value="{{ old('regular_price', $product->regular_price) }}"
-                                            class="form-control">
+
+                                    <!-- Unit Price -->
+                                    <div class="col-sm-12 col-md-4 col-xl-4">
+                                        <div class="form-group">
+                                            <label for="t_unit_price" class="form-label text-muted">Total Unit Price:
+                                                <span class="text-danger">*</span></label>
+                                            <input id="t_unit_price" type="number"
+                                                class="form-control text-dark @error('t_unit_price') is-invalid @enderror"
+                                                name="t_unit_price" value="{{ old('t_unit_price', $product->t_unit_price) }}"
+                                                placeholder="Enter Total Unit Price" required>
+                                            @error('t_unit_price')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
+
+                                    <!-- Price Section -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="form-group">
+                                            <label for="purchase_price" class="form-label text-muted">Purchase Price:
+                                                (Per Item) <span class="text-danger">*</span></label>
+                                            <input id="purchase_price" type="number"
+                                                class="form-control text-dark @error('purchase_price') is-invalid @enderror"
+                                                name="purchase_price" value="{{ old('purchase_price', $product->purchase_price) }}"
+                                                placeholder="Enter Purchase Price" readonly>
+                                            @error('purchase_price')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 mb-3">
+                                        <div class="form-group">
+                                            <label for="regular_price" class="form-label text-muted">Regular Price:
+                                                <span class="text-danger">*</span></label>
+                                            <input id="regular_price" type="number"
+                                                class="form-control text-dark @error('regular_price') is-invalid @enderror"
+                                                name="regular_price" value="{{ old('regular_price', $product->regular_price) }}"
+                                                placeholder="Enter Regular Price" required>
+                                            @error('regular_price')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
+
+                                    <!--Discount Type -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="form-group">
+                                            <label for="discount_type" class="form-label text-muted">Discount
+                                                Type:</label>
+                                            <select id="discount_type" name="discount_type"
+                                                class="form-control @error('discount_type') is-invalid @enderror">
+                                                <option value="" selected disabled>-- Select Type --</option>
+                                                <option value="flat"
+                                                    {{ old('discount_type', $product->discount_type) == 'flat' ? 'selected' : '' }}>Flat
+                                                </option>
+                                                <option value="percentage"
+                                                    {{ old('discount_type', $product->discount_type) == 'percentage' ? 'selected' : '' }}>
+                                                    Percentage</option>
+                                            </select>
+                                            @error('discount_type')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <!-- Discount Amount -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="form-group">
+                                            <label for="discount_amoun" class="form-label text-muted">Discount
+                                                Amount:</label>
+                                            <input id="discount_amount" type="number"
+                                                class="form-control text-dark @error('discount_amount') is-invalid @enderror"
+                                                name="discount_amount" value="{{ old('discount_amount', $product->discount_amount) }}"
+                                                placeholder="Enter Discount Amount">
+                                            @error('discount_amount')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 mb-3">
+                                        <div class="form-group ">
+                                            <label for="tax" class="form-label text-muted">Tax (%): <span
+                                                    class="text-danger">*</span></label>
+                                            <input id="tax" type="number"
+                                                class="form-control text-dark @error('tax') is-invalid @enderror"
+                                                name="tax" value="{{ old('tax', $product->tax) }}" placeholder="Enter Tax"
+                                                required>
+                                            @error('tax')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 mb-3">
+                                        <div class="form-group">
+                                            <label for="selling_price"
+                                                class="form-label text-muted d-flex justify-content-between align-items-center">
+                                                <span>Selling Price: <span class="text-danger">*</span></span>
+                                                <button type="button" id="round-toggle"
+                                                    class="btn btn-sm btn-outline-primary">Round to Integer</button>
+                                            </label>
+                                            <input id="selling_price" type="number" name="selling_price" value="{{ $product->selling_price }}"
+                                                class="form-control text-dark" readonly>
+                                        </div>
+                                    </div>
+
                                 </div>
 
-                                {{-- Discount / Tax / Selling --}}
-                                <div class="row p-5 border-bottom">
-                                    <div class="col-md-4">
-                                        <label>Discount Type</label>
-                                        <select name="discount_type" id="discount_type" class="form-control">
-                                            <option disabled>--Select--</option>
-                                            <option value="flat"
-                                                {{ old('discount_type', $product->discount_type) == 'flat' ? 'selected' : '' }}>
-                                                Flat</option>
-                                            <option value="percentage"
-                                                {{ old('discount_type', $product->discount_type) == 'percentage' ? 'selected' : '' }}>
-                                                Percentage</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Discount Amount</label>
-                                        <input type="number" name="discount_amount" id="discount_amount"
-                                            value="{{ old('discount_amount', $product->discount_amount) }}"
-                                            class="form-control">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Tax (%)</label>
-                                        <input type="number" name="tax" id="tax"
-                                            value="{{ old('tax', $product->tax) }}" class="form-control">
-                                    </div>
-                                </div>
 
                                 {{-- Meta --}}
                                 <div class="row p-5 border-bottom">

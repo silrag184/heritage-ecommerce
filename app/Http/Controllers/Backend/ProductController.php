@@ -184,6 +184,8 @@ class ProductController extends Controller
     public function productUpdate(Request $request, $id)
     {
         try {
+
+            dd($request->all());
             // ✅ Step 1: Validate all inputs
             $validated = $request->validate([
                 'product_name'        => 'required|string|max:255',
