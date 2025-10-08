@@ -29,7 +29,7 @@ This is a modern e-commerce web application built using the Laravel framework. T
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/silrag184/heritage-ecommerce.git
    cd heritage
    ```
 
