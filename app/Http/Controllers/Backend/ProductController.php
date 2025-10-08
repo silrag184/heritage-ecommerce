@@ -297,38 +297,30 @@ class ProductController extends Controller
     public function productDelete($id)
     {
         try {
-            // 🔹 1. Find the product
             $product = Product::findOrFail($id);
 
-            // 🔹 2. Delete related color images and their files
             if ($product->colorImages && $product->colorImages->count() > 0) {
                 foreach ($product->colorImages as $colorImage) {
                     $imagePath = public_path($colorImage->image_path);
                     if (file_exists($imagePath)) {
-                        @unlink($imagePath); // delete file if exists
+                        @unlink($imagePath);
                     }
-                    $colorImage->delete(); // remove record from DB
+                    $colorImage->delete();
                 }
             }
 
-            // 🔹 3. Delete related sizes
             if ($product->productSizes && $product->productSizes->count() > 0) {
                 foreach ($product->productSizes as $size) {
                     $size->delete();
                 }
             }
 
-            // 🔹 4. Delete related tags
             if ($product->productTags && $product->productTags->count() > 0) {
                 foreach ($product->productTags as $tag) {
                     $tag->delete();
                 }
             }
-
-            // 🔹 5. Finally delete the product itself
             $product->delete();
-
-            // 🔹 6. Redirect back with success message
             return redirect()->back()->with('success', 'Product deleted successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong while deleting: ' . $e->getMessage());
