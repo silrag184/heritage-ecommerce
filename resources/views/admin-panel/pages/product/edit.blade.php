@@ -695,33 +695,79 @@ $selectedSizes = old(
 
     <!-- Dynamic Color & Image Rows -->
     <script>
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.add-more-row')) {
-                const container = document.getElementById('colorImageContainer');
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('colorImageContainer');
+
+            // ✅ Function to create a new color-image row
+            function createColorImageRow() {
                 const newRow = document.createElement('div');
                 newRow.classList.add('row', 'align-items-center', 'mb-2', 'color-image-row');
                 newRow.innerHTML = `
-                <div class="col-md-4">
-                    <label class="form-label">Color</label>
-                    <input type="color" class="form-control form-control-color" name="colors[]" value="#000000">
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Image</label>
-                    <input type="file" name="color_images[]" class="form-control dropify" accept="image/*" data-bs-height="100" >
-                </div>
-                <div class="col-md-2 mt-4">
-                    <button type="button" class="btn btn-danger w-100 remove-row"><i class="fe fe-trash-2"></i> Remove</button>
-                </div>
-                <div class="col-md-2 mt-4">
-                    <button type="button" class="btn btn-success w-100 add-more-row"><i class="fe fe-plus"></i> Add More</button>
-                </div>
-            `;
-                container.appendChild(newRow);
+            <div class="col-md-4">
+                <label class="form-label">Color</label>
+                <input type="color" name="colors[]" value="#000000" class="form-control form-control-color">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Image</label>
+                <input type="file" name="color_images[]" class="form-control dropify" accept="image/*" data-bs-height="100">
+            </div>
+            <div class="col-md-2 mt-4">
+                <button type="button" class="btn btn-danger w-100 remove-row">
+                    <i class="fe fe-trash-2"></i> Remove
+                </button>
+            </div>
+            <div class="col-md-2 mt-4">
+                <button type="button" class="btn btn-success w-100 add-more-row">
+                    <i class="fe fe-plus"></i> Add More
+                </button>
+            </div>
+        `;
+                return newRow;
             }
 
-            if (e.target.closest('.remove-row')) {
-                e.target.closest('.color-image-row').remove();
-            }
+            // ✅ Handle click events
+            document.addEventListener('click', function(e) {
+                const addBtn = e.target.closest('.add-more-row');
+                const removeBtn = e.target.closest('.remove-row');
+
+                // ➕ Add more row
+                if (addBtn) {
+                    e.preventDefault();
+
+                    // Remove all "Add More" buttons from previous rows
+                    container.querySelectorAll('.add-more-row').forEach(btn => btn.remove());
+
+                    // Append new row
+                    const newRow = createColorImageRow();
+                    container.appendChild(newRow);
+
+                    // Reinitialize Dropify for the new file input
+                    if ($('.dropify').length && typeof $.fn.dropify === 'function') {
+                        $('.dropify').dropify();
+                    }
+                }
+
+                // ❌ Remove row
+                if (removeBtn) {
+                    e.preventDefault();
+                    const row = removeBtn.closest('.color-image-row');
+                    row.remove();
+
+                    // If there are no "Add More" buttons left, add one to the last row
+                    const allRows = container.querySelectorAll('.color-image-row');
+                    if (allRows.length > 0 && !container.querySelector('.add-more-row')) {
+                        const lastRow = allRows[allRows.length - 1];
+                        const addBtnHtml = `
+                    <div class="col-md-2 mt-4">
+                        <button type="button" class="btn btn-success w-100 add-more-row">
+                            <i class="fe fe-plus"></i> Add More
+                        </button>
+                    </div>`;
+                        lastRow.insertAdjacentHTML('beforeend', addBtnHtml);
+                    }
+                }
+            });
         });
     </script>
+
 @endsection
