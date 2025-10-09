@@ -226,14 +226,14 @@ $selectedSizes = old(
                                                 <div class="col-md-4">
                                                     <label>Color</label>
                                                     <input type="color" name="colors[]"
-                                                        value="{{ $colorImage->color }}"
+                                                        value="{{ $colorImage->color_code }}"
                                                         class="form-control form-control-color">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label>Image</label>
                                                     <input type="file" name="color_images[]"
                                                         class="form-control dropify"
-                                                        data-default-file="{{ asset('uploads/images/products/colors' . $colorImage->color_images) }}">
+                                                        value="{{ asset($colorImage->image_path) }}" data-default-file="{{ asset($colorImage->image_path) }}">
                                                 </div>
                                                 <div class="col-md-2 mt-4">
                                                     <button type="button" class="btn btn-danger w-100 remove-row"><i

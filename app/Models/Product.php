@@ -24,7 +24,7 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public function unit()
+    public function units()
     {
         return $this->belongsTo(Unit::class);
     }
