@@ -37,6 +37,18 @@ class WebsiteController extends Controller
         return view('website.pages.shop.shop-index', compact('products'));
     }
 
+    public function shopDetails($slug){
+        $product = Product::with(['category', 'subCategory', 'brand', 'colorImages', 'sizes', 'tags'])->where('slug', $slug)->where('status', 1)->firstOrFail();
+        
+        $colorName = null;
+        if ($product->colorImages->isNotEmpty()) {
+            $firstColorCode = $product->colorImages->first()->color_code;
+            $colorName = getColorName($firstColorCode);
+        }
+        
+        return view('website.pages.shop.shop-details', compact('product', 'colorName'));
+    }
+
     public function aboutUs(){
         return view('website.pages.about.about-index');
     }

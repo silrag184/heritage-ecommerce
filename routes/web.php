@@ -18,6 +18,7 @@ use App\Http\Controllers\Backend\ProductController;
 //frontend routes
 Route::get('/',[WebsiteController::class,'index'])->name('home');
 Route::get('/shop-section',[WebsiteController::class,'shopSection'])->name('shop.section');
+Route::get('/shop-section-details/{slug}',[WebsiteController::class,'shopDetails'])->name('shop.details');
 Route::get('/about-us',[WebsiteController::class,'aboutUs'])->name('about.us');
 Route::get('/contact-us',[WebsiteController::class,'contactUs'])->name('contact.us');
 

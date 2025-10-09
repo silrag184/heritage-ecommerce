@@ -552,7 +552,7 @@
   -------------------------------------------------------------------------*/
   var totalPriceVariant = function () {
 
-    var basePrice = parseFloat($(".price-on-sale").data("base-price")) || parseFloat($(".price-on-sale").text().replace("$", ""));
+    var basePrice = parseFloat($(".price-on-sale").data("base-price")) || parseFloat($(".price-on-sale").text().replace("৳", ""));
     var quantityInput = $(".quantity-product");
     // quantityInput.on("keydown keypress input", function(event) {
     //   event.preventDefault();
@@ -560,9 +560,9 @@
     $(".color-btn, .size-btn").on("click", function () {
       var newPrice = parseFloat($(this).data("price")) || basePrice;
       quantityInput.val(1);
-      $(".price-on-sale").text("$" + newPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+      $(".price-on-sale").text("৳" + newPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
       var totalPrice = newPrice;
-      $(".total-price").text("$" + totalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+      $(".total-price").text("৳" + totalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     });
 
     $(".btn-increase").on("click", function () {
@@ -580,10 +580,10 @@
     });
 
     function updateTotalPrice() {
-      var currentPrice = parseFloat($(".price-on-sale").text().replace("$", ""));
+      var currentPrice = parseFloat($(".price-on-sale").text().replace("৳", ""));
       var quantity = parseInt(quantityInput.val());
       var totalPrice = currentPrice * quantity;
-      $(".total-price").text("$" + totalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+      $(".total-price").text("৳" + totalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     }
 
   };

@@ -2,7 +2,7 @@
     @foreach ($products as $product)
     <div class="card-product list-layout" data-availability="{{ $product->stocks > 0 ? 'In stock' : 'Out of stock' }}" data-brand="{{ $product->brand->name ?? '' }}">
         <div class="card-product-wrapper">
-            <a href="{{ url('product-detail/'.$product->slug) }}" class="product-img">
+            <a href="{{ url('shop-section-details/'.$product->slug) }}" class="product-img">
                 @php
                     $defaultImage = $product->colorImages->first() ? asset($product->colorImages->first()->image_path) : asset('website/assets/images/products/default.jpg');
                     $hoverImage = $product->colorImages->count() > 1 ? asset($product->colorImages->skip(1)->first()->image_path) : $defaultImage;
@@ -14,7 +14,7 @@
             </a>
         </div>
         <div class="card-product-info">
-            <a href="{{ url('product-detail/'.$product->slug) }}" class="title link">{{ $product->product_name }}</a>
+            <a href="{{ url('shop-section-details/'.$product->slug) }}" class="title link">{{ $product->product_name }}</a>
             <span class="price current-price">&#2547;{{ number_format($product->selling_price ?? $product->regular_price, 2) }}</span>
             <p class="description">{{ $product->short_description ?? '' }}</p>
             @if ($product->colorImages && $product->colorImages->count() > 0)
@@ -58,7 +58,8 @@
     @foreach ($products as $product)
     <div class="card-product grid" data-availability="{{ $product->stocks > 0 ? 'In stock' : 'Out of stock' }}" data-brand="{{ $product->brand->name ?? '' }}">
         <div class="card-product-wrapper">
-            <a href="{{ url('product-detail/'.$product->slug) }}" class="product-img">
+            {{-- <a href="{{ url('shop-detail/'.$product->slug) }}" class="product-img"> --}}
+            <a href="{{ url('shop-section-details/'.$product->slug) }}" class="product-img">
                 @php
                     $defaultImage = $product->colorImages->first() ? asset($product->colorImages->first()->image_path) : asset('website/assets/images/products/default.jpg');
                     $hoverImage = $product->colorImages->count() > 1 ? asset($product->colorImages->skip(1)->first()->image_path) : $defaultImage;
@@ -93,7 +94,7 @@
             </div>
         </div>
         <div class="card-product-info">
-            <a href="{{ url('product-detail/'.$product->slug) }}" class="title link">{{ $product->product_name }}</a>
+            <a href="{{ url('shop-section-details/'.$product->slug) }}" class="title link">{{ $product->product_name }}</a>
             <span class="price current-price">&#2547;{{ number_format($product->selling_price ?? $product->regular_price, 2) }}</span>
             @if ($product->colorImages && $product->colorImages->count() > 0)
             <ul class="list-color-product">
