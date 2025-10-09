@@ -233,7 +233,8 @@ $selectedSizes = old(
                                                     <label>Image</label>
                                                     <input type="file" name="color_images[]"
                                                         class="form-control dropify"
-                                                        value="{{ asset($colorImage->image_path) }}" data-default-file="{{ asset($colorImage->image_path) }}">
+                                                        value="{{ asset($colorImage->image_path) }}"
+                                                        data-default-file="{{ asset($colorImage->image_path) }}">
                                                 </div>
                                                 <div class="col-md-2 mt-4">
                                                     <button type="button" class="btn btn-danger w-100 remove-row"><i
@@ -642,6 +643,7 @@ $selectedSizes = old(
                 sellingInput.value = Math.round(val);
             });
 
+            //  AJAX before form submit
             form.addEventListener("submit", async (e) => {
                 e.preventDefault();
 
@@ -656,6 +658,7 @@ $selectedSizes = old(
                         body: formData,
                     });
 
+                    // Check if JSON is valid
                     const data = await response.json();
 
                     if (response.ok) {
@@ -674,6 +677,7 @@ $selectedSizes = old(
             });
         });
     </script>
+
 
 
 
