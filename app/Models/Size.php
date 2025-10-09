@@ -19,4 +19,5 @@ class Size extends Model
     {
         return $this->belongsToMany(ProductSizes::class, 'size_id');
     }
+
 }
