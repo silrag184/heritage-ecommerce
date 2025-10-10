@@ -859,8 +859,7 @@ $(document).ready(function() {
     });
 });
 </script> --}}
-
-
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script>
     // console.log("Shop details script loaded!");
 
@@ -968,10 +967,10 @@ $(document).ready(function() {
                     cartBody.append(`
                         <div class="tf-mini-cart-item d-flex">
                             <div class="image">
-                                <img src="/${item.image_path}" alt="${item.product_name}">
+                                <a href="/shop-section-details/${item.product_slug}"><img src="${item.image_path}" alt="${item.product_name}"></a>
                             </div>
                             <div class="content">
-                                <div class="cart-title"><a href="#">${item.product_name}</a></div>
+                                <div class="cart-title"><a href="/shop-section-details/${item.product_slug}">${item.product_name}</a></div>
                                 <div class="variant">${item.color_name} / ${item.size_name}</div>
                                 <div class="count-price d-flex align-items-center justify-content-between">
                                     <div class="quantity">
@@ -981,7 +980,7 @@ $(document).ready(function() {
                                     </div>
                                     <div class="price"> &#2547;${item.selling_price}</div>
                                 </div>
-                                <div class="remove"><a href="#" class="remove-cart-item" data-key="${item.product_id}-${item.color_id}-${item.size_id}"><i class="icon icon-delete"></i></a></div>
+                                <div class="remove"><a href="#" class="remove-cart-item" data-key="${item.rowId}"><i class="icon icon-delete"></i></a></div>
                             </div>
                         </div>
                     `);
@@ -995,14 +994,14 @@ $(document).ready(function() {
 
     // --- Remove item ---
     $(document).on('click', '.remove-cart-item', function() {
-        let key = $(this).data('key');
+        let rowId = $(this).data('key');
 
         $.ajax({
             url: '{{ route("cart.remove") }}',
             method: 'POST',
             data: {
                 _token: '{{ csrf_token() }}',
-                cart_key: key
+                rowId: rowId
             },
             success: function(response) {
                 if (response.success) {
@@ -1018,8 +1017,8 @@ $(document).ready(function() {
         let input = $(this).siblings('.quantity-input');
         let newQty = parseInt(input.val()) + 1;
         input.val(newQty);
-        let key = $(this).closest('.tf-mini-cart-item').find('.remove-cart-item').data('key');
-        updateQuantity(key, newQty);
+        let rowId = $(this).closest('.tf-mini-cart-item').find('.remove-cart-item').data('key');
+        updateQuantity(rowId, newQty);
     });
 
     $(document).on('click', '.btn-decrease', function() {
@@ -1027,15 +1026,15 @@ $(document).ready(function() {
         let newQty = parseInt(input.val()) - 1;
         if (newQty < 1) return;
         input.val(newQty);
-        let key = $(this).closest('.tf-mini-cart-item').find('.remove-cart-item').data('key');
-        updateQuantity(key, newQty);
+        let rowId = $(this).closest('.tf-mini-cart-item').find('.remove-cart-item').data('key');
+        updateQuantity(rowId, newQty);
     });
 
-    function updateQuantity(key, qty) {
+    function updateQuantity(rowId, qty) {
         $.ajax({
             url: '{{ route("cart.update") }}',
             method: 'POST',
-            data: { _token: '{{ csrf_token() }}', cart_key: key, quantity: qty },
+            data: { _token: '{{ csrf_token() }}', rowId: rowId, quantity: qty },
             success: function(response) {
                 if (response.success) {
                     updateCartUI();

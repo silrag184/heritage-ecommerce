@@ -539,6 +539,48 @@
     <!-- /toolbarShopmb -->
 
     <!-- modal login -->
+    {{-- <div class="modal modalCentered fade form-sign-in modal-part-content" id="login">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="header">
+                    <div class="demo-title">Log in</div>
+                    <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
+                </div>
+                <div class="tf-login-form">
+                    <form class="" action="https://themesflat.co/html/ecomus/my-account.html" accept-charset="utf-8">
+                        <div class="tf-field style-1">
+                            <input class="tf-field-input tf-input" placeholder=" " type="email" name="">
+                            <label class="tf-field-label" for="">Email *</label>
+                        </div>
+                        <div class="tf-field style-1">
+                            <input class="tf-field-input tf-input" placeholder=" " type="password" name="">
+                            <label class="tf-field-label" for="">Password *</label>
+                        </div>
+                        <div>
+                            <a href="#forgotPassword" data-bs-toggle="modal" class="btn-link link">Forgot your
+                                password?</a>
+                        </div>
+                        <div>
+                            <button type="submit"
+                                class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Login</span></button>
+                        </div>
+                        <div class="bottom">
+                            <div class="w-100">
+                                <button type="submit"
+                                    class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Continue as Guest</span></button>
+                            </div>
+                            <div class="w-100">
+                                <a href="#register" data-bs-toggle="modal" class="btn-link fw-6 w-100 link">
+                                    New customer? Create your account
+                                    <i class="icon icon-arrow1-top-left"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> --}}
     <div class="modal modalCentered fade form-sign-in modal-part-content" id="login">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -560,11 +602,30 @@
                             <a href="#forgotPassword" data-bs-toggle="modal" class="btn-link link">Forgot your
                                 password?</a>
                         </div>
+                        <div>
+                            <button type="submit"
+                                class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Login</span></button>
+                        </div>
+                        
+                        <!-- Google Sign In Button -->
+                        <div class="mt-3">
+                            <button type="button"
+                                class="tf-btn btn-outline-secondary animate-hover-btn radius-3 w-100 justify-content-center d-flex align-items-center gap-2"
+                                style="background-color: #fff; border: 1px solid #dadce0; color: #3c4043;">
+                                <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                                </svg>
+                                <span>Continue with Google</span>
+                            </button>
+                        </div>
+                        
                         <div class="bottom">
                             <div class="w-100">
                                 <button type="submit"
-                                    class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Log
-                                        in</span></button>
+                                    class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Continue as Guest</span></button>
                             </div>
                             <div class="w-100">
                                 <a href="#register" data-bs-toggle="modal" class="btn-link fw-6 w-100 link">
@@ -578,6 +639,7 @@
             </div>
         </div>
     </div>
+    <!--forget password section-->
     <div class="modal modalCentered fade form-sign-in modal-part-content" id="forgotPassword">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -610,6 +672,8 @@
             </div>
         </div>
     </div>
+
+    <!--Register Section-->
     <div class="modal modalCentered fade form-sign-in modal-part-content" id="register">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -626,6 +690,10 @@
                         <div class="tf-field style-1">
                             <input class="tf-field-input tf-input" placeholder=" " type="text" name="">
                             <label class="tf-field-label" for="">Last name</label>
+                        </div>
+                        <div class="tf-field style-1">
+                            <input class="tf-field-input tf-input" placeholder=" " type="number" name="">
+                            <label class="tf-field-label" for="">Phone *</label>
                         </div>
                         <div class="tf-field style-1">
                             <input class="tf-field-input tf-input" placeholder=" " type="email" name="">
@@ -647,12 +715,30 @@
                                 </a>
                             </div>
                         </div>
+                        <!-- Google Sign In Button -->
+                        <div class="mt-3">
+                            <button type="button"
+                                class="tf-btn btn-outline-secondary animate-hover-btn radius-3 w-100 justify-content-center d-flex align-items-center gap-2"
+                                style="background-color: #fff; border: 1px solid #dadce0; color: #3c4043;">
+                                <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                                </svg>
+                                <span>Continue with Google</span>
+                            </button>
+                        </div>
+                        <div>
+                            <button type="submit"
+                                class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Continue As Guest</span></button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- /modal login -->
+    <!-- /modal login register end -->
 
     <!-- shoppingCart -->
     <div class="modal fullRight fade modal-shopping-cart" id="shoppingCart">
@@ -663,53 +749,30 @@
                     <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
                 </div>
                 <div class="wrap">
-                    <div class="tf-mini-cart-threshold">
-                        <div class="tf-progress-bar">
-                            <span style="width: 50%;">
-                                <div class="progress-car">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="14" viewBox="0 0 21 14"
-                                        fill="currentColor">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M0 0.875C0 0.391751 0.391751 0 0.875 0H13.5625C14.0457 0 14.4375 0.391751 14.4375 0.875V3.0625H17.3125C17.5867 3.0625 17.845 3.19101 18.0104 3.40969L20.8229 7.12844C20.9378 7.2804 21 7.46572 21 7.65625V11.375C21 11.8582 20.6082 12.25 20.125 12.25H17.7881C17.4278 13.2695 16.4554 14 15.3125 14C14.1696 14 13.1972 13.2695 12.8369 12.25H7.72563C7.36527 13.2695 6.39293 14 5.25 14C4.10706 14 3.13473 13.2695 2.77437 12.25H0.875C0.391751 12.25 0 11.8582 0 11.375V0.875ZM2.77437 10.5C3.13473 9.48047 4.10706 8.75 5.25 8.75C6.39293 8.75 7.36527 9.48046 7.72563 10.5H12.6875V1.75H1.75V10.5H2.77437ZM14.4375 8.89937V4.8125H16.8772L19.25 7.94987V10.5H17.7881C17.4278 9.48046 16.4554 8.75 15.3125 8.75C15.0057 8.75 14.7112 8.80264 14.4375 8.89937ZM5.25 10.5C4.76676 10.5 4.375 10.8918 4.375 11.375C4.375 11.8582 4.76676 12.25 5.25 12.25C5.73323 12.25 6.125 11.8582 6.125 11.375C6.125 10.8918 5.73323 10.5 5.25 10.5ZM15.3125 10.5C14.8293 10.5 14.4375 10.8918 14.4375 11.375C14.4375 11.8582 14.8293 12.25 15.3125 12.25C15.7957 12.25 16.1875 11.8582 16.1875 11.375C16.1875 10.8918 15.7957 10.5 15.3125 10.5Z">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </span>
-                        </div>
-                        <div class="tf-progress-msg">
-                            Buy <span class="price fw-6">$75.00</span> more to enjoy <span class="fw-6">Free
-                                Shipping</span>
-                        </div>
-                    </div>
                     <div class="tf-mini-cart-wrap">
                         <div class="tf-mini-cart-main">
                             <div class="tf-mini-cart-sroll">
                                 <div class="tf-mini-cart-items">
                                     @php
-                                        $cart = Session::get('cart', []);
-                                        $total = 0;
+                                        $cart = \Cart::content();
                                     @endphp
-                                    @if(count($cart) > 0)
-                                        @foreach($cart as $key => $item)
-                                            @php
-                                                $subtotal = $item['selling_price'] * $item['quantity'];
-                                                $total += $subtotal;
-                                            @endphp
-                                            
-                                            <div class="tf-mini-cart-item" data-key="{{ $key }}">
+                                    @if($cart->count() > 0)
+                                        @foreach($cart as $item)
+
+                                            <div class="tf-mini-cart-item" data-key="{{ $item->rowId }}">
                                                 <div class="tf-mini-cart-image">
-                                                    <a href="{{ route('shop.details', $item['product_id']) }}">
-                                                        <img src="{{ asset($item['image_path']) }}" alt="{{ $item['product_name'] }}">
+                                                    <a href="{{ route('shop.details', $item->options->product_slug) }}">
+                                                        <img src="{{ asset($item->options->image_path) }}" alt="{{ $item->name }}">
                                                     </a>
                                                 </div>
                                                 <div class="tf-mini-cart-info">
-                                                    <a class="title link" href="{{ route('shop.details', $item['product_id']) }}">{{ $item['product_name'] }}</a>
-                                                    <div class="meta-variant">{{ $item['color_name'] }}, {{ $item['size_name'] }}</div>
-                                                    <div class="price fw-6">&#2547;{{ $item['selling_price'] }}</div>
+                                                    <a class="title link" href="{{ route('shop.details', $item->options->product_slug) }}">{{ $item->name }}</a>
+                                                    <div class="meta-variant">{{ $item->options->color_name }}, {{ $item->options->size_name }}</div>
+                                                    <div class="price fw-6">&#2547;{{ $item->price }}</div>
                                                     <div class="tf-mini-cart-btns">
                                                         <div class="wg-quantity small">
                                                             <span class="btn-quantity minus-btn">-</span>
-                                                            <input type="text" name="number" value="{{ $item['quantity'] }}">
+                                                            <input type="text" name="number" value="{{ $item->qty }}">
                                                             <span class="btn-quantity plus-btn">+</span>
                                                         </div>
                                                         <div class="tf-mini-cart-remove">Remove</div>
@@ -774,7 +837,7 @@
                             <div class="tf-mini-cart-bottom-wrap">
                                 <div class="tf-cart-totals-discounts">
                                     <div class="tf-cart-total">Subtotal</div>
-                                    <div class="tf-totals-total-value fw-6">&#2547;{{ $total }}</div>
+                                    <div class="tf-totals-total-value fw-6">&#2547; {{ \Cart::subtotal() }}</div>
                                 </div>
                                 <div class="tf-cart-tax">Taxes and <a href="#">shipping</a> calculated at checkout</div>
                                 <div class="tf-mini-cart-line"></div>
@@ -792,7 +855,7 @@
                                     </label>
                                 </div>
                                 <div class="tf-mini-cart-view-checkout">
-                                    <a href="view-cart.html"
+                                    <a href="{{ route('cart.products') }}"
                                         class="tf-btn btn-outline radius-3 link w-100 justify-content-center">View
                                         cart</a>
                                     <a href="checkout.html"

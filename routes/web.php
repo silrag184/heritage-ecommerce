@@ -14,6 +14,8 @@ use App\Http\Controllers\Backend\AttributeValueController;
 use App\Http\Controllers\Backend\TagController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Website\CartController;
+use App\Http\Controllers\Backend\ShippingAreaController;
+use App\Http\Controllers\Website\CustomerController;
 
 
 //frontend routes
@@ -23,6 +25,11 @@ Route::get('/shop-section-details/{slug}',[WebsiteController::class,'shopDetails
 Route::get('/about-us',[WebsiteController::class,'aboutUs'])->name('about.us');
 Route::get('/contact-us',[WebsiteController::class,'contactUs'])->name('contact.us');
 
+//shipping routes
+Route::get('/get-shipping-regions', [WebsiteController::class, 'getShippingRegions'])->name('shipping.regions');
+Route::get('/get-shipping-areas/{region}', [WebsiteController::class, 'getShippingAreas'])->name('shipping.areas');
+Route::get('/get-shipping-cost/{areaId}', [WebsiteController::class, 'getShippingCost'])->name('shipping.cost');
+
 //cart routes
 Route::get('cart-product-list',[WebsiteController::class,'cartProducts'])->name('cart.products');
 
@@ -30,6 +37,27 @@ Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.ad
 Route::get('/get-cart', [CartController::class, 'getCart'])->name('cart.get');
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('cart.update');
 Route::post('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('cart.remove');
+
+//Customer Authentication Routes
+Route::get('/customer/registration',[CustomerController::class,'registrationForm'])->name('customer.registration');
+Route::post('/customer/registration',[CustomerController::class,'saveCustomerInfo'])->name('customer.registration');
+
+Route::get('/customer/login',[CustomerController::class,'loginForm'])->name('customer.login');
+Route::get('/customer/logout',[CustomerController::class,'logout'])->name('customer.logout');
+Route::post('/customer/login',[CustomerController::class,'customerLoginCheck'])->name('customer.login');
+
+
+Route::get('/customer/dashboard',[CustomerController::class,'customerDashboard'])->name('customer.dashboard');
+Route::get('/customer/profile',[CustomerController::class,'customerProfile'])->name('customer.profile');
+Route::post('/customer/update-profile/{id}',[CustomerController::class,'customerUpdateProfile'])->name('customer.update-profile');
+Route::get('/customer/order',[CustomerController::class,'customerOrder'])->name('customer.order');
+
+Route::get('/customer/change-password',[CustomerController::class,'customerChangePassword'])->name('customer.change-password');
+Route::post('/customer/update-password/{id}',[CustomerController::class,'customerPasswordUpdate'])->name('customer.update-password');
+
+Route::get('/customer/wishlist/show',[CustomerController::class,'customerWishlist'])->name('customer.wishlist.show');
+Route::get('/customer/wishlist/{id}',[CustomerController::class,'wishlist'])->name('customer.wishlist');
+Route::get('/customer/delete/wishlist/{id}',[CustomerController::class,'deleteWishlist'])->name('customer.wishlist.delete');
 
 //end frontend routes
 
@@ -108,6 +136,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
         Route::put('/update/{id}', [ProductController::class, 'productUpdate'])->name('update');
         Route::delete('/delete/{id}', [ProductController::class, 'productDelete'])->name('delete');
     });
+
+    //Shipping Area Routes
+    Route::resource('shippingAreas', ShippingAreaController::class);
 
     //other backend routes can be added here in the future
 

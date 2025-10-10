@@ -4,17 +4,37 @@ if (!function_exists('getColorName')) {
     function getColorName($hexCode)
     {
         $colors = [
-            //common//
-            '#000000' => 'Black',
+            //White Family
             '#FFFFFF' => 'White',
+            '#FFFAFA' => 'Snow',
+            '#F0FFF0' => 'HoneyDew',
+            '#F5FFFA' => 'MintCream',
+            '#F0FFFF' => 'Azure',
+            '#F0F8FF' => 'AliceBlue',
+            '#F8F8FF' => 'GhostWhite',
+            '#F5F5F5' => 'WhiteSmoke',
+            '#FFF5EE' => 'SeaShell',
+            '#F5F5DC' => 'Beige',
+            '#FDF5E6' => 'OldLace',
+            '#FFFAF0' => 'FloralWhite',
+            '#FFFFF0' => 'Ivory',
+            '#FAEBD7' => 'AntiqueWhite',
+            '#FAF0E6' => 'Linen',
+            '#FFF0F5' => 'LavenderBlush',
+            '#FFE4E1' => 'MistyRose',
+            //White Family End
+
             //Red Family//
-            '#FF0000' => 'Red',
-            '#8B0000' => 'Dark Red',
-            '#DC143C' => 'Crimson',
+            '#CD5C5C' => 'IndianRed',
             '#F08080' => 'LightCoral',
+            '#FA8072' => 'Salmon',
             '#E9967A' => 'DarkSalmon',
             '#FFA07A' => 'LightSalmon',
-            //Red Family End 😭//
+            '#DC143C' => 'Crimson',
+            '#FF0000' => 'Red',
+            '#B22222' => 'FireBrick',
+            '#8B0000' => 'Dark Red',
+            //Red Family End//
 
             //Pink Family//
             '#FF1493' => 'Pink',
@@ -53,15 +73,112 @@ if (!function_exists('getColorName')) {
             '#008080' => 'Teal',
             //Green Family End
 
+            //Blue Family
             '#0000FF' => 'Blue',
+            '#00FFFF' => 'Aqua',
+            '#00FFFF' => 'Cyan',
+            '#E0FFFF' => 'LightCyan',
+            '#AFEEEE' => 'PaleTurquoise',
+            '#7FFFD4' => 'Aquamarine',
+            '#40E0D0' => 'Turquoise',
+            '#48D1CC' => 'MediumTurquoise',
+            '#00CED1' => 'DarkTurquoise',
+            '#5F9EA0' => 'CadetBlue',
+            '#4682B4' => 'SteelBlue',
+            '#B0C4DE' => 'LightSteelBlue',
+            '#B0E0E6' => 'PowderBlue',
+            '#ADD8E6' => 'LightBlue',
+            '#87CEEB' => 'SkyBlue',
+            '#87CEFA' => 'LightSkyBlue',
+            '#00BFFF' => 'DeepSkyBlue',
+            '#1E90FF' => 'DodgerBlue',
+            '#6495ED' => 'CornflowerBlue',
+            '#7B68EE' => 'MediumSlateBlue',
+            '#4169E1' => 'RoyalBlue',
+            '#0000FF' => 'Blue',
+            '#0000CD' => 'MediumBlue',
+            '#00008B' => 'DarkBlue',
+            '#000080' => 'Navy',
+            '#191970' => 'MidnightBlue',
+            //Blue Family End
+
+            //Yellow Family
             '#FFFF00' => 'Yellow',
-            '#FFA500' => 'Orange',
-            '#800080' => 'Purple',
-            '#808080' => 'Gray',
-            '#A52A2A' => 'Brown',
-            '#00CED1' => 'Cyan',
             '#FFD700' => 'Gold',
-            '#8B0000' => 'Dark Red',
+            '#FFFFE0' => 'LightYellow',
+            '#FFFACD' => 'LemonChiffon',
+            '#FAFAD2' => 'LightGoldenrodYellow',
+            '#FFEFD5' => 'PapayaWhip',
+            '#FFE4B5' => 'Moccasin',
+            '#FFDAB9' => 'PeachPuff',
+            '#EEE8AA' => 'PaleGoldenrod',
+            '#F0E68C' => 'Khaki',
+            '#BDB76B' => 'DarkKhaki',
+           //Yellow Family End
+
+           //Orange Family 
+            '#FFA07A' => 'LightSalmon',
+            '#FF7F50' => 'Coral',
+            '#FF6347' => 'Tomato',
+            '#FF4500' => 'OrangeRed',
+            '#FF8C00' => 'DarkOrange',
+            '#FFA500' => 'Orange',
+            //Orange Family End
+
+            //Purple Family 
+            '#800080' => 'Purple',
+            '#E6E6FA' => 'Lavender',
+            '#D8BFD8' => 'Thistle',
+            '#DDA0DD' => 'Plum',
+            '#EE82EE' => 'Violet',
+            '#DA70D6' => 'Orchid',
+            '#FF00FF' => 'Fuchsia',
+            '#FF00FF' => 'Magenta',
+            '#BA55D3' => 'MediumOrchid',
+            '#9370DB' => 'MediumPurple',
+            '#663399' => 'RebeccaPurple',
+            '#8A2BE2' => 'BlueViolet',
+            '#9400D3' => 'DarkViolet',
+            '#9932CC' => 'DarkOrchid',
+            '#8B008B' => 'DarkMagenta',
+            '#4B0082' => 'Indigo',
+            '#6A5ACD' => 'SlateBlue',
+            '#483D8B' => 'DarkSlateBlue',
+            '#7B68EE' => 'MediumSlateBlue',
+            //Purple Family End
+
+            //Gray Family
+            '#DCDCDC' => 'Gainsboro',
+            '#D3D3D3' => 'LightGray',
+            '#C0C0C0' => 'Silver',
+            '#A9A9A9' => 'DarkGray',
+            '#808080' => 'Gray',
+            '#696969' => 'DimGray',
+            '#778899' => 'LightSlateGray',
+            '#708090' => 'SlateGray',
+            '#2F4F4F' => 'DarkSlateGray',
+            '#000000' => 'Black',
+            //Gray Family End
+
+            //Brown Family
+            '#FFF8DC' => 'Cornsilk',
+            '#FFEBCD' => 'BlanchedAlmond',
+            '#FFE4C4' => 'Bisque',
+            '#FFDEAD' => 'NavajoWhite',
+            '#F5DEB3' => 'Wheat',
+            '#DEB887' => 'BurlyWood',
+            '#D2B48C' => 'Tan',
+            '#BC8F8F' => 'RosyBrown',
+            '#F4A460' => 'SandyBrown',
+            '#DAA520' => 'Goldenrod',
+            '#B8860B' => 'DarkGoldenrod',
+            '#CD853F' => 'Peru',
+            '#D2691E' => 'Chocolate',
+            '#8B4513' => 'SaddleBrown',
+            '#A0522D' => 'Sienna',
+            '#A52A2A' => 'Brown',
+            '#800000' => 'Maroon',
+            //Brown Family End
         ];
 
         $hexCode = strtoupper($hexCode);

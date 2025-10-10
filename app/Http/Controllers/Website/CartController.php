@@ -7,15 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductColorImage;
 use App\Models\Size;
-use Cart;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Session;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
 {
     public function addToCart(Request $request)
     {
-
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'color_id' => 'required|exists:product_color_images,id',
@@ -28,22 +25,17 @@ class CartController extends Controller
         $sizeId = $request->size_id;
         $quantity = $request->quantity;
 
-        $cart = Session::get('cart', []);
+        $product = Product::find($productId);
+        $color = ProductColorImage::find($colorId);
+        $size = Size::find($sizeId);
 
-        $cartKey = $productId . '-' . $colorId . '-' . $sizeId;
-
-        if (isset($cart[$cartKey])) {
-            $cart[$cartKey]['quantity'] += $quantity;
-        } else {
-            $product = Product::find($productId);
-            $color = ProductColorImage::find($colorId);
-            $size = Size::find($sizeId);
-
-            $cart[$cartKey] = [
-                'product_id' => $productId,
+        $item = Cart::add([
+            'id' => $productId,
+            'name' => $product->product_name,
+            'qty' => $quantity,
+            'price' => $product->selling_price,
+            'options' => [
                 'product_slug' => $product->slug,
-                'product_name' => $product->product_name,
-                'selling_price' => $product->selling_price,
                 'regular_price' => $product->regular_price,
                 'color_id' => $colorId,
                 'color_name' => getColorName($color->color_code),
@@ -51,72 +43,71 @@ class CartController extends Controller
                 'image_path' => $color->image_path,
                 'size_id' => $sizeId,
                 'size_name' => $size->size_name,
-                'quantity' => $quantity,
-            ];
-        }
-
-        Session::put('cart', $cart);
+            ]
+        ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Product added to cart successfully!',
-            'cart_count' => count($cart),
+            'cart_count' => Cart::count(),
+            'rowId' => $item->rowId,
         ]);
     }
 
     public function getCart()
     {
-        $cart = Session::get('cart', []);
-        $total = 0;
+        $content = Cart::content();
+        $total = Cart::total();
         $items = [];
 
-        foreach ($cart as $item) {
-            $subtotal = $item['selling_price'] * $item['quantity'];
-            $total += $subtotal;
-            $items[] = array_merge($item, ['subtotal' => $subtotal]);
+        foreach ($content as $item) {
+            $price = (float) $item->price;
+            $subtotal = $price * $item->qty;
+            $items[] = [
+                'rowId' => $item->rowId,
+                'product_id' => $item->id,
+                'product_slug' => $item->options->product_slug,
+                'product_name' => $item->name,
+                'selling_price' => $price,
+                'regular_price' => (float) $item->options->regular_price,
+                'color_id' => $item->options->color_id,
+                'color_name' => $item->options->color_name,
+                'color_code' => $item->options->color_code,
+                'image_path' => $item->options->image_path,
+                'size_id' => $item->options->size_id,
+                'size_name' => $item->options->size_name,
+                'quantity' => $item->qty,
+                'subtotal' => $subtotal,
+            ];
         }
 
         return response()->json([
             'items' => $items,
             'total' => $total,
-            'count' => count($cart),
+            'count' => Cart::count(),
         ]);
     }
 
     public function updateCart(Request $request)
     {
         $request->validate([
-            'cart_key' => 'required|string',
+            'rowId' => 'required|string',
             'quantity' => 'required|integer|min:1',
         ]);
 
-        $cart = Session::get('cart', []);
-        $cartKey = $request->cart_key;
+        Cart::update($request->rowId, $request->quantity);
 
-        if (isset($cart[$cartKey])) {
-            $cart[$cartKey]['quantity'] = $request->quantity;
-            Session::put('cart', $cart);
-            return response()->json(['success' => true]);
-        }
-
-        return response()->json(['success' => false, 'message' => 'Item not found']);
+        return response()->json(['success' => true]);
     }
 
     public function removeFromCart(Request $request)
     {
         $request->validate([
-            'cart_key' => 'required|string',
+            'rowId' => 'required|string',
         ]);
 
-        $cart = Session::get('cart', []);
-        $cartKey = $request->cart_key;
+        Cart::remove($request->rowId);
 
-        if (isset($cart[$cartKey])) {
-            unset($cart[$cartKey]);
-            Session::put('cart', $cart);
-            return response()->json(['success' => true]);
-        }
-
-        return response()->json(['success' => false, 'message' => 'Item not found']);
+        return response()->json(['success' => true]);
     }
 }
