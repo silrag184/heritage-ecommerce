@@ -16,7 +16,7 @@
         <div class="card-product-info">
             <a href="{{ url('shop-section-details/'.$product->slug) }}" class="title link">{{ $product->product_name }}</a>
             <span class="price current-price">&#2547;{{ number_format($product->selling_price ?? $product->regular_price, 2) }}</span>
-            <p class="description">{{ $product->short_description ?? '' }}</p>
+            <p class="description">{!! $product->short_description ?? '' !!}</p>
             @if ($product->colorImages && $product->colorImages->count() > 0)
             <ul class="list-color-product">
                 @foreach ($product->colorImages as $index => $colorImage)

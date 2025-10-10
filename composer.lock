@@ -1159,16 +1159,16 @@
         },
         {
             "name": "laravel/fortify",
-            "version": "v1.31.0",
+            "version": "v1.31.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/fortify.git",
-                "reference": "67116b14bd6b480d027f8b8075c2cd75363904e8"
+                "reference": "e39a49592e1440508337a765cdc913ff5bcba66f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/fortify/zipball/67116b14bd6b480d027f8b8075c2cd75363904e8",
-                "reference": "67116b14bd6b480d027f8b8075c2cd75363904e8",
+                "url": "https://api.github.com/repos/laravel/fortify/zipball/e39a49592e1440508337a765cdc913ff5bcba66f",
+                "reference": "e39a49592e1440508337a765cdc913ff5bcba66f",
                 "shasum": ""
             },
             "require": {
@@ -1220,20 +1220,20 @@
                 "issues": "https://github.com/laravel/fortify/issues",
                 "source": "https://github.com/laravel/fortify"
             },
-            "time": "2025-09-30T10:06:29+00:00"
+            "time": "2025-10-03T09:10:57+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v12.32.5",
+            "version": "v12.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "77b2740391cd2a825ba59d6fada45e9b8b9bcc5a"
+                "reference": "124efc5f09d4668a4dc13f94a1018c524a58bcb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/77b2740391cd2a825ba59d6fada45e9b8b9bcc5a",
-                "reference": "77b2740391cd2a825ba59d6fada45e9b8b9bcc5a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/124efc5f09d4668a4dc13f94a1018c524a58bcb1",
+                "reference": "124efc5f09d4668a4dc13f94a1018c524a58bcb1",
                 "shasum": ""
             },
             "require": {
@@ -1439,7 +1439,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-09-30T17:39:22+00:00"
+            "time": "2025-10-07T14:30:39+00:00"
         },
         {
             "name": "laravel/jetstream",

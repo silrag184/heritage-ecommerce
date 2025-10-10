@@ -142,7 +142,7 @@
                                                 {{-- <span class="fw-6 variant-picker-label-value value-currentColor">
                                                     {{ getColorName($product->colorImages->first()->color_code ?? '#A52A2A') }}
                                                 </span> --}}
-                                                <span class="fw-6 variant-picker-label-value ">
+                                                <span class="fw-6 variant-picker-label-value value-currentColor">
                                                     {{-- {{ getColorName($product->colorImages->first()->color_code ?? '#A52A2A') }} --}}
                                                     {{ $colorName }}
                                                 </span>
@@ -155,7 +155,7 @@
                                                         $colorCode = $colorImage->color_code;
                                                         $colorName = getColorName($colorCode);
                                                     @endphp
-                                                    <input id="color-{{ $colorImage->id }}" type="radio" name="color1" {{ $index === 0 ? 'checked' : '' }} data-color-name="{{ $colorName }}">
+                                                    <input id="color-{{ $colorImage->id }}" type="radio" name="color1" {{ $index === 0 ? 'checked' : '' }} value="{{ $colorImage->id }}" data-color-name="{{ $colorName }}">
                                                     <label class="hover-tooltip radius-60 color-btn"
                                                         data-color="{{ $colorCode }}"
                                                         for="color-{{ $colorImage->id }}"
@@ -170,14 +170,14 @@
                                         <div class="variant-picker-item">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="variant-picker-label">
-                                                    Size: <span class="fw-6 variant-picker-label-value">{{ $product->sizes->first()->size_name ?? 'S' }}</span>
+                                                    Size: <span class="fw-6 variant-picker-label-value size-current">{{ $product->sizes->first()->size_name ?? 'S' }}</span>
                                                 </div>
                                                 <a href="#find_size" data-bs-toggle="modal" class="find-size fw-6">Find
                                                     your size</a>
                                             </div>
                                             <div class="variant-picker-values">
                                                 @foreach($product->sizes as $index => $size)
-                                                    <input type="radio" name="size1" id="size-{{ $size->id }}" {{ $index === 0 ? 'checked' : '' }}>
+                                                    <input type="radio" name="size1" id="size-{{ $size->id }}" {{ $index === 0 ? 'checked' : '' }} value="{{ $size->id }}">
                                                     <label class="style-text size-btn" for="size-{{ $size->id }}" data-value="{{ $size->size_name }}">
                                                         <p>{{ $size->size_name }}</p>
                                                     </label>
@@ -194,7 +194,7 @@
                                         </div>
                                     </div>
                                     <div class="tf-product-info-buy-button">
-                                        <form class="">
+                                        <form class="" onsubmit="return false;">
                                             <a href="javascript:void(0);"
                                                 class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add
                                                     to cart -&nbsp;</span><span
@@ -211,11 +211,11 @@
                                                 <span class="tooltip">Add to Compare</span>
                                                 <span class="icon icon-check"></span>
                                             </a>
-                                            <div class="w-100">
+                                            {{-- <div class="w-100">
                                                 <a href="#" class="btns-full">Buy with <img
                                                         src="{{asset('/')}}website/assets/images/payments/paypal.png" alt=""></a>
                                                 <a href="#" class="payment-more-option">More payment options</a>
-                                            </div>
+                                            </div> --}}
                                         </form>
                                     </div>
                                     <div class="tf-product-info-extra-link">
@@ -264,13 +264,13 @@
                                             <i class="icon-safe"></i>
                                             <p class="fw-6">Guarantee Safe <br> Checkout</p>
                                         </div>
-                                        <div class="tf-payment">
+                                        {{-- <div class="tf-payment">
                                             <img src="{{asset('/')}}website/assets/images/payments/visa.png" alt="">
                                             <img src="{{asset('/')}}website/assets/images/payments/img-1.png" alt="">
                                             <img src="{{asset('/')}}website/assets/images/payments/img-2.png" alt="">
                                             <img src="{{asset('/')}}website/assets/images/payments/img-3.png" alt="">
                                             <img src="{{asset('/')}}website/assets/images/payments/img-4.png" alt="">
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -717,6 +717,7 @@
             </div>
         </div>
         <!-- /modal delivery_return -->
+        
 
 {{-- <script>
 $(document).ready(function() {
@@ -772,20 +773,31 @@ document.querySelectorAll('input[name="color1"]').forEach(input => {
 
 </script> --}}
 
-<script>
+{{-- <script>
 $(document).ready(function() {
+    var selectedColorId = '';
+    var selectedColorCode = '';
+    var selectedColorName = '';
+    var selectedSizeId = '';
+    var selectedSizeName = '';
+
+    // Set default color and size
+    $('input[name="color1"]:first').prop('checked', true).trigger('change');
+    $('input[name="size1"]:first').prop('checked', true).trigger('change');
+
     // Update size label on size change
     $('input[name="size1"]').on('change', function() {
-        var selectedSize = $('label[for="' + $(this).attr('id') + '"]').data('value');
-        $('.variant-picker-label-value.size-current').text(selectedSize);
+        selectedSizeId = $(this).val();
+        selectedSizeName = $('label[for="' + $(this).attr('id') + '"]').find('.size-current').text();
+        $('.size-current').text(selectedSizeName);
     });
 
     // Update color label and images on color change
     $('input[name="color1"]').on('change', function() {
-        var selectedColorName = $(this).data('colorName');
+        selectedColorId = $(this).val();
+        selectedColorCode = $('label[for="' + $(this).attr('id') + '"]').data('color');
+        selectedColorName = $('label[for="' + $(this).attr('id') + '"]').data('colorName');
         $('.value-currentColor').text(selectedColorName);
-
-        var selectedColor = $('label[for="' + $(this).attr('id') + '"]').data('value');
 
         // Hide all color images
         $('.tf-product-media-main .swiper-slide').hide();
@@ -793,12 +805,12 @@ $(document).ready(function() {
 
         // Show images matching selected color (case insensitive)
         $('.tf-product-media-main .swiper-slide').each(function() {
-            if ($(this).data('color').toLowerCase() === selectedColor.toLowerCase()) {
+            if ($(this).data('color').toLowerCase() === selectedColorCode.toLowerCase()) {
                 $(this).show();
             }
         });
         $('.tf-product-media-thumbs .swiper-slide').each(function() {
-            if ($(this).data('color').toLowerCase() === selectedColor.toLowerCase()) {
+            if ($(this).data('color').toLowerCase() === selectedColorCode.toLowerCase()) {
                 $(this).show();
             }
         });
@@ -806,8 +818,237 @@ $(document).ready(function() {
 
     // Trigger change on page load to set initial images visibility
     $('input[name="color1"]:checked').trigger('change');
+
+    // Add to cart button click
+    $('.btn-add-to-cart').on('click', function() {
+        console.log('Add to cart button clicked');
+        var productId = {{ $product->id }};
+        var quantity = $('.quantity-product').val();
+        console.log('Product ID:', productId);
+        console.log('Quantity:', quantity);
+        console.log('Selected Color ID:', selectedColorId);
+        console.log('Selected Size ID:', selectedSizeId);
+
+        var ajaxData = {
+            _token: '{{ csrf_token() }}',
+            product_id: productId,
+            color_id: selectedColorId,
+            size_id: selectedSizeId,
+            quantity: quantity
+        };
+        console.log('AJAX Data:', ajaxData);
+
+        $.ajax({
+            url: '{{ route("cart.add") }}',
+            method: 'POST',
+            data: ajaxData,
+            success: function(response) {
+                console.log('AJAX Success:', response);
+                if (response.success) {
+                    alert('Product added to cart!');
+                    // Optionally update cart count or refresh cart modal
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function(xhr) {
+                console.log('AJAX Error:', xhr);
+                alert('Error adding to cart');
+            }
+        });
+    });
+});
+</script> --}}
+
+
+<script>
+    // console.log("Shop details script loaded!");
+
+$(document).ready(function() {
+    var selectedColorId = '';
+    var selectedColorCode = '';
+    var selectedColorName = '';
+    var selectedSizeId = '';
+    var selectedSizeName = '';
+
+    // --- Default selection ---
+    $('input[name="color1"]:first').prop('checked', true).trigger('change');
+    $('input[name="size1"]:first').prop('checked', true).trigger('change');
+
+    // --- Size change ---
+    $('input[name="size1"]').on('change', function() {
+        selectedSizeId = $(this).val();
+        selectedSizeName = $('label[for="' + $(this).attr('id') + '"]').data('value');
+        $('.size-current').text(selectedSizeName);
+    });
+
+    // --- Color change ---
+    $('input[name="color1"]').on('change', function() {
+        selectedColorId = $(this).val();
+        selectedColorCode = $('label[for="' + $(this).attr('id') + '"]').data('color');
+        selectedColorName = $('label[for="' + $(this).attr('id') + '"]').data('value');
+        $('.value-currentColor').text(selectedColorName);
+
+        // Hide all color images
+        $('.tf-product-media-main .swiper-slide, .tf-product-media-thumbs .swiper-slide').hide();
+
+        // Show images matching selected color
+        $('.tf-product-media-main .swiper-slide, .tf-product-media-thumbs .swiper-slide').each(function() {
+            if ($(this).data('color').toLowerCase() === selectedColorCode.toLowerCase()) {
+                $(this).show();
+            }
+        });
+    });
+
+    // Trigger default
+    $('input[name="color1"]:checked').trigger('change');
+
+    // --- Add to cart button ---
+    $(document).on('click', '.btn-add-to-cart', function(e) {
+        e.preventDefault();
+        var productId = {{ $product->id }};
+        var quantity = $('.quantity-product').val();
+
+        // validate selections
+        if (!selectedColorId || !selectedSizeId) {
+            alert('Please select color and size before adding to cart.');
+            return;
+        }
+
+        var ajaxData = {
+            _token: '{{ csrf_token() }}',
+            product_id: productId,
+            color_id: selectedColorId,
+            size_id: selectedSizeId,
+            quantity: quantity
+        };
+
+        // disable button during request
+        $('.btn-add-to-cart').prop('disabled', true);
+
+        $.ajax({
+            url: '{{ route("cart.add") }}',
+            method: 'POST',
+            data: ajaxData,
+            success: function(response) {
+                console.log('AJAX Success:', response);
+                if (response.success) {
+                    window.location.href = '{{ route("cart.products") }}';
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function(xhr) {
+                console.log('AJAX Error:', xhr);
+                alert('Error adding to cart');
+            },
+            complete: function() {
+                $('.btn-add-to-cart').prop('disabled', false);
+            }
+        });
+    });
+
+    // --- Function to refresh cart modal ---
+    function updateCartUI() {
+        $.ajax({
+            url: '{{ route("cart.get") }}',
+            method: 'GET',
+            success: function(response) {
+                let cartBody = $('.tf-mini-cart-items');
+                cartBody.empty();
+
+                if (response.items.length === 0) {
+                    cartBody.append('<p class="text-center">Your cart is empty.</p>');
+                    $('.tf-totals-total-value').text('&#2547;0');
+                    $('.cart-count').text('0');
+                    return;
+                }
+
+                response.items.forEach(item => {
+                    cartBody.append(`
+                        <div class="tf-mini-cart-item d-flex">
+                            <div class="image">
+                                <img src="/${item.image_path}" alt="${item.product_name}">
+                            </div>
+                            <div class="content">
+                                <div class="cart-title"><a href="#">${item.product_name}</a></div>
+                                <div class="variant">${item.color_name} / ${item.size_name}</div>
+                                <div class="count-price d-flex align-items-center justify-content-between">
+                                    <div class="quantity">
+                                        <span class="btn-quantity btn-decrease">-</span>
+                                        <input type="text" class="quantity-input" value="${item.quantity}" readonly>
+                                        <span class="btn-quantity btn-increase">+</span>
+                                    </div>
+                                    <div class="price"> &#2547;${item.selling_price}</div>
+                                </div>
+                                <div class="remove"><a href="#" class="remove-cart-item" data-key="${item.product_id}-${item.color_id}-${item.size_id}"><i class="icon icon-delete"></i></a></div>
+                            </div>
+                        </div>
+                    `);
+                });
+
+                $('.tf-totals-total-value').text(`&#2547;${response.total}`);
+                $('.cart-count').text(response.count);
+            }
+        });
+    }
+
+    // --- Remove item ---
+    $(document).on('click', '.remove-cart-item', function() {
+        let key = $(this).data('key');
+
+        $.ajax({
+            url: '{{ route("cart.remove") }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                cart_key: key
+            },
+            success: function(response) {
+                if (response.success) {
+                    updateCartUI();
+                    alert('Item removed from cart.');
+                }
+            }
+        });
+    });
+
+    // --- Update quantity in modal ---
+    $(document).on('click', '.btn-increase', function() {
+        let input = $(this).siblings('.quantity-input');
+        let newQty = parseInt(input.val()) + 1;
+        input.val(newQty);
+        let key = $(this).closest('.tf-mini-cart-item').find('.remove-cart-item').data('key');
+        updateQuantity(key, newQty);
+    });
+
+    $(document).on('click', '.btn-decrease', function() {
+        let input = $(this).siblings('.quantity-input');
+        let newQty = parseInt(input.val()) - 1;
+        if (newQty < 1) return;
+        input.val(newQty);
+        let key = $(this).closest('.tf-mini-cart-item').find('.remove-cart-item').data('key');
+        updateQuantity(key, newQty);
+    });
+
+    function updateQuantity(key, qty) {
+        $.ajax({
+            url: '{{ route("cart.update") }}',
+            method: 'POST',
+            data: { _token: '{{ csrf_token() }}', cart_key: key, quantity: qty },
+            success: function(response) {
+                if (response.success) {
+                    updateCartUI();
+                }
+            }
+        });
+    }
+
+    // Initial cart load (optional)
+    updateCartUI();
 });
 </script>
+
 
 
 @endsection

@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\AttributeController;
 use App\Http\Controllers\Backend\AttributeValueController;
 use App\Http\Controllers\Backend\TagController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Website\CartController;
 
 
 //frontend routes
@@ -21,6 +22,14 @@ Route::get('/shop-section',[WebsiteController::class,'shopSection'])->name('shop
 Route::get('/shop-section-details/{slug}',[WebsiteController::class,'shopDetails'])->name('shop.details');
 Route::get('/about-us',[WebsiteController::class,'aboutUs'])->name('about.us');
 Route::get('/contact-us',[WebsiteController::class,'contactUs'])->name('contact.us');
+
+//cart routes
+Route::get('cart-product-list',[WebsiteController::class,'cartProducts'])->name('cart.products');
+
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
+Route::get('/get-cart', [CartController::class, 'getCart'])->name('cart.get');
+Route::post('/update-cart', [CartController::class, 'updateCart'])->name('cart.update');
+Route::post('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('cart.remove');
 
 //end frontend routes
 

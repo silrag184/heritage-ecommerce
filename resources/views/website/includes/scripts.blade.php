@@ -15,8 +15,13 @@
 <script src="{{asset('/')}}website/assets/js/nouislider.min.js"></script>
 <script src="{{asset('/')}}website/assets/js/shop.js"></script>
 
+<!-- Cart JS -->
+<script src="{{asset('/')}}website/assets/js/cart.js"></script>
+
 <!---Shop Details JS-->
 <script src="{{asset('/')}}website/assets/js/drift.min.js"></script>
 <script src="{{asset('/')}}website/assets/js/photoswipe-lightbox.umd.min.js"></script>
 <script src="{{asset('/')}}website/assets/js/photoswipe.umd.min.js"></script>
 <script src="{{asset('/')}}website/assets/js/zoom.js"></script>
+
+

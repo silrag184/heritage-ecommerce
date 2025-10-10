@@ -10,17 +10,18 @@ use App\Models\Brand;
 use App\Models\Size;
 use App\Models\ProductColorImage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class WebsiteController extends Controller
 {
     public function index(){
-        $products = Product::with(['category', 'subCategory', 'brand', 'colorImages', 'sizes'])->where('status', 1)->get();
-        $newArrivals = Product::with(['category', 'subCategory', 'brand', 'colorImages', 'sizes'])->where('status', 1)->where('created_at', '>', now()->subDays(30))->get();
+        $products = Product::with(['category', 'subCategory', 'brand', 'colorImages', 'sizes'])->latest()->where('status', 1)->get();
+        $newArrivals = Product::with(['category', 'subCategory', 'brand', 'colorImages', 'sizes'])->latest()->where('status', 1)->where('created_at', '>', now()->subDays(30))->get();
         return view('website.pages.home.index', compact('products', 'newArrivals'));
     }
 
     public function shopSection(Request $request){
-        $products = Product::with(['category', 'subCategory', 'brand', 'colorImages', 'sizes'])->where('status', 1)->paginate(12);
+        $products = Product::with(['category', 'subCategory', 'brand', 'colorImages', 'sizes'])->latest()->where('status', 1)->paginate(12);
 
         //delete this code section if pagination.blade.php and products.blade.php is removed. (Of course use backup file if you don't like thhis pagination system)
         if ($request->ajax()) {
@@ -47,6 +48,20 @@ class WebsiteController extends Controller
         }
         
         return view('website.pages.shop.shop-details', compact('product', 'colorName'));
+    }
+
+    public function cartProducts(){
+        $cart = Session::get('cart', []);
+        $total = 0;
+        $items = [];
+
+        foreach ($cart as $item) {
+            $subtotal = $item['selling_price'] * $item['quantity'];
+            $total += $subtotal;
+            $items[] = array_merge($item, ['subtotal' => $subtotal]);
+        }
+
+        return view('website.pages.shop.cart-index', compact('items', 'total'));
     }
 
     public function aboutUs(){

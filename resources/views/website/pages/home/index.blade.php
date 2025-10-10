@@ -321,7 +321,7 @@ Home
                                 @foreach ($products as $product)
                                     <div class="card-product fl-item">
                                         <div class="card-product-wrapper">
-                                            <a href="{{ url('product-detail/' . $product->slug) }}" class="product-img">
+                                            <a href="{{ url('shop-section-details/'.$product->slug) }}" class="product-img">
                                                 @php
                                                     $defaultImage = $product->colorImages->first()->image_path ?? 'website/assets/images/products/default.jpg';
                                                 @endphp
@@ -369,7 +369,7 @@ Home
 
                                         {{-- Product Info --}}
                                         <div class="card-product-info">
-                                            <a href="{{ url('product-detail/' . $product->slug) }}" class="title link">
+                                            <a href="{{ url('shop-section-details/'.$product->slug) }}" class="title link">
                                                 {{ $product->product_name }}
                                             </a>
                                             <span class="price">${{ $product->selling_price ?? '0.00' }}</span>
