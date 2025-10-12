@@ -95,7 +95,7 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
-        Cart::update($request->rowId, $request->quantity);
+        Cart::update($request->rowId, ['qty' => $request->quantity]);
 
         return response()->json(['success' => true]);
     }

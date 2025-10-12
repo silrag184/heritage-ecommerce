@@ -266,21 +266,23 @@ $(document).ready(function() {
 
     // Handle quantity increase on cart page
     $(document).on('click', '.btnincrease', function() {
-        let input = $(this).siblings('input[name="number"]');
-        let newQty = parseInt(input.val()) + 1;
+        let $this = $(this);
+        let input = $this.siblings('input[name="number"]');
+        let newQty = parseInt(input.val()) + 0;
         input.val(newQty);
         let rowId = input.data('row-id');
-        updateQuantity(rowId, newQty);
+        updateQuantity(rowId, newQty, $this.closest('.wg-quantity').find('.btn-quantity'));
     });
 
     // Handle quantity decrease on cart page
     $(document).on('click', '.btndecrease', function() {
-        let input = $(this).siblings('input[name="number"]');
-        let newQty = parseInt(input.val()) - 1;
+        let $this = $(this);
+        let input = $this.siblings('input[name="number"]');
+        let newQty = parseInt(input.val()) - 0;
         if (newQty < 1) return;
         input.val(newQty);
         let rowId = input.data('row-id');
-        updateQuantity(rowId, newQty);
+        updateQuantity(rowId, newQty, $this.closest('.wg-quantity').find('.btn-quantity'));
     });
 
     // Handle remove on cart page
@@ -297,6 +299,8 @@ $(document).ready(function() {
                 success: function(response) {
                     if (response.success) {
                         loadCartTable();
+                        // Update header cart count
+                        updateHeaderCartCount();
                     }
                 },
                 error: function() {
@@ -306,29 +310,50 @@ $(document).ready(function() {
         }
     });
 
-    function updateQuantity(rowId, qty) {
+    function updateQuantity(rowId, qty, buttons) {
+        // Disable buttons to prevent multiple clicks
+        if (buttons) {
+            buttons.prop('disabled', true);
+        }
+
         $.ajax({
             url: '{{ route("cart.update") }}',
             method: 'POST',
-            data: { 
-                _token: '{{ csrf_token() }}', 
-                rowId: rowId, 
-                quantity: qty 
+            data: {
+                _token: '{{ csrf_token() }}',
+                rowId: rowId,
+                quantity: qty
             },
             success: function(response) {
-                if (response.success) {
-                    loadCartTable();
-                } else {
-                    // Revert input if failed
-                    let input = $(`input[data-row-id="${rowId}"]`);
-                    input.val(response.current_quantity || qty);
-                }
+                loadCartTable();
+                // Update header cart count
+                updateHeaderCartCount();
             },
             error: function() {
                 console.error('Error updating quantity');
                 // Revert on error
                 let input = $(`input[data-row-id="${rowId}"]`);
                 input.val(qty - 1); // or get original
+            },
+            complete: function() {
+                // Re-enable buttons
+                if (buttons) {
+                    buttons.prop('disabled', false);
+                }
+            }
+        });
+    }
+
+    // Function to update header cart count
+    function updateHeaderCartCount() {
+        $.ajax({
+            url: '{{ route("cart.get") }}',
+            method: 'GET',
+            success: function(response) {
+                $('.nav-cart .count-box').text(response.count);
+            },
+            error: function() {
+                console.error('Error updating cart count');
             }
         });
     }

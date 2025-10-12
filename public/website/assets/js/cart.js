@@ -120,11 +120,11 @@ $(document).ready(function() {
     // Update cart quantity via AJAX
     function updateCartQuantity(cartItem, quantity) {
         const cartKey = cartItem.data('key');
-        
+
         $.ajax({
             url: '/update-cart',
             method: 'POST',
-            data: { 
+            data: {
                 cart_key: cartKey,
                 quantity: quantity
             },
@@ -136,7 +136,6 @@ $(document).ready(function() {
                 }
             },
             error: function(xhr) {
-                showNotification('error', 'Failed to update quantity');
                 console.error(xhr.responseText);
             }
         });
@@ -306,7 +305,7 @@ $(document).ready(function() {
                 }
             },
             error: function(xhr) {
-                showNotification('error', 'Failed to update quantity');
+                console.error(xhr.responseText);
             }
         });
     }
@@ -323,7 +322,7 @@ $(document).ready(function() {
                 }
             },
             error: function(xhr) {
-                showNotification('error', 'Failed to remove item');
+                console.error(xhr.responseText);
             }
         });
     }
