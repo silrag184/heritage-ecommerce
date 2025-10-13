@@ -589,15 +589,19 @@
                     <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
                 </div>
                 <div class="tf-login-form">
-                    <form class="" action="https://themesflat.co/html/ecomus/my-account.html" accept-charset="utf-8">
+                    <form class="" id="loginForm" action="{{ route('customer.login') }}" method="POST" accept-charset="utf-8">
+                        @csrf
                         <div class="tf-field style-1">
-                            <input class="tf-field-input tf-input" placeholder=" " type="email" name="">
-                            <label class="tf-field-label" for="">Email *</label>
+                            <input class="tf-field-input tf-input" placeholder=" " type="text" name="login" value="{{ old('login') }}" required>
+                            <label class="tf-field-label" for="">Email or Phone *</label>
                         </div>
                         <div class="tf-field style-1">
-                            <input class="tf-field-input tf-input" placeholder=" " type="password" name="">
+                            <input class="tf-field-input tf-input" placeholder=" " type="password" name="password" required>
                             <label class="tf-field-label" for="">Password *</label>
                         </div>
+                        @if ($errors->has('login'))
+                            <div class="text-danger">{{ $errors->first('login') }}</div>
+                        @endif
                         <div>
                             <a href="#forgotPassword" data-bs-toggle="modal" class="btn-link link">Forgot your
                                 password?</a>
@@ -606,11 +610,11 @@
                             <button type="submit"
                                 class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Login</span></button>
                         </div>
-                        
+
                         <!-- Google Sign In Button -->
                         <div class="mt-3">
-                            <button type="button"
-                                class="tf-btn btn-outline-secondary animate-hover-btn radius-3 w-100 justify-content-center d-flex align-items-center gap-2"
+                            <a href="{{ route('customer.google.login') }}"
+                                class="tf-btn btn-outline-secondary animate-hover-btn radius-3 w-100 justify-content-center d-flex align-items-center gap-2 text-decoration-none"
                                 style="background-color: #fff; border: 1px solid #dadce0; color: #3c4043;">
                                 <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
                                     <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -619,9 +623,9 @@
                                     <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
                                 </svg>
                                 <span>Continue with Google</span>
-                            </button>
+                            </a>
                         </div>
-                        
+
                         <div class="bottom">
                             <div class="w-100">
                                 <button type="submit"
@@ -682,31 +686,32 @@
                     <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
                 </div>
                 <div class="tf-login-form">
-                    <form class="">
+                    <form id="registerForm" action="{{ route('customer.registration') }}" method="POST">
+                        @csrf
                         <div class="tf-field style-1">
-                            <input class="tf-field-input tf-input" placeholder=" " type="text" name="">
-                            <label class="tf-field-label" for="">First name</label>
+                            <input class="tf-field-input tf-input" placeholder=" " type="text" name="c_full_name" value="{{ old('c_full_name') }}" required>
+                            <label class="tf-field-label" for="">Full name *</label>
                         </div>
                         <div class="tf-field style-1">
-                            <input class="tf-field-input tf-input" placeholder=" " type="text" name="">
-                            <label class="tf-field-label" for="">Last name</label>
-                        </div>
-                        <div class="tf-field style-1">
-                            <input class="tf-field-input tf-input" placeholder=" " type="number" name="">
+                            <input class="tf-field-input tf-input" placeholder=" " type="text" name="c_phone" value="{{ old('c_phone') }}" required>
                             <label class="tf-field-label" for="">Phone *</label>
                         </div>
                         <div class="tf-field style-1">
-                            <input class="tf-field-input tf-input" placeholder=" " type="email" name="">
-                            <label class="tf-field-label" for="">Email *</label>
+                            <input class="tf-field-input tf-input" placeholder=" " type="email" name="c_email" value="{{ old('c_email') }}">
+                            <label class="tf-field-label" for="">Email</label>
                         </div>
                         <div class="tf-field style-1">
-                            <input class="tf-field-input tf-input" placeholder=" " type="password" name="">
+                            <input class="tf-field-input tf-input" placeholder=" " type="password" name="c_password" required>
                             <label class="tf-field-label" for="">Password *</label>
+                        </div>
+                        <div class="tf-field style-1">
+                            <input class="tf-field-input tf-input" placeholder=" " type="password" name="c_password_confirmation" required>
+                            <label class="tf-field-label" for="">Confirm Password *</label>
                         </div>
                         <div class="bottom">
                             <div class="w-100">
-                                <a href="register.html"
-                                    class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Register</span></a>
+                                <button type="submit"
+                                    class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Register</span></button>
                             </div>
                             <div class="w-100">
                                 <a href="#login" data-bs-toggle="modal" class="btn-link fw-6 w-100 link">
@@ -717,8 +722,8 @@
                         </div>
                         <!-- Google Sign In Button -->
                         <div class="mt-3">
-                            <button type="button"
-                                class="tf-btn btn-outline-secondary animate-hover-btn radius-3 w-100 justify-content-center d-flex align-items-center gap-2"
+                            <a href="{{ route('customer.google.login') }}"
+                                class="tf-btn btn-outline-secondary animate-hover-btn radius-3 w-100 justify-content-center d-flex align-items-center gap-2 text-decoration-none"
                                 style="background-color: #fff; border: 1px solid #dadce0; color: #3c4043;">
                                 <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
                                     <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -727,9 +732,9 @@
                                     <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
                                 </svg>
                                 <span>Continue with Google</span>
-                            </button>
+                            </a>
                         </div>
-                        <div>
+                        <div class="mt-3">
                             <button type="submit"
                                 class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Continue As Guest</span></button>
                         </div>
@@ -1258,3 +1263,20 @@
         </div>
     </div>
     <!-- /modal find_size -->
+
+    <script>
+        $.ajax({
+        url: "{{ route('customer.registration') }}",
+        method: "POST",
+        data: $('#registerForm').serialize(),
+        success: function(response) {
+            if (response.success) {
+                toastr.success(response.message);
+                window.location.href = response.redirect;
+            }
+        },
+        error: function(xhr) {
+            toastr.error("Registration failed!");
+        }
+    });
+    </script>

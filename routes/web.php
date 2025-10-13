@@ -39,25 +39,24 @@ Route::post('/update-cart', [CartController::class, 'updateCart'])->name('cart.u
 Route::post('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('cart.remove');
 
 //Customer Authentication Routes
-Route::get('/customer/registration',[CustomerController::class,'registrationForm'])->name('customer.registration');
 Route::post('/customer/registration',[CustomerController::class,'saveCustomerInfo'])->name('customer.registration');
-
-Route::get('/customer/login',[CustomerController::class,'loginForm'])->name('customer.login');
-Route::get('/customer/logout',[CustomerController::class,'logout'])->name('customer.logout');
 Route::post('/customer/login',[CustomerController::class,'customerLoginCheck'])->name('customer.login');
+Route::get('/customer/google/login',[CustomerController::class,'googleLogin'])->name('customer.google.login');
+Route::get('/customer/google/callback',[CustomerController::class,'googleCallback'])->name('customer.google.callback');
 
-
-Route::get('/customer/dashboard',[CustomerController::class,'customerDashboard'])->name('customer.dashboard');
-Route::get('/customer/profile',[CustomerController::class,'customerProfile'])->name('customer.profile');
-Route::post('/customer/update-profile/{id}',[CustomerController::class,'customerUpdateProfile'])->name('customer.update-profile');
-Route::get('/customer/order',[CustomerController::class,'customerOrder'])->name('customer.order');
-
-Route::get('/customer/change-password',[CustomerController::class,'customerChangePassword'])->name('customer.change-password');
-Route::post('/customer/update-password/{id}',[CustomerController::class,'customerPasswordUpdate'])->name('customer.update-password');
-
-Route::get('/customer/wishlist/show',[CustomerController::class,'customerWishlist'])->name('customer.wishlist.show');
-Route::get('/customer/wishlist/{id}',[CustomerController::class,'wishlist'])->name('customer.wishlist');
-Route::get('/customer/delete/wishlist/{id}',[CustomerController::class,'deleteWishlist'])->name('customer.wishlist.delete');
+// Protected Customer Routes
+Route::middleware(['customer'])->group(function () {
+    Route::get('/customer/logout',[CustomerController::class,'logout'])->name('customer.logout');
+    Route::get('/customer/dashboard',[CustomerController::class,'customerDashboard'])->name('customer.dashboard');
+    Route::get('/customer/profile',[CustomerController::class,'customerProfile'])->name('customer.profile');
+    Route::post('/customer/update-profile/{id}',[CustomerController::class,'customerUpdateProfile'])->name('customer.update-profile');
+    Route::get('/customer/order',[CustomerController::class,'customerOrder'])->name('customer.order');
+    Route::get('/customer/change-password',[CustomerController::class,'customerChangePassword'])->name('customer.change-password');
+    Route::post('/customer/update-password/{id}',[CustomerController::class,'customerPasswordUpdate'])->name('customer.update-password');
+    Route::get('/customer/wishlist/show',[CustomerController::class,'customerWishlist'])->name('customer.wishlist.show');
+    Route::get('/customer/wishlist/{id}',[CustomerController::class,'wishlist'])->name('customer.wishlist');
+    Route::get('/customer/delete/wishlist/{id}',[CustomerController::class,'deleteWishlist'])->name('customer.wishlist.delete');
+});
 
 //end frontend routes
 

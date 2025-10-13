@@ -99,7 +99,13 @@
                         <div class="col-xl-5 col-md-4 col-3">
                             <ul class="nav-icon d-flex justify-content-end align-items-center gap-20">
                                 <li class="nav-search"><a href="#canvasSearch" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="nav-icon-item"><i class="icon icon-search"></i></a></li>
-                                <li class="nav-account"><a href="#login" data-bs-toggle="modal" class="nav-icon-item"><i class="icon icon-account"></i></a></li>
+                                <li class="nav-account">
+                                    @if(Auth::guard('customer')->check())
+                                        <a href="{{ route('customer.dashboard') }}" class="nav-icon-item"><i class="icon icon-account"></i></a>
+                                    @else
+                                        <a href="#login" data-bs-toggle="modal" class="nav-icon-item"><i class="icon icon-account"></i></a>
+                                    @endif
+                                </li>
                                 <li class="nav-wishlist"><a href="wishlist.html" class="nav-icon-item"><i class="icon icon-heart"></i><span class="count-box">0</span></a></li>
                                 <li class="nav-cart"><a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item"><i class="icon icon-bag"></i><span class="count-box">{{ Cart::count() }}</span></a></li>
                             </ul>
@@ -157,12 +163,21 @@
             </a>
         </div>
         <div class="toolbar-item">
-            <a href="#login" data-bs-toggle="modal">
-                <div class="toolbar-icon">
-                    <i class="icon-account"></i>
-                </div>
-                <div class="toolbar-label">Account</div>
-            </a>
+            @if(Auth::guard('customer')->check())
+                <a href="{{ route('customer.dashboard') }}">
+                    <div class="toolbar-icon">
+                        <i class="icon-account"></i>
+                    </div>
+                    <div class="toolbar-label">Account</div>
+                </a>
+            @else
+                <a href="#login" data-bs-toggle="modal">
+                    <div class="toolbar-icon">
+                        <i class="icon-account"></i>
+                    </div>
+                    <div class="toolbar-label">Account</div>
+                </a>
+            @endif
         </div>
         <div class="toolbar-item">
             <a href="wishlist.html">
@@ -234,7 +249,11 @@
                 </div>
             </div>
             <div class="mb-bottom">
-                <a href="login.html" class="site-nav-icon"><i class="icon icon-account"></i>Login</a>
+                @if(Auth::guard('customer')->check())
+                    <a href="{{ route('customer.dashboard') }}" class="site-nav-icon"><i class="icon icon-account"></i>Account</a>
+                @else
+                    <a href="login.html" class="site-nav-icon"><i class="icon icon-account"></i>Login</a>
+                @endif
                 <div class="bottom-bar-language">
                     <div class="tf-currencies">
                         <select class="image-select center style-default type-currencies">
