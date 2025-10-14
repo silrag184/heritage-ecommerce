@@ -111,17 +111,25 @@ Cart Page
                                         <div class="accordion-shipping-content">
                                             <fieldset class="field">
                                                 <label class="label">Region</label>
-                                                <select class="tf-select w-100" id="shipping-region" name="region">
+                                                <select class="tf-select w-100" id="shipping-region" name="region" required>
                                                     <option value="">Select Region</option>
                                                     @foreach($regions as $region)
-                                                    <option value="{{ $region }}">{{ $region }}</option>
+                                                    <option value="{{ $region }}" {{ isset($selectedRegion) && $selectedRegion == $region ? 'selected' : '' }}>{{ $region }}</option>
                                                     @endforeach
                                                 </select>
                                             </fieldset>
                                             <fieldset class="field">
                                                 <label class="label">Area Name</label>
-                                                <select class="tf-select w-100" id="shipping-area" name="area">
+                                                <select class="tf-select w-100" id="shipping-area" name="area" required>
                                                     <option value="">Select Area</option>
+                                                    @if(isset($selectedRegion) && isset($selectedArea))
+                                                        @php
+                                                            $areas = \App\Models\ShippingArea::where('region', $selectedRegion)->where('status', 1)->get();
+                                                        @endphp
+                                                        @foreach($areas as $area)
+                                                        <option value="{{ $area->id }}" {{ $selectedArea == $area->id ? 'selected' : '' }}>{{ $area->area_name }}</option>
+                                                        @endforeach
+                                                    @endif
                                                 </select>
                                             </fieldset>
                                         </div>
@@ -150,10 +158,10 @@ Cart Page
                                     </label>
                                 </div>
                                 <div class="cart-checkout-btn">
-                                    <a href="checkout.html"
+                                    <button type="button" id="checkout-btn"
                                         class="tf-btn w-100 btn-fill animate-hover-btn radius-3 justify-content-center">
                                         <span>Check out</span>
-                                    </a>
+                                    </button>
                                 </div>
                                 <div class="tf-page-cart_imgtrust">
                                     <p class="text-center fw-6">Guarantee Safe Checkout</p>

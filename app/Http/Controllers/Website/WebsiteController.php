@@ -58,6 +58,10 @@ class WebsiteController extends Controller
         $items = [];
         $regions = ShippingArea::where('status', 1)->distinct('region')->pluck('region');
 
+        // Get selected shipping region and area from session if available
+        $selectedRegion = Session::get('selected_shipping_region');
+        $selectedArea = Session::get('selected_shipping_area');
+
         foreach ($content as $item) {
             $product = Product::find($item->id);
             $price = (float) $item->price;
@@ -80,7 +84,7 @@ class WebsiteController extends Controller
             ];
         }
 
-        return view('website.pages.shop.cart-index', compact('items', 'total', 'regions'));
+        return view('website.pages.shop.cart-index', compact('items', 'total', 'regions', 'selectedRegion', 'selectedArea'));
     }
 
     public function aboutUs(){
@@ -107,5 +111,17 @@ class WebsiteController extends Controller
         $area = ShippingArea::find($areaId);
         $cost = $area ? $area->shipping_cost : 0;
         return response()->json(['cost' => $cost]);
+    }
+
+    public function saveShippingSelection(Request $request){
+        $request->validate([
+            'region' => 'nullable|string',
+            'area' => 'nullable|integer',
+        ]);
+
+        Session::put('selected_shipping_region', $request->region);
+        Session::put('selected_shipping_area', $request->area);
+
+        return response()->json(['success' => true]);
     }
 }

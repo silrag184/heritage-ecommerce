@@ -21,8 +21,8 @@ Customer Account
                         <div class="wrap-sidebar-account">
                             <ul class="my-account-nav">
                                 <li><span class="my-account-nav-item active">Dashboard</span></li>
-                                <li><a href="{{ route('customer.order') }}" class="my-account-nav-item">Orders</a></li>
-                                <li><a href="my-account-address.html" class="my-account-nav-item">Address</a></li>
+                                <li><a href="{{ route('customer.orders') }}" class="my-account-nav-item">Orders</a></li>
+                                <li><a href="{{ route('customer.address') }}" class="my-account-nav-item">Address</a></li>
                                 <li><a href="{{ route('customer.profile') }}" class="my-account-nav-item">Account Details</a></li>
                                 <li><a href="{{ route('customer.wishlist.show') }}" class="my-account-nav-item">Wishlist</a></li>
                                 <li><a href="{{ route('customer.logout') }}" class="my-account-nav-item">Logout</a></li>

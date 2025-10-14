@@ -21,11 +21,11 @@ Orders
                         <div class="wrap-sidebar-account">
                             <ul class="my-account-nav">
                                 <li><a href="{{ route('customer.dashboard') }}" class="my-account-nav-item ">Dashboard</a></li>
-                                <li><span class="my-account-nav-item active">Orders</span></li>
-                                <li><a href="my-account-address.html" class="my-account-nav-item">Address</a></li>
-                                <li><a href="my-account-edit.html" class="my-account-nav-item">Account Details</a></li>
-                                <li><a href="my-account-wishlist.html" class="my-account-nav-item">Wishlist</a></li>
-                                <li><a href="login.html" class="my-account-nav-item">Logout</a></li>
+                                <li><span class="my-account-nav-item active"><a href="{{ route('customer.orders') }}">Orders</a></span></li>
+                                <li><a href="{{ route('customer.address') }}" class="my-account-nav-item">Address</a></li>
+                                <li><a href="{{ route('customer.profile') }}" class="my-account-nav-item">Account Details</a></li>
+                                <li><a href="{{ route('customer.wishlist.show') }}" class="my-account-nav-item">Wishlist</a></li>
+                                <li><a href="{{ route('customer.logout') }}" class="my-account-nav-item">Logout</a></li>
                             </ul>
                         </div>
                     </div>
@@ -43,67 +43,34 @@ Orders
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="tf-order-item">
-                                            <td>
-                                                #123
-                                            </td>
-                                            <td>
-                                                August 1, 2024
-                                            </td>
-                                            <td>
-                                                On hold
-                                            </td>
-                                            <td>
-                                                $200.0 for 1 items
-                                            </td>
-                                            <td>
-                                                <a href="my-account-orders-details.html"
-                                                    class="tf-btn btn-fill animate-hover-btn rounded-0 justify-content-center">
-                                                    <span>View</span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="tf-order-item">
-                                            <td>
-                                                #345
-                                            </td>
-                                            <td>
-                                                August 2, 2024
-                                            </td>
-                                            <td>
-                                                On hold
-                                            </td>
-                                            <td>
-                                                $300.0 for 1 items
-                                            </td>
-                                            <td>
-                                                <a href="my-account-orders-details.html"
-                                                    class="tf-btn btn-fill animate-hover-btn rounded-0 justify-content-center">
-                                                    <span>View</span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="tf-order-item">
-                                            <td>
-                                                #567
-                                            </td>
-                                            <td>
-                                                August 3, 2024
-                                            </td>
-                                            <td>
-                                                On hold
-                                            </td>
-                                            <td>
-                                                $400.0 for 1 items
-                                            </td>
-                                            <td>
-                                                <a href="my-account-orders-details.html"
-                                                    class="tf-btn btn-fill animate-hover-btn rounded-0 justify-content-center">
-                                                    <span>View</span>
-                                                </a>
-                                            </td>
-                                        </tr>
-
+                                        @forelse($orders as $order)
+                                            <tr class="tf-order-item">
+                                                <td>
+                                                    #{{ $order->order_number }}
+                                                </td>
+                                                <td>
+                                                    {{ $order->created_at->format('F j, Y') }}
+                                                </td>
+                                                <td>
+                                                    {{ ucfirst($order->status) }}
+                                                </td>
+                                                <td>
+                                                    ৳{{ number_format($order->total, 2) }} for {{ $order->orderDetails->count() }} item{{ $order->orderDetails->count() > 1 ? 's' : '' }}
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('customer.order-details', $order->order_number) }}"
+                                                        class="tf-btn btn-fill animate-hover-btn rounded-0 justify-content-center">
+                                                        <span>View</span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="5" class="text-center py-4">
+                                                    <p class="mb-0">No orders found.</p>
+                                                </td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

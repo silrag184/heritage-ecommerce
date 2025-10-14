@@ -138,7 +138,7 @@ $(document).ready(function() {
     });
 
     // Shipping area handling
-    $('#shipping-region').on('change', function() {
+    $('#shipping_region').on('change', function() {
         var region = $(this).val();
         if (region) {
             $.ajax({
@@ -149,14 +149,14 @@ $(document).ready(function() {
                     data.forEach(function(area) {
                         options += '<option value="' + area.id + '">' + area.area_name + '</option>';
                     });
-                    $('#shipping-area').html(options);
+                    $('#shipping_area').html(options);
                 },
                 error: function() {
                     console.error('Error loading areas');
                 }
             });
         } else {
-            $('#shipping-area').html('<option value="">Select Area</option>');
+            $('#shipping_area').html('<option value="">Select Area</option>');
         }
         // Reset shipping cost and total
         $('#shipping-cost-display').text('৳0.00 TK');
@@ -264,103 +264,196 @@ $(document).ready(function() {
         });
     }
 
-    // Handle quantity increase on cart page
-    $(document).on('click', '.btnincrease', function() {
-        let $this = $(this);
-        let input = $this.siblings('input[name="number"]');
-        let newQty = parseInt(input.val()) + 0;
-        input.val(newQty);
-        let rowId = input.data('row-id');
-        updateQuantity(rowId, newQty, $this.closest('.wg-quantity').find('.btn-quantity'));
-    });
-
-    // Handle quantity decrease on cart page
-    $(document).on('click', '.btndecrease', function() {
-        let $this = $(this);
-        let input = $this.siblings('input[name="number"]');
-        let newQty = parseInt(input.val()) - 0;
-        if (newQty < 1) return;
-        input.val(newQty);
-        let rowId = input.data('row-id');
-        updateQuantity(rowId, newQty, $this.closest('.wg-quantity').find('.btn-quantity'));
-    });
-
-    // Handle remove on cart page
-    $(document).on('click', '.remove-cart', function() {
-        let rowId = $(this).data('row-id');
-        if (confirm('Are you sure you want to remove this item?')) {
-            $.ajax({
-                url: '{{ route("cart.remove") }}',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    rowId: rowId
-                },
-                success: function(response) {
-                    if (response.success) {
-                        loadCartTable();
-                        // Update header cart count
-                        updateHeaderCartCount();
-                    }
-                },
-                error: function() {
-                    console.error('Error removing item');
-                }
-            });
-        }
-    });
-
-    function updateQuantity(rowId, qty, buttons) {
-        // Disable buttons to prevent multiple clicks
-        if (buttons) {
-            buttons.prop('disabled', true);
-        }
-
+    // Function to save shipping selection to session
+    function saveShippingSelection(region, area) {
         $.ajax({
-            url: '{{ route("cart.update") }}',
+            url: '{{ route("shipping.save.selection") }}',
             method: 'POST',
             data: {
                 _token: '{{ csrf_token() }}',
-                rowId: rowId,
-                quantity: qty
+                region: region,
+                area: area
             },
             success: function(response) {
-                loadCartTable();
-                // Update header cart count
-                updateHeaderCartCount();
+                console.log('Shipping selection saved');
             },
             error: function() {
-                console.error('Error updating quantity');
-                // Revert on error
-                let input = $(`input[data-row-id="${rowId}"]`);
-                input.val(qty - 1); // or get original
-            },
-            complete: function() {
-                // Re-enable buttons
-                if (buttons) {
-                    buttons.prop('disabled', false);
-                }
+                console.error('Error saving shipping selection');
             }
         });
     }
 
-    // Function to update header cart count
-    function updateHeaderCartCount() {
-        $.ajax({
-            url: '{{ route("cart.get") }}',
-            method: 'GET',
-            success: function(response) {
-                $('.nav-cart .count-box').text(response.count);
-            },
-            error: function() {
-                console.error('Error updating cart count');
-            }
-        });
-    }
-
-    // Load cart table on page load if on cart page
+    // Update cart table on page load if on cart page
     if ($('table.tf-table-page-cart').length) {
         loadCartTable();
+    }
+
+    // Shipping area handling for cart page
+    $('#shipping-region').on('change', function() {
+        var region = $(this).val();
+        if (region) {
+            $.ajax({
+                url: '{{ route("shipping.areas", ":region") }}'.replace(':region', region),
+                method: 'GET',
+                success: function(data) {
+                    var options = '<option value="">Select Area</option>';
+                    data.forEach(function(area) {
+                        options += '<option value="' + area.id + '">' + area.area_name + '</option>';
+                    });
+                    $('#shipping-area').html(options);
+                },
+                error: function() {
+                    console.error('Error loading areas');
+                }
+            });
+        } else {
+            $('#shipping-area').html('<option value="">Select Area</option>');
+        }
+        // Reset shipping cost and total
+        $('#shipping-cost-display').text('৳0.00 TK');
+        updateGrandTotal(0);
+        // Save selection
+        saveShippingSelection(region, null);
+    });
+
+    $('#shipping-area').on('change', function() {
+        var areaId = $(this).val();
+        var region = $('#shipping-region').val();
+        if (areaId) {
+            $.ajax({
+                url: '{{ route("shipping.cost", ":areaId") }}'.replace(':areaId', areaId),
+                method: 'GET',
+                success: function(data) {
+                    var cost = parseFloat(data.cost);
+                    $('#shipping-cost-display').text('৳' + cost.toFixed(2) + ' TK');
+                    updateGrandTotal(cost);
+                },
+                error: function() {
+                    console.error('Error loading shipping cost');
+                }
+            });
+        } else {
+            $('#shipping-cost-display').text('৳0.00 TK');
+            updateGrandTotal(0);
+        }
+        // Save selection
+        saveShippingSelection(region, areaId);
+    });
+
+    // Update cart table on page load if on cart page
+    if ($('table.tf-table-page-cart').length) {
+        loadCartTable();
+    }
+
+    // Checkout button logic
+    $('#checkout-btn').on('click', function() {
+        var region = $('#shipping-region').val();
+        var area = $('#shipping-area').val();
+        var agree = $('#check-agree').is(':checked');
+
+        if (!region || !area) {
+            alert('Please select a shipping region and area before proceeding to checkout.');
+            return;
+        }
+
+        if (!agree) {
+            alert('Please agree to the terms and conditions.');
+            return;
+        }
+
+        // Check if user is logged in
+        $.ajax({
+            url: '{{ route("customer.check") }}',
+            method: 'GET',
+            success: function(response) {
+                if (response.logged_in) {
+                    // User is logged in, redirect to checkout
+                    window.location.href = '{{ route("checkout") }}';
+                } else {
+                    // User not logged in, open login modal
+                    $('#loginModal').modal('show');
+                }
+            },
+            error: function() {
+                alert('Error checking login status. Please try again.');
+            }
+        });
+    });
+
+    // Checkout page shipping handling
+    if ($('#checkout-shipping-cost').length) {
+        $('#shipping_region').on('change', function() {
+            var region = $(this).val();
+            if (region) {
+                $.ajax({
+                    url: '{{ route("shipping.areas", ":region") }}'.replace(':region', region),
+                    method: 'GET',
+                    success: function(data) {
+                        var options = '<option value="">Select Area</option>';
+                        data.forEach(function(area) {
+                            options += '<option value="' + area.id + '">' + area.area_name + '</option>';
+                        });
+                        $('#shipping_area').html(options);
+                    },
+                    error: function() {
+                        console.error('Error loading areas');
+                    }
+                });
+            } else {
+                $('#shipping_area').html('<option value="">Select Area</option>');
+            }
+            // Reset shipping cost and total
+            $('#checkout-shipping-cost').text('৳0.00');
+            updateCheckoutGrandTotal(0);
+        });
+
+        $('#shipping_area').on('change', function() {
+            var areaId = $(this).val();
+            if (areaId) {
+                $.ajax({
+                    url: '{{ route("shipping.cost", ":areaId") }}'.replace(':areaId', areaId),
+                    method: 'GET',
+                    success: function(data) {
+                        var cost = parseFloat(data.cost);
+                        $('#checkout-shipping-cost').text('৳' + cost.toFixed(2));
+                        updateCheckoutGrandTotal(cost);
+                        // Update hidden shipping cost field
+                        $('#shipping_cost').val(cost);
+                    },
+                    error: function() {
+                        console.error('Error loading shipping cost');
+                    }
+                });
+            } else {
+                $('#checkout-shipping-cost').text('৳0.00');
+                updateCheckoutGrandTotal(0);
+                $('#shipping_cost').val(0);
+            }
+        });
+
+        function updateCheckoutGrandTotal(shippingCost) {
+            var subtotal = parseFloat('{{ \Cart::subtotal() }}');
+            var grandTotal = subtotal + shippingCost;
+            $('#checkout-grand-total').text('৳' + grandTotal.toFixed(2));
+        }
+
+        // Initialize shipping cost on page load if area is pre-selected
+        if ($('#shipping_area').val()) {
+            var areaId = $('#shipping_area').val();
+            $.ajax({
+                url: '{{ route("shipping.cost", ":areaId") }}'.replace(':areaId', areaId),
+                method: 'GET',
+                success: function(data) {
+                    var cost = parseFloat(data.cost);
+                    $('#checkout-shipping-cost').text('৳' + cost.toFixed(2));
+                    updateCheckoutGrandTotal(cost);
+                    $('#shipping_cost').val(cost);
+                },
+                error: function() {
+                    console.error('Error loading initial shipping cost');
+                }
+            });
+        }
     }
 });
 </script>
