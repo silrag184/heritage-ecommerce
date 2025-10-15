@@ -37,6 +37,7 @@
     @include('website.includes.modals')
 
     @include('website.includes.scripts')
+    @yield('scripts')
 </body>
 
 </html>

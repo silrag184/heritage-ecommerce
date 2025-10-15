@@ -10,9 +10,11 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "hardevine/shoppingcart": "^3.4",
         "laravel/framework": "^12.0",
         "laravel/jetstream": "^5.3",
         "laravel/sanctum": "^4.0",
+        "laravel/socialite": "^5.15",
         "laravel/tinker": "^2.10.1",
         "livewire/livewire": "^3.6.4"
     },
@@ -30,7 +32,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/ColorHelper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

@@ -89,6 +89,17 @@
                                 </ul>
                             </li>
 
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="#">
+                                    <i class="side-menu__icon fa fa-location-arrow"></i>
+                                    <span class="side-menu__label">Shipping Areas</span><i class="angle fa fa-angle-right"></i>
+                                </a>
+                                <ul class="slide-menu">
+                                    <li><a href="{{ route('shippingAreas.index') }}" class="slide-item">Manage Shipping Areas</a></li>
+                                </ul>
+                            </li>
+
+
                             
                             <li>
                                 <h3>Product Section</h3>
