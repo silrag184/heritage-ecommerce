@@ -134,94 +134,19 @@
                             </li>
 
                             <li>
-                                <h3>UI Customization</h3>
+                                <h3>Oder Section</h3>
                             </li>
                             <li class="slide">
                                 <a class="side-menu__item" data-bs-toggle="slide" href="#">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M21.5,13h-8.0005493C13.2234497,13.0001831,12.9998169,13.223999,13,13.5v8.0005493C13.0001831,21.7765503,13.223999,22.0001831,13.5,22h8.0006104C21.7765503,21.9998169,22.0001831,21.776001,22,21.5v-8.0006104C21.9998169,13.2234497,21.776001,12.9998169,21.5,13z M21,21h-7v-7h7V21z M10.5,2H2.4993896C2.2234497,2.0001831,1.9998169,2.223999,2,2.5v8.0005493C2.0001831,10.7765503,2.223999,11.0001831,2.5,11h8.0006104C10.7765503,10.9998169,11.0001831,10.776001,11,10.5V2.4993896C10.9998169,2.2234497,10.776001,1.9998169,10.5,2z M10,10H3V3h7V10z M10.5,13H2.4993896C2.2234497,13.0001831,1.9998169,13.223999,2,13.5v8.0005493C2.0001831,21.7765503,2.223999,22.0001831,2.5,22h8.0006104C10.7765503,21.9998169,11.0001831,21.776001,11,21.5v-8.0006104C10.9998169,13.2234497,10.776001,12.9998169,10.5,13z M10,21H3v-7h7V21z M21.5,2h-8.0005493C13.2234497,2.0001831,12.9998169,2.223999,13,2.5v8.0005493C13.0001831,10.7765503,13.223999,11.0001831,13.5,11h8.0006104C21.7765503,10.9998169,22.0001831,10.776001,22,10.5V2.4993896C21.9998169,2.2234497,21.776001,1.9998169,21.5,2z M21,10h-7V3h7V10z"/></svg>
-                                    <span class="side-menu__label">Apps</span><i class="angle fa fa-angle-right"></i>
+                                    <span class="side-menu__label">Manage Oder</span><i class="angle fa fa-angle-right"></i>
                                 </a>
                                 <ul class="slide-menu">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">Apps</a></li>
-                                    <li><a href="calendar2.html" class="slide-item">Calendar</a></li>
-                                    <li><a href="chat.html" class="slide-item">Chat</a></li>
-                                    <li class="sub-slide">
-                                        <a class="sub-side-menu__item" data-bs-toggle="sub-slide" href="#"><span
-                                                class="sub-side-menu__label">E-Commerce</span><i
-                                                class="sub-angle fa fa-angle-right"></i></a>
-                                        <ul class="sub-slide-menu">
-                                            <li><a class="sub-slide-item" href="cart.html">Cart</a></li>
-                                            <li><a class="sub-slide-item" href="checkout.html">Checkout</a></li>
-                                            <li><a class="sub-slide-item" href="products.html">Products</a></li>
-                                            <li><a class="sub-slide-item" href="product-details.html">Product-Details</a></li>
-                                            <li><a class="sub-slide-item" href="wishlist.html">Wishlist</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="sub-slide">
-                                        <a class="sub-side-menu__item" data-bs-toggle="sub-slide" href="#"><span
-                                                class="sub-side-menu__label">File Manager</span><i
-                                                class="sub-angle fa fa-angle-right"></i></a>
-                                        <ul class="sub-slide-menu">
-                                            <li><a class="sub-slide-item" href="file-manager.html">Files</a></li>
-                                            <li><a class="sub-slide-item" href="file-manager1.html">File Manager</a></li>
-                                            <li><a class="sub-slide-item" href="file-manager2.html">File Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="sub-slide">
-                                        <a class="sub-side-menu__item" data-bs-toggle="sub-slide" href="#"><span
-                                                class="sub-side-menu__label">E-Mail</span><i
-                                                class="sub-angle fa fa-angle-right"></i></a>
-                                        <ul class="sub-slide-menu">
-                                            <li><a class="sub-slide-item" href="mail-inbox.html">Inbox</a></li>
-                                            <li><a class="sub-slide-item" href="mail-compose.html">Compose Mail</a></li>
-                                            <li><a class="sub-slide-item" href="mail-read.html">Read Mail</a></li>
-                                            <li><a class="sub-slide-item" href="mail-settings.html">Mail Settings</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="sub-slide">
-                                        <a class="sub-side-menu__item" data-bs-toggle="sub-slide" href="#"><span
-                                                class="sub-side-menu__label">Invoices</span><i
-                                                class="sub-angle fa fa-angle-right"></i></a>
-                                        <ul class="sub-slide-menu">
-                                            <li><a class="sub-slide-item" href="invoice-list.html">Invoice List</a></li>
-                                            <li><a class="sub-slide-item" href="invoice-details.html">Invoice Details</a></li>
-                                            <li><a class="sub-slide-item" href="invoice-create.html">Create Invoice</a></li>
-                                            <li><a class="sub-slide-item" href="invoice-timelog.html">Time Log Invoice</a></li>
-                                            <li><a class="sub-slide-item" href="invoice-edit.html">Edit Invoice</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="sub-slide">
-                                        <a class="sub-side-menu__item" data-bs-toggle="sub-slide" href="#"><span
-                                                class="sub-side-menu__label">Projects</span><i
-                                                class="sub-angle fa fa-angle-right"></i></a>
-                                        <ul class="sub-slide-menu">
-                                            <li><a class="sub-slide-item" href="projects.html">Projects</a></li>
-                                            <li><a class="sub-slide-item" href="projects-list.html">Projects List</a></li>
-                                            <li><a class="sub-slide-item" href="project-details.html">Project Details</a></li>
-                                            <li><a class="sub-slide-item" href="project-new.html">Project New</a></li>
-                                            <li><a class="sub-slide-item" href="project-edit.html">Edit Project</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="ticket-details.html" class="slide-item"><span class="side-menu__label">Tickets</span></a></li>
-                                    <li class="sub-slide">
-                                        <a class="sub-side-menu__item" data-bs-toggle="sub-slide" href="#"><span
-                                                class="sub-side-menu__label">Tasks</span><i
-                                                class="sub-angle fa fa-angle-right"></i></a>
-                                        <ul class="sub-slide-menu">
-                                            <li><a class="sub-slide-item" href="tasks-list.html">Task List</a></li>
-                                            <li><a class="sub-slide-item" href="task-edit.html">Edit Task</a></li>
-                                            <li><a class="sub-slide-item" href="task-create.html">Create Task</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="sub-slide">
-                                        <a class="sub-side-menu__item" data-bs-toggle="sub-slide" href="#"><span
-                                                class="sub-side-menu__label">Clients</span><i
-                                                class="sub-angle fa fa-angle-right"></i></a>
-                                        <ul class="sub-slide-menu">
-                                            <li><a class="sub-slide-item" href="clients.html">Clients</a></li>
-                                            <li><a class="sub-slide-item" href="client-create.html">Add Client</a></li>
-                                        </ul>
-                                    </li>
+                                    <li class="side-menu-label1"><a href="javascript:void(0)">Manage Oder</a></li>
+                                    <li><a href="#" class="slide-item">All Oder</a></li>
+                                    <li><a href="#" class="slide-item">Pandding Oder</a></li>
+                                    <li><a href="#" class="slide-item">Shipping Oder</a></li>
+                                    <li><a href="#" class="slide-item">Complite Oder</a></li>
                                 </ul>
                             </li>
 
