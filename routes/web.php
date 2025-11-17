@@ -17,6 +17,7 @@ use App\Http\Controllers\Website\CartController;
 use App\Http\Controllers\Backend\ShippingAreaController;
 use App\Http\Controllers\Website\CustomerController;
 use App\Http\Controllers\Website\CheckoutController;
+use App\Http\Controllers\Backend\OrderController;
 
 
 //frontend routes
@@ -152,6 +153,17 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
 
     //Shipping Area Routes
     Route::resource('shippingAreas', ShippingAreaController::class);
+
+    //Order Routes
+    Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {
+        Route::get('/view', [OrderController::class, 'index'])->name('index');
+        Route::get('/pending', [OrderController::class, 'pendingOrders'])->name('pending');
+        Route::get('/shipped', [OrderController::class, 'shippedOrders'])->name('shipped');
+        Route::get('/delivered', [OrderController::class, 'deliveredOrders'])->name('delivered');
+        Route::get('/invoice/{id}', [OrderController::class, 'viewInvoice'])->name('view');
+        Route::get('/invoice/download/{id}', [OrderController::class, 'downloadInvoice'])->name('invoice.download');
+        Route::delete('/delete/{id}', [OrderController::class, 'delete'])->name('delete');
+    });
 
     //other backend routes can be added here in the future
 

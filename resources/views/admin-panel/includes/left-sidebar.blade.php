@@ -100,7 +100,7 @@
                             </li>
 
 
-                            
+
                             <li>
                                 <h3>Product Section</h3>
                             </li>
@@ -143,10 +143,10 @@
                                 </a>
                                 <ul class="slide-menu">
                                     <li class="side-menu-label1"><a href="javascript:void(0)">Manage Oder</a></li>
-                                    <li><a href="#" class="slide-item">All Oder</a></li>
-                                    <li><a href="#" class="slide-item">Pandding Oder</a></li>
-                                    <li><a href="#" class="slide-item">Shipping Oder</a></li>
-                                    <li><a href="#" class="slide-item">Complite Oder</a></li>
+                                    <li><a href="{{ route('orders.index') }}" class="slide-item">Manage Oders</a></li>
+                                    <li><a href="{{ route('orders.pending') }}" class="slide-item">Pandding Oder</a></li>
+                                    <li><a href="{{ route('orders.shipped') }}" class="slide-item">Shipping Oder</a></li>
+                                    <li><a href="{{ route('orders.delivered') }}" class="slide-item">Complite Oder</a></li>
                                 </ul>
                             </li>
 
