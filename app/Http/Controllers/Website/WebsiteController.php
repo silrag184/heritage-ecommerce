@@ -17,9 +17,12 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 class WebsiteController extends Controller
 {
     public function index(){
+        $categories = Category::where("status", 1)->withCount(['products' => function ($query) {
+            $query->where('status', 1);
+        }])->orderBy("id", "asc")->get();
         $products = Product::with(['category', 'subCategory', 'brand', 'colorImages', 'sizes'])->latest()->where('status', 1)->get();
         $newArrivals = Product::with(['category', 'subCategory', 'brand', 'colorImages', 'sizes'])->latest()->where('status', 1)->where('created_at', '>', now()->subDays(30))->get();
-        return view('website.pages.home.index', compact('products', 'newArrivals'));
+        return view('website.pages.home.index', compact('products', 'newArrivals','categories'));
     }
 
     public function shopSection(Request $request){
@@ -42,13 +45,13 @@ class WebsiteController extends Controller
 
     public function shopDetails($slug){
         $product = Product::with(['category', 'subCategory', 'brand', 'colorImages', 'sizes', 'tags'])->where('slug', $slug)->where('status', 1)->firstOrFail();
-        
+
         $colorName = null;
         if ($product->colorImages->isNotEmpty()) {
             $firstColorCode = $product->colorImages->first()->color_code;
             $colorName = getColorName($firstColorCode);
         }
-        
+
         return view('website.pages.shop.shop-details', compact('product', 'colorName'));
     }
 
