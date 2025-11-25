@@ -153,30 +153,12 @@
                             <li class="slide">
                                 <a class="side-menu__item" data-bs-toggle="slide" href="#">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M16.6766357,7.3233643C15.7435303,4.2431641,12.8848267,2,9.5,2C5.3578491,2,2,5.3578491,2,9.5c0,3.3848267,2.2431641,6.2435303,5.3233643,7.1766357C8.2564697,19.7568359,11.1151733,22,14.5,22c4.1402588-0.0045166,7.4954834-3.3597412,7.5-7.5C22,11.1151733,19.7568359,8.2564697,16.6766357,7.3233643z M16,9.5c0,0.8760376-0.1757202,1.7103882-0.4899292,2.4730225l-3.4830933-3.4830933C12.7896118,8.1757202,13.6239624,8,14.5,8c0.4649658,0.0005493,0.9176636,0.0518799,1.3549194,0.1450806C15.9481201,8.5823364,15.9994507,9.0350342,16,9.5z M15.0283203,12.906311c-0.5328369,0.862854-1.2597656,1.5897217-2.1226807,2.1224365l-3.9343872-3.9343872c0.5328369-0.8630981,1.2598877-1.5901489,2.1229858-2.1230469L15.0283203,12.906311z M7.0787354,15.5289917C4.6891479,14.5682983,3,12.2332764,3,9.5C3,5.9101562,5.9101562,3,9.5,3c2.7313232,0.0031738,5.06427,1.6907959,6.0264893,4.0783081C15.1900635,7.0321655,14.8491211,7,14.5,7C10.3578491,7,7,10.3578491,7,14.5C7,14.8500366,7.0323486,15.1917114,7.0787354,15.5289917z M8,14.5c0-0.8759766,0.1757812-1.7103271,0.4899292-2.4729614l3.4830322,3.4830322C11.2103271,15.8242188,10.3759766,16,9.5,16c-0.465332,0-0.918457-0.0509644-1.3560791-0.1439209C8.0509644,15.418457,8,14.965332,8,14.5z M14.5,21c-2.7332764,0-5.0682983-1.6891479-6.0289917-4.0787354C8.8082886,16.9676514,9.1499634,17,9.5,17c4.1402588-0.0045166,7.4954834-3.3597412,7.5-7.5c0-0.3491211-0.0321655-0.6900635-0.0783081-1.0264893C19.3092041,9.43573,20.9968262,11.7686768,21,14.5C21,18.0898438,18.0898438,21,14.5,21z"/></svg>
-                                    <span class="side-menu__label">UI Elements</span><i class="angle fa fa-angle-right"></i>
+                                    <span class="side-menu__label">Combo Package</span><i class="angle fa fa-angle-right"></i>
                                 </a>
                                 <ul class="slide-menu">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">UI Elements</a></li>
-                                    <li><a href="alerts.html" class="slide-item">Alerts</a></li>
-                                    <li><a href="avatar.html" class="slide-item">Avatar</a></li>
-                                    <li><a href="badge.html" class="slide-item">Badges</a></li>
-                                    <li><a href="breadcrumbs.html" class="slide-item">Breadcrumbs</a></li>
-                                    <li><a href="buttons.html" class="slide-item">Buttons</a></li>
-                                    <li><a href="colors.html" class="slide-item">Colors</a></li>
-                                    <li><a href="dropdown.html" class="slide-item">Dropdown</a></li>
-                                    <li><a href="gallery.html" class="slide-item">Gallery</a></li>
-                                    <li><a href="loaders.html" class="slide-item">Loaders</a></li>
-                                    <li><a href="navigation.html" class="slide-item">Navigation</a></li>
-                                    <li><a href="notify.html" class="slide-item">Notifications</a></li>
-                                    <li><a href="offcanvas.html" class="slide-item">Offcanvas</a></li>
-                                    <li><a href="pagination.html" class="slide-item">Pagination</a></li>
-                                    <li><a href="panels.html" class="slide-item">Panels</a></li>
-                                    <li><a href="rangeslider.html" class="slide-item">Range Slider</a></li>
-                                    <li><a href="scroll.html" class="slide-item">Scroll</a></li>
-                                    <li><a href="tags.html" class="slide-item">Tags</a></li>
-                                    <li><a href="thumbnails.html" class="slide-item">Thumbnails</a></li>
-                                    <li><a href="treeview.html" class="slide-item">Treeview</a></li>
-                                    <li><a href="typography.html" class="slide-item">Typography</a></li>
+                                    <li class="side-menu-label1"><a href="javascript:void(0)">Combo Package</a></li>
+                                    <li><a href="{{ route('combo-packages.list') }}" class="slide-item">Manage Combo</a></li>
+                                    <li><a href="{{ route('combo-packages.create') }}" class="slide-item">Add Combo</a></li>
                                 </ul>
                             </li>
                             <li class="slide">

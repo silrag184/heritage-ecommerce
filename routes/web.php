@@ -18,14 +18,15 @@ use App\Http\Controllers\Backend\ShippingAreaController;
 use App\Http\Controllers\Website\CustomerController;
 use App\Http\Controllers\Website\CheckoutController;
 use App\Http\Controllers\Backend\OrderController;
+use App\Http\Controllers\Backend\ComboPackages;
 
 
 //frontend routes
-Route::get('/',[WebsiteController::class,'index'])->name('home');
-Route::get('/shop-section',[WebsiteController::class,'shopSection'])->name('shop.section');
-Route::get('/shop-section-details/{slug}',[WebsiteController::class,'shopDetails'])->name('shop.details');
-Route::get('/about-us',[WebsiteController::class,'aboutUs'])->name('about.us');
-Route::get('/contact-us',[WebsiteController::class,'contactUs'])->name('contact.us');
+Route::get('/', [WebsiteController::class, 'index'])->name('home');
+Route::get('/shop-section', [WebsiteController::class, 'shopSection'])->name('shop.section');
+Route::get('/shop-section-details/{slug}', [WebsiteController::class, 'shopDetails'])->name('shop.details');
+Route::get('/about-us', [WebsiteController::class, 'aboutUs'])->name('about.us');
+Route::get('/contact-us', [WebsiteController::class, 'contactUs'])->name('contact.us');
 
 //shipping routes
 Route::get('/get-shipping-regions', [WebsiteController::class, 'getShippingRegions'])->name('shipping.regions');
@@ -34,7 +35,7 @@ Route::get('/get-shipping-cost/{areaId}', [WebsiteController::class, 'getShippin
 Route::post('/save-shipping-selection', [WebsiteController::class, 'saveShippingSelection'])->name('shipping.save.selection');
 
 //cart routes
-Route::get('cart-product-list',[WebsiteController::class,'cartProducts'])->name('cart.products');
+Route::get('cart-product-list', [WebsiteController::class, 'cartProducts'])->name('cart.products');
 
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/get-cart', [CartController::class, 'getCart'])->name('cart.get');
@@ -42,35 +43,35 @@ Route::post('/update-cart', [CartController::class, 'updateCart'])->name('cart.u
 Route::post('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('cart.remove');
 
 //Customer Authentication Routes
-Route::post('/customer/registration',[CustomerController::class,'saveCustomerInfo'])->name('customer.registration');
-Route::post('/customer/login',[CustomerController::class,'customerLoginCheck'])->name('customer.login');
-Route::get('/customer/check',[CustomerController::class,'check'])->name('customer.check');
-Route::get('/customer/google/login',[CustomerController::class,'googleLogin'])->name('customer.google.login');
-Route::get('/customer/google/callback',[CustomerController::class,'googleCallback'])->name('customer.google.callback');
+Route::post('/customer/registration', [CustomerController::class, 'saveCustomerInfo'])->name('customer.registration');
+Route::post('/customer/login', [CustomerController::class, 'customerLoginCheck'])->name('customer.login');
+Route::get('/customer/check', [CustomerController::class, 'check'])->name('customer.check');
+Route::get('/customer/google/login', [CustomerController::class, 'googleLogin'])->name('customer.google.login');
+Route::get('/customer/google/callback', [CustomerController::class, 'googleCallback'])->name('customer.google.callback');
 
 //Order Routes
-Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
-Route::get('/customer-mobile-check',[CheckoutController::class,'customerMobileCheck'])->name('customer-mobile-check');
-Route::post('/new-order',[CheckoutController::class,'newOrder'])->name('new-order');
-Route::get('/complete-order',[CheckoutController::class,'completeOrder'])->name('complete-order');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::get('/customer-mobile-check', [CheckoutController::class, 'customerMobileCheck'])->name('customer-mobile-check');
+Route::post('/new-order', [CheckoutController::class, 'newOrder'])->name('new-order');
+Route::get('/complete-order', [CheckoutController::class, 'completeOrder'])->name('complete-order');
 
 // Protected Customer Routes
 Route::middleware(['customer'])->group(function () {
-    Route::get('/customer/logout',[CustomerController::class,'logout'])->name('customer.logout');
-    Route::get('/customer/dashboard',[CustomerController::class,'customerDashboard'])->name('customer.dashboard');
-    Route::get('/customer/profile',[CustomerController::class,'customerProfile'])->name('customer.profile');
-    Route::put('/customer/update-profile/{id}',[CustomerController::class,'customerUpdateProfile'])->name('customer.update-profile');
-    Route::get('/customer/orders',[CustomerController::class,'customerOrder'])->name('customer.orders');
-    Route::get('/customer/order-details/{orderNumber}',[CustomerController::class,'customerOrderDetails'])->name('customer.order-details');
-    Route::get('/customer/address',[CustomerController::class,'customerAddress'])->name('customer.address');
-    Route::post('/customer/update-address',[CustomerController::class,'updateAddress'])->name('customer.update-address');
-    Route::delete('/customer/delete-address',[CustomerController::class,'deleteAddress'])->name('customer.delete-address');
-    Route::get('/customer/change-password',[CustomerController::class,'customerChangePassword'])->name('customer.change-password');
-    Route::post('/customer/update-password/{id}',[CustomerController::class,'customerPasswordUpdate'])->name('customer.update-password');
-    Route::get('/customer/wishlist/show',[CustomerController::class,'customerWishlist'])->name('customer.wishlist.show');
-    Route::get('/customer/wishlist/{id}',[CustomerController::class,'wishlist'])->name('customer.wishlist');
-    Route::get('/customer/delete/wishlist/{id}',[CustomerController::class,'deleteWishlist'])->name('customer.wishlist.delete');
-    Route::delete('/customer/delete-account',[CustomerController::class,'deleteAccount'])->name('customer.delete-account');
+    Route::get('/customer/logout', [CustomerController::class, 'logout'])->name('customer.logout');
+    Route::get('/customer/dashboard', [CustomerController::class, 'customerDashboard'])->name('customer.dashboard');
+    Route::get('/customer/profile', [CustomerController::class, 'customerProfile'])->name('customer.profile');
+    Route::put('/customer/update-profile/{id}', [CustomerController::class, 'customerUpdateProfile'])->name('customer.update-profile');
+    Route::get('/customer/orders', [CustomerController::class, 'customerOrder'])->name('customer.orders');
+    Route::get('/customer/order-details/{orderNumber}', [CustomerController::class, 'customerOrderDetails'])->name('customer.order-details');
+    Route::get('/customer/address', [CustomerController::class, 'customerAddress'])->name('customer.address');
+    Route::post('/customer/update-address', [CustomerController::class, 'updateAddress'])->name('customer.update-address');
+    Route::delete('/customer/delete-address', [CustomerController::class, 'deleteAddress'])->name('customer.delete-address');
+    Route::get('/customer/change-password', [CustomerController::class, 'customerChangePassword'])->name('customer.change-password');
+    Route::post('/customer/update-password/{id}', [CustomerController::class, 'customerPasswordUpdate'])->name('customer.update-password');
+    Route::get('/customer/wishlist/show', [CustomerController::class, 'customerWishlist'])->name('customer.wishlist.show');
+    Route::get('/customer/wishlist/{id}', [CustomerController::class, 'wishlist'])->name('customer.wishlist');
+    Route::get('/customer/delete/wishlist/{id}', [CustomerController::class, 'deleteWishlist'])->name('customer.wishlist.delete');
+    Route::delete('/customer/delete-account', [CustomerController::class, 'deleteAccount'])->name('customer.delete-account');
 });
 
 //end frontend routes
@@ -79,7 +80,7 @@ Route::middleware(['customer'])->group(function () {
 
 
 //backend routes //protected by auth middleware //used for jetstream auth scaffolding
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -105,12 +106,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
 
     //Colors Routes
     Route::group(['prefix' => 'color', 'as' => 'color.'], function () {
-        Route::get('/view',[ColorsController::class,'colorView'])->name('view');
-        Route::get('/add',[ColorsController::class,'colorAdd'])->name('add');
-        Route::post('/store',[ColorsController::class,'colorStore'])->name('store');
-        Route::get('/edit/{id}',[ColorsController::class,'colorEdit'])->name('edit');
-        Route::put('/update/{id}',[ColorsController::class,'colorUpdate'])->name('update');
-        Route::get('/delete/{id}',[ColorsController::class,'colorDelete'])->name('delete');
+        Route::get('/view', [ColorsController::class, 'colorView'])->name('view');
+        Route::get('/add', [ColorsController::class, 'colorAdd'])->name('add');
+        Route::post('/store', [ColorsController::class, 'colorStore'])->name('store');
+        Route::get('/edit/{id}', [ColorsController::class, 'colorEdit'])->name('edit');
+        Route::put('/update/{id}', [ColorsController::class, 'colorUpdate'])->name('update');
+        Route::get('/delete/{id}', [ColorsController::class, 'colorDelete'])->name('delete');
     });
 
     //Size Routes
@@ -163,6 +164,17 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
         Route::get('/invoice/{id}', [OrderController::class, 'viewInvoice'])->name('view');
         Route::get('/invoice/download/{id}', [OrderController::class, 'downloadInvoice'])->name('invoice.download');
         Route::delete('/delete/{id}', [OrderController::class, 'delete'])->name('delete');
+    });
+
+    // Combo Package
+    Route::group(['prefix' => 'combo-packages', 'as' => 'combo-packages.'], function () {
+        Route::get('/index', [ComboPackages::class, 'index'])->name('list');
+        Route::get('/check-slug', [ComboPackages::class, 'checkSlug'])->name('checkSlug');
+        Route::get('/add', [ComboPackages::class, 'create'])->name('create');
+        Route::post('/store', [ComboPackages::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [ComboPackages::class, 'edit'])->name('edit');
+        Route::put('/update/{id}', [ComboPackages::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [ComboPackages::class, 'delete'])->name('delete');
     });
 
     //other backend routes can be added here in the future
