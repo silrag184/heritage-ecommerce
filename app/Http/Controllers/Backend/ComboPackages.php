@@ -42,6 +42,7 @@ class ComboPackages extends Controller
             'meta_title' => 'required|string|max:255',
             'meta_description' => 'required|string',
             'meta_keywords' => 'required|string',
+            'status' => 'required|string',
             'product_ids' => 'required|array',            // array of product IDs
             'product_ids.*' => 'integer',                // each must be an ID
         ]);
@@ -57,6 +58,7 @@ class ComboPackages extends Controller
         $combo->meta_title = $request->meta_title;
         $combo->meta_description = $request->meta_description;
         $combo->meta_keywords = $request->meta_keywords;
+        $combo->status = $request->status;
         $combo->save();
 
         // multiple products
@@ -88,6 +90,7 @@ class ComboPackages extends Controller
             'name' => 'required|max:255',
             'slug' => 'required|unique:combo_packages,slug,' . $id,
             'url'  => 'required|unique:combo_packages,url,' . $id,
+            'status' => 'required',
             'product_id' => 'required|array|min:1',
         ]);
 
@@ -95,6 +98,7 @@ class ComboPackages extends Controller
             'name' => $request->name,
             'slug' => $request->slug,
             'url'  => $request->url,
+            'status'=> $request->status,
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,
             'meta_keywords' => $request->meta_keywords,
@@ -105,4 +109,26 @@ class ComboPackages extends Controller
 
         return redirect()->route('combo-packages.list')->with('success', 'Combo Package Updated Successfully!');
     }
+
+   public function destroy($id)
+    {
+        $package = ComboPackage::findOrFail($id);
+        ComboProductPackage::where('combo_package_id', $package->id)->delete();
+        $package->delete();
+        // Return with success message
+        return redirect()->route('combo-packages.list')->with([
+            'message' => 'Combo package deleted successfully!',
+            'alert-type' => 'success'
+        ]);
+    }
+
+
+
+    // Show
+    public function show($id)
+    {
+        $package = ComboPackage::with('products')->findOrFail($id);
+        return view('admin-panel.pages.package.show', compact('package'));
+    }
+
 }

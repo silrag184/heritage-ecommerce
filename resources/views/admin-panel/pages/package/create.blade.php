@@ -18,6 +18,8 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Combo Package Details</h3>
+                        <a href="{{ route('combo-packages.list') }}" class="btn btn-secondary ms-auto d-block">Back to
+                            List</a>
                     </div>
 
                     <div class="card-body">
@@ -63,6 +65,15 @@
                                     <label>Meta Keywords <span class="text-danger">*</span></label>
                                     <input type="text" name="meta_keywords" class="form-control" required>
                                 </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label>Status <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="status">
+                                        <option disabled selected>Select Status</option>
+                                        <option value="1">Published</option>
+                                        <option value="0">Unpublished</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <hr>
@@ -70,7 +81,7 @@
                             <!-- PRODUCTS -->
                             <h4>Combo Products</h4>
                             <div class="col-md-12 mb-3">
-                                <select name="product_id[]" class="col-12 form-control select2 " multiple>
+                                <select name="product_ids[]" class="col-12 form-control select2 " multiple>
                                     @foreach ($products as $p)
                                         <option value="{{ $p->id }}">{{ $p->product_name }}</option>
                                     @endforeach

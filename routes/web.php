@@ -169,12 +169,13 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     // Combo Package
     Route::group(['prefix' => 'combo-packages', 'as' => 'combo-packages.'], function () {
         Route::get('/index', [ComboPackages::class, 'index'])->name('list');
+        Route::get('/show/{id}', [ComboPackages::class,'show'])->name('show');
         Route::get('/check-slug', [ComboPackages::class, 'checkSlug'])->name('checkSlug');
         Route::get('/add', [ComboPackages::class, 'create'])->name('create');
         Route::post('/store', [ComboPackages::class, 'store'])->name('store');
         Route::get('/edit/{id}', [ComboPackages::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [ComboPackages::class, 'update'])->name('update');
-        Route::get('/delete/{id}', [ComboPackages::class, 'delete'])->name('delete');
+        Route::delete('/delete/{id}', [ComboPackages::class, 'destroy'])->name('delete');
     });
 
     //other backend routes can be added here in the future

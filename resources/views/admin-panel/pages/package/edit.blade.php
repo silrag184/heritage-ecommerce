@@ -1,6 +1,6 @@
 @extends('admin-panel.layout.app')
 
-@section('title', 'Create Combo Package')
+@section('title', 'Edit Combo Package')
 
 @section('admin-content')
     <div class="app-content mt-0">
@@ -8,10 +8,10 @@
             <div class="main-container container-fluid">
 
                 <div class="page-header">
-                    <h1 class="page-title">Add Combo Package</h1>
+                    <h1 class="page-title">Edit Combo Package</h1>
                     <ol class="breadcrumb ms-auto">
                         <li class="breadcrumb-item"><a href="{{ route('combo-packages.list') }}">Combo Packages</a></li>
-                        <li class="breadcrumb-item active">Create</li>
+                        <li class="breadcrumb-item active">Edit</li>
                     </ol>
                 </div>
 
@@ -21,27 +21,31 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ route('combo-packages.store') }}" method="POST">
+                        <form action="{{ route('combo-packages.update', $package->id) }}" method="POST">
                             @csrf
+                            @method('PUT')
 
                             <div class="row">
                                 <!-- NAME -->
                                 <div class="col-md-6 mb-3">
                                     <label>Package Name <span class="text-danger">*</span></label>
-                                    <input type="text" id="name" name="name" class="form-control" required>
+                                    <input type="text" id="name" name="name" class="form-control"
+                                        value="{{ $package->name }}" required>
                                 </div>
 
-                                <!-- SLUG (READONLY) -->
+                                <!-- SLUG READONLY -->
                                 <div class="col-md-6 mb-3">
                                     <label>Slug</label>
-                                    <input type="text" id="slug" name="slug" class="form-control" readonly>
+                                    <input type="text" id="slug" name="slug" class="form-control"
+                                        value="{{ $package->slug }}" readonly>
                                     <small id="slug-status"></small>
                                 </div>
 
-                                <!-- URL (READONLY) -->
+                                <!-- URL READONLY -->
                                 <div class="col-md-12 mb-3">
                                     <label>URL</label>
-                                    <input type="text" id="url" name="url" class="form-control" readonly>
+                                    <input type="text" id="url" name="url" class="form-control"
+                                        value="{{ $package->url }}" readonly>
                                 </div>
                             </div>
 
@@ -50,34 +54,50 @@
                             <!-- SEO -->
                             <div class="row">
                                 <div class="col-md-4 mb-3">
-                                    <label>Meta Title <span class="text-danger">*</span></label>
-                                    <input type="text" name="meta_title" class="form-control" required>
+                                    <label>Meta Title</label>
+                                    <input type="text" name="meta_title" class="form-control"
+                                        value="{{ $package->meta_title }}">
                                 </div>
 
                                 <div class="col-md-4 mb-3">
-                                    <label>Meta Description <span class="text-danger">*</span></label>
-                                    <input type="text" name="meta_description" class="form-control" required>
+                                    <label>Meta Description</label>
+                                    <input type="text" name="meta_description" class="form-control"
+                                        value="{{ $package->meta_description }}">
                                 </div>
 
                                 <div class="col-md-4 mb-3">
-                                    <label>Meta Keywords <span class="text-danger">*</span></label>
-                                    <input type="text" name="meta_keywords" class="form-control" required>
+                                    <label>Meta Keywords</label>
+                                    <input type="text" name="meta_keywords" class="form-control"
+                                        value="{{ $package->meta_keywords }}">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label>Status <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="status">
+                                        <option disabled selected>Select Status</option>
+                                        <option value="1">Published</option>
+                                        <option value="0">Unpublished</option>
+                                    </select>
                                 </div>
                             </div>
 
+
                             <hr>
 
-                            <!-- PRODUCTS -->
+                            <!-- PRODUCTS MULTI SELECT -->
                             <h4>Combo Products</h4>
-                            <div class="col-md-12 mb-3">
-                                <select name="product_id[]" class="col-12 form-control select2 " multiple>
+                            <div class="mb-3">
+                                <select name="product_id[]" class="form-control product-select" multiple size="10">
                                     @foreach ($products as $p)
-                                        <option value="{{ $p->id }}">{{ $p->product_name }}</option>
+                                        <option value="{{ $p->id }}"
+                                            @if ($package->products->pluck('id')->contains($p->id)) selected @endif>
+                                            {{ $p->product_name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
 
-                            <button class="btn btn-primary">Create Package</button>
+                            <button class="btn btn-primary">Update Package</button>
 
                         </form>
                     </div>
@@ -88,8 +108,6 @@
     </div>
 
     <!-- JAVASCRIPT -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function makeSlug(text) {
             return text.toLowerCase()
@@ -97,6 +115,7 @@
                 .replace(/^-+|-+$/g, '');
         }
 
+        // Auto update slug + URL from name
         $("#name").on("keyup change", function() {
             let slug = makeSlug($(this).val());
             $("#slug").val(slug);
@@ -110,13 +129,12 @@
         }
 
         function checkSlugUnique(slug) {
-            if (slug.length < 2) return;
-
             $.ajax({
                 url: "{{ route('combo-packages.checkSlug') }}",
                 type: "GET",
                 data: {
-                    slug
+                    slug,
+                    id: "{{ $package->id }}"
                 },
                 success: function(res) {
                     if (res.exists) {
@@ -128,14 +146,17 @@
             });
         }
 
+        // Prevent duplicate selection
         $(".product-select").on("change", function() {
             let selected = [];
+
             $(".product-select option:selected").each(function() {
-                if (selected.includes($(this).val())) {
+                let val = $(this).val();
+                if (selected.includes(val)) {
                     alert("This product is already selected!");
                     $(this).prop("selected", false);
                 } else {
-                    selected.push($(this).val());
+                    selected.push(val);
                 }
             });
         });

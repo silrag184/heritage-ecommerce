@@ -158,7 +158,7 @@
                                 <ul class="slide-menu">
                                     <li class="side-menu-label1"><a href="javascript:void(0)">Combo Package</a></li>
                                     <li><a href="{{ route('combo-packages.list') }}" class="slide-item">Manage Combo</a></li>
-                                    <li><a href="{{ route('combo-packages.create') }}" class="slide-item">Add Combo</a></li>
+                                    {{-- <li><a href="{{ route('combo-packages.create') }}" class="slide-item">Add Combo</a></li> --}}
                                 </ul>
                             </li>
                             <li class="slide">
